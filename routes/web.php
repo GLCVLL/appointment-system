@@ -29,3 +29,5 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__ . '/auth.php';
+
+Route::resource('admin/categories', App\Http\Controllers\Admin\CategoryController::class, ['as' => 'admin']);
