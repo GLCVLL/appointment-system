@@ -31,3 +31,5 @@ Route::middleware('auth')->group(function () {
 require __DIR__ . '/auth.php';
 
 Route::resource('admin/categories', App\Http\Controllers\Admin\CategoryController::class, ['as' => 'admin']);
+Route::resource('admin/services', App\Http\Controllers\Admin\ServiceController::class, ['as' => 'admin']);
+Route::resource('admin/appointments', App\Http\Controllers\Admin\AppointmentController::class, ['as' => 'admin']);
