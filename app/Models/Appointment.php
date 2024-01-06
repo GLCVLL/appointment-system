@@ -11,6 +11,13 @@ class Appointment extends Model
 
     protected $fillable = ['date', 'start_time', 'end_time', 'notes', 'is_deleted'];
 
+    // One to Many with User
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    // Many to Many with Service
     public function services()
     {
         return $this->belongsToMany(Service::class);

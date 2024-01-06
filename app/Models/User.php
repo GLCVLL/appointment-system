@@ -43,4 +43,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    // One to Many with Appointment
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class);
+    }
 }
