@@ -25,13 +25,13 @@
 </head>
 
 <body>
-    <div id="app">
+    <div id="app" class="d-flex">
 
-        {{-- Main Header --}}
-        @include('includes.commons.header')
+        {{-- Main Sidebar --}}
+        @include('includes.commons.sidebar')
 
         {{-- Main Content --}}
-        <main class="">
+        <main class="app-main">
             @yield('content')
         </main>
     </div>
