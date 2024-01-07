@@ -1,5 +1,5 @@
-@if ($opening_hour->exists)
-    <form id="validation-form" method="POST" action="{{ route('admin.opening-hours.update', $opening_hour) }}"
+@if ($openingHour->exists)
+    <form id="validation-form" method="POST" action="{{ route('admin.opening-hours.update', $openingHour) }}"
         enctype="multipart/form-data" novalidate>
         @method('PUT')
     @else
@@ -18,7 +18,7 @@
         <select id="day" class="form-select @error('day') is-invalid @enderror" name="day">
             <option value="">-- Choose a Day --</option>
             @foreach (config('data.day_of_week') as $day)
-                <option @if (old('day', $opening_hour->day) == $day) selected @endif>
+                <option @if (old('day', $openingHour->day) == $day) selected @endif>
                     {{ $day }}</option>
             @endforeach
         </select>
@@ -42,7 +42,7 @@
                     name="opening_time">
                     <option value="">----</option>
                     @foreach ($time_array as $time)
-                        <option @if (old('opening_time', $opening_hour->opening_time) == $time) selected @endif>
+                        <option @if (old('opening_time', $openingHour->opening_time) == $time) selected @endif>
                             {{ $time }}</option>
                     @endforeach
                 </select>
@@ -59,7 +59,7 @@
                     name="closing_time">
                     <option value="">----</option>
                     @foreach ($time_array as $time)
-                        <option @if (old('closing_time', $opening_hour->closing_time) == $time) selected @endif>
+                        <option @if (old('closing_time', $openingHour->closing_time) == $time) selected @endif>
                             {{ $time }}</option>
                     @endforeach
                 </select>
@@ -86,7 +86,7 @@
                     name="break_start">
                     <option value="">none</option>
                     @foreach ($time_array as $time)
-                        <option @if (old('break_start', $opening_hour->break_start) == $time) selected @endif>
+                        <option @if (old('break_start', $openingHour->break_start) == $time) selected @endif>
                             {{ $time }}</option>
                     @endforeach
                 </select>
@@ -102,7 +102,7 @@
                 <select id="break_end" class="form-select @error('break_end') is-invalid @enderror" name="break_end">
                     <option value="">none</option>
                     @foreach ($time_array as $time)
-                        <option @if (old('break_end', $opening_hour->break_end) == $time) selected @endif>
+                        <option @if (old('break_end', $openingHour->break_end) == $time) selected @endif>
                             {{ $time }}</option>
                     @endforeach
                 </select>
