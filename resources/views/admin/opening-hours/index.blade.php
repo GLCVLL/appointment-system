@@ -4,7 +4,7 @@
 
 
 @section('content')
-    <section class="container py-4">
+    <section class="container-fluid py-4">
 
         {{-- Header --}}
         <header class="d-flex justify-content-between align-items-center mb-3">

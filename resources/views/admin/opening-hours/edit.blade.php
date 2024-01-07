@@ -3,7 +3,7 @@
 @section('title', ' - Edit Opening Hours')
 
 @section('content')
-    <section class="container py-4">
+    <section class="container-fluid py-4">
 
         {{-- Header --}}
         <header class="mb-3">
@@ -17,7 +17,7 @@
                 </a>
 
                 {{-- Title --}}
-                <h2 class="fw-bold display-6 mb-0">Edit Opening Hours</h2>
+                <h2 class="mb-0">Edit Opening Hours</h2>
 
             </div>
 
