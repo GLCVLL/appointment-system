@@ -18,8 +18,10 @@
             </a>
         </header>
 
+        <hr class="mb-4">
+
         {{-- List --}}
-        <div class="table-responsive">
+        <div class="table-responsive px-4">
             <table class="table table-striped align-middle">
                 <thead>
                     <tr>
