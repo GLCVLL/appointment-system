@@ -10,7 +10,7 @@
             <h2 class="mb-0">Opening Hours</h2>
 
             {{-- Add Business Hours --}}
-            <a href="{{ route('admin.opening-hours.create') }}" class="btn btn-success rounded-circle">
+            <a href="{{ route('admin.opening-hours.create') }}" class="btn btn-success btn-circle">
                 <i class="fas fa-plus fa-lg"></i>
             </a>
         </header>

@@ -3,7 +3,11 @@
 -------------------------------------------*/
 
 // Bootstrap
-@use '~bootstrap/scss/bootstrap'
+@use '~bootstrap/scss/bootstrap';
 
 
 // BASE
+
+
+// COMPONENTS
+@use '~resources/scss/components/btn';
