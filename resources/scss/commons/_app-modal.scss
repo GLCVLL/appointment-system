@@ -1,0 +1,67 @@
+/* -----------------------------------------
+* APP MODAL
+-------------------------------------------*/
+@use '../vars' as *;
+
+
+.app-modal {
+    padding: 1.5rem;
+    position: fixed;
+    inset: 0;
+
+    display: flex;
+    background-color: rgba($color: #000, $alpha: 0.8);
+    z-index: 3;
+
+    opacity: 0;
+    visibility: hidden;
+    transition: visibility 0.2s, opacity 0.2s;
+
+    &.is-open {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    &-content {
+        margin: auto;
+        padding: 1rem;
+        max-width: 350px;
+
+        color: $col-dark;
+        background-color: $col-light;
+        border-radius: 0.5rem;
+    }
+
+    &-title {
+        padding-bottom: 0.5rem;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+
+    &-body {
+        padding: 1.5rem 0.5rem;
+        max-height: 50vh;
+
+        border-top: 1px solid $col-gray-500;
+        overflow-y: auto;
+    }
+
+    &-footer {
+        padding-top: 0.5rem;
+
+        border-top: 1px solid $col-gray-500;
+        text-align: right;
+    }
+
+    &-close {
+        color: $col-dark;
+
+        &:hover {
+            color: $col-gray-500;
+        }
+    }
+}
