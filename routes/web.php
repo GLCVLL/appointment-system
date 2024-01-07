@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Guest\HomeController as GuestHomeController;
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
+use App\Http\Controllers\Admin\OpeningHourController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,20 +17,34 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Home Routes
 Route::get('/', [GuestHomeController::class, 'index'])->name('guest.home');
 
-Route::prefix('/admin')->name('admin')->middleware(['auth', 'verified'])->group(function () {
+
+// Admin Routes
+Route::prefix('/admin')->name('admin')->middleware(['auth', 'verified'])->name('admin.')->group(function () {
+
+    // Home Routes
     Route::get('/', [AdminHomeController::class, 'index'])->name('home');
+
+    // Opening Hours Routes
+    Route::resource('opening-hours', OpeningHourController::class); // CRUD
 });
 
+
+// Profile Routes
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
+// Auth Routes
 require __DIR__ . '/auth.php';
 
+
+// Admin resources routes
 Route::resource('admin/categories', App\Http\Controllers\Admin\CategoryController::class, ['as' => 'admin']);
 Route::resource('admin/services', App\Http\Controllers\Admin\ServiceController::class, ['as' => 'admin']);
 Route::resource('admin/appointments', App\Http\Controllers\Admin\AppointmentController::class, ['as' => 'admin']);
