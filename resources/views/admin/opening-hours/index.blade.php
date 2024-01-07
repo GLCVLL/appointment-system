@@ -1,7 +1,10 @@
 @extends('layouts.app')
 
+@section('title', ' - Opening Hours')
+
+
 @section('content')
-    <section class="container py-4">
+    <section class="container-fluid py-4">
 
         {{-- Header --}}
         <header class="d-flex justify-content-between align-items-center mb-3">
@@ -10,13 +13,15 @@
             <h2 class="mb-0">Opening Hours</h2>
 
             {{-- Add Business Hours --}}
-            <a href="{{ route('admin.opening-hours.create') }}" class="btn btn-success rounded-circle">
+            <a href="{{ route('admin.opening-hours.create') }}" class="btn btn-success btn-circle">
                 <i class="fas fa-plus fa-lg"></i>
             </a>
         </header>
 
+        <hr class="mb-4">
+
         {{-- List --}}
-        <div class="table-responsive">
+        <div class="table-responsive px-4">
             <table class="table table-striped align-middle">
                 <thead>
                     <tr>

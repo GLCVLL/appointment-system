@@ -1,1 +1,19 @@
-@import '~bootstrap/scss/bootstrap'
+/* -----------------------------------------
+* MAIN STYLE
+-------------------------------------------*/
+
+// Bootstrap
+@use '~bootstrap/scss/bootstrap';
+
+
+// BASE
+@use '~resources/scss/base/generics';
+
+
+// COMMONS
+@use '~resources/scss/commons/app-main';
+@use '~resources/scss/commons/app-sidebar';
+
+
+// COMPONENTS
+@use '~resources/scss/components/btn';
