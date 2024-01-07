@@ -6,16 +6,14 @@
 .btn {
     padding: 0.5rem 0.75rem;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.25rem;
-
     &.btn-circle {
         width: 2.5em;
         height: 2.5em;
         padding: 0;
 
+        display: flex;
+        justify-content: center;
+        align-items: center;
         border-radius: 50%;
     }
 }
