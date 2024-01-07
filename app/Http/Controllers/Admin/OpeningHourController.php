@@ -162,6 +162,9 @@ class OpeningHourController extends Controller
      */
     public function destroy(OpeningHour $openingHour)
     {
-        //
+        // Delete Opening Hour
+        $openingHour->delete();
+
+        return to_route('admin.opening-hours.index');
     }
 }
