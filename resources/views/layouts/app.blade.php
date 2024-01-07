@@ -34,9 +34,13 @@
         <main class="app-main">
             @yield('content')
         </main>
+
+        {{-- Modal --}}
+        @include('includes.commons.modal')
     </div>
 
     {{-- Scripts --}}
+    @vite(['resources/js/commons/modal'])
     @yield('scripts')
 </body>
 

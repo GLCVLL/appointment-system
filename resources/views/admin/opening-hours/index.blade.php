@@ -59,7 +59,7 @@
 
                                     {{-- Delete --}}
                                     <form action="{{ route('admin.opening-hours.destroy', $openingHour) }}" method="POST"
-                                        class="delete-form" data-modal-name="{{ $openingHour->id }}">
+                                        class="delete-form" data-modal-name="{{ $openingHour->day }}">
                                         @csrf
                                         @method('DELETE')
                                         <button class="btn btn-danger">
@@ -80,4 +80,8 @@
         </div>
 
     </section>
+@endsection
+
+@section('scripts')
+    @vite(['resources/js/commons/modal-delete'])
 @endsection
