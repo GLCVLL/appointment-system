@@ -36,7 +36,10 @@ class OpeningHourController extends Controller
         $time_array = [];
 
         while ($start <= $end) {
-            $time_array[] = $start->format('H:i');
+            $time_array[] = [
+                'value' => $start->format('H:i:s'),
+                'text' => $start->format('H:i'),
+            ];
             $start->addMinutes($step);
         }
 
@@ -53,10 +56,10 @@ class OpeningHourController extends Controller
         $data = $request->validate(
             [
                 'day' => 'required|string|unique:opening_hours',
-                'opening_time' => 'required|date_format:H:i',
-                'closing_time' => 'required|date_format:H:i',
-                'break_start' => 'nullable|date_format:H:i',
-                'break_end' => 'nullable|date_format:H:i',
+                'opening_time' => 'required|date_format:H:i:s',
+                'closing_time' => 'required|date_format:H:i:s',
+                'break_start' => 'nullable|date_format:H:i:s',
+                'break_end' => 'nullable|date_format:H:i:s',
             ],
             [
                 'day.required' => 'The day is required',
@@ -105,7 +108,10 @@ class OpeningHourController extends Controller
         $time_array = [];
 
         while ($start <= $end) {
-            $time_array[] = $start->format('H:i');
+            $time_array[] = [
+                'value' => $start->format('H:i:s'),
+                'text' => $start->format('H:i'),
+            ];
             $start->addMinutes($step);
         }
 
@@ -120,11 +126,11 @@ class OpeningHourController extends Controller
         // Validation
         $data = $request->validate(
             [
-                'day' => ['required', 'url', Rule::unique('opening_hours')->ignore($openingHour->id)],
-                'opening_time' => 'required|date_format:H:i',
-                'closing_time' => 'required|date_format:H:i',
-                'break_start' => 'nullable|date_format:H:i',
-                'break_end' => 'nullable|date_format:H:i',
+                'day' => ['required', 'string', Rule::unique('opening_hours')->ignore($openingHour->id)],
+                'opening_time' => 'required|date_format:H:i:s',
+                'closing_time' => 'required|date_format:H:i:s',
+                'break_start' => 'nullable|date_format:H:i:s',
+                'break_end' => 'nullable|date_format:H:i:s',
             ],
             [
                 'day.required' => 'The day is required',

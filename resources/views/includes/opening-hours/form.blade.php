@@ -42,8 +42,8 @@
                     name="opening_time">
                     <option value="">----</option>
                     @foreach ($time_array as $time)
-                        <option @if (old('opening_time', $openingHour->opening_time) == $time) selected @endif>
-                            {{ $time }}</option>
+                        <option @if (old('opening_time', $openingHour->opening_time) == $time['value']) selected @endif value="{{ $time['value'] }}">
+                            {{ $time['text'] }}</option>
                     @endforeach
                 </select>
                 @error('opening_time')
@@ -59,8 +59,8 @@
                     name="closing_time">
                     <option value="">----</option>
                     @foreach ($time_array as $time)
-                        <option @if (old('closing_time', $openingHour->closing_time) == $time) selected @endif>
-                            {{ $time }}</option>
+                        <option @if (old('closing_time', $openingHour->closing_time) == $time['value']) selected @endif value="{{ $time['value'] }}">
+                            {{ $time['text'] }}</option>
                     @endforeach
                 </select>
                 @error('closing_time')
@@ -86,8 +86,8 @@
                     name="break_start">
                     <option value="">none</option>
                     @foreach ($time_array as $time)
-                        <option @if (old('break_start', $openingHour->break_start) == $time) selected @endif>
-                            {{ $time }}</option>
+                        <option @if (old('break_start', $openingHour->break_start) == $time['value']) selected @endif value="{{ $time['value'] }}">
+                            {{ $time['text'] }}</option>
                     @endforeach
                 </select>
                 @error('break_start')
@@ -102,8 +102,8 @@
                 <select id="break_end" class="form-select @error('break_end') is-invalid @enderror" name="break_end">
                     <option value="">none</option>
                     @foreach ($time_array as $time)
-                        <option @if (old('break_end', $openingHour->break_end) == $time) selected @endif>
-                            {{ $time }}</option>
+                        <option @if (old('break_end', $openingHour->break_end) == $time['value']) selected @endif value="{{ $time['value'] }}">
+                            {{ $time['text'] }}</option>
                     @endforeach
                 </select>
                 @error('break_end')
