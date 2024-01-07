@@ -10,5 +10,10 @@
 @use '~resources/scss/base/generics';
 
 
+// COMMONS
+@use '~resources/scss/commons/app-main';
+@use '~resources/scss/commons/app-sidebar';
+
+
 // COMPONENTS
 @use '~resources/scss/components/btn';

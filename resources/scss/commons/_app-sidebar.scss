@@ -1,0 +1,45 @@
+/* -----------------------------------------
+* APP SIDEBAR
+-------------------------------------------*/
+@use '../vars' as *;
+
+.app-sidebar {
+    width: $sidebar-width;
+    height: 100vh;
+
+    background-color: $col-gray-300;
+    text-align: center;
+
+    &-logo {
+        width: $sidebar-width;
+        height: $sidebar-width;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &-menu {
+
+        >li>a {
+            width: $sidebar-width;
+            height: $sidebar-width;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: $col-gray-700;
+
+            &:hover,
+            &.active {
+                background-color: $col-gray-500;
+                color: $col-dark;
+            }
+        }
+
+        .dropend a::after {
+            display: none;
+        }
+
+    }
+}
