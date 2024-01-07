@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('title', ' - Opening Hours')
+
+
 @section('content')
     <section class="container py-4">
 
