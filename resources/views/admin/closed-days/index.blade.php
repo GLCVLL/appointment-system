@@ -67,6 +67,13 @@
             </table>
         </div>
 
+        {{-- Pagination --}}
+        @if ($closedDays->hasPages())
+            <div class="px-4">
+                {{ $closedDays->links() }}
+            </div>
+        @endif
+
     </section>
 @endsection
 

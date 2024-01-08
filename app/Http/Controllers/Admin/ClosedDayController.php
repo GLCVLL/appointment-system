@@ -14,7 +14,7 @@ class ClosedDayController extends Controller
      */
     public function index()
     {
-        $closedDays = ClosedDay::all();
+        $closedDays = ClosedDay::paginate(10);
 
         return view('admin.closed-days.index', compact('closedDays'));
     }
