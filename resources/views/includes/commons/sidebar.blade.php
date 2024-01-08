@@ -52,6 +52,21 @@
                     <a href="{{ route('admin.closed-days.index') }}"
                         class="@if (Route::is('admin.closed-days*')) active @endif">
                         <i class="fas fa-shop fa-xl"></i>
+                </a>
+                </li>
+
+                {{-- categories --}}
+                <li>
+                    <a href="{{ route('admin.categories.index') }}" class="@if (Route::is('admin.categories*')) active @endif">
+                        <i class="fas fa-boxes fa-xl"></i>
+                    </a>
+                </li>
+
+                {{-- services --}}
+                <li>
+                    <a href="{{ route('admin.services.index') }}" class="@if (Route::is('admin.categories*')) active @endif">
+                        <i class="fas fa-scissors fa-xl"></i>
+
                     </a>
                 </li>
 
