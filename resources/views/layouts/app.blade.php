@@ -22,6 +22,13 @@
 
     <!-- Usando Vite -->
     @vite(['resources/js/app.js'])
+
+    {{-- Style Loader --}}
+    <style>
+        body {
+            display: none
+        }
+    </style>
 </head>
 
 <body>
