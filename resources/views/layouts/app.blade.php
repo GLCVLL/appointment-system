@@ -37,6 +37,10 @@
 
         {{-- Modal --}}
         @include('includes.commons.modal')
+
+        {{-- Messagges --}}
+        @include('includes.commons.messages')
+
     </div>
 
     {{-- Scripts --}}
