@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AppointmentController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ClosedDayController;
 use App\Http\Controllers\Guest\HomeController as GuestHomeController;
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Admin\OpeningHourController;
@@ -41,6 +42,9 @@ Route::prefix('/admin')->name('admin')->middleware(['auth', 'verified'])->name('
 
     // Opening Hours Routes
     Route::resource('opening-hours', OpeningHourController::class); // CRUD
+
+    // Closed Days Routes
+    Route::resource('closed-days', ClosedDayController::class); // CRUD
 
 });
 
