@@ -47,6 +47,14 @@
                     </a>
                 </li>
 
+                {{-- Closed Days --}}
+                <li>
+                    <a href="{{ route('admin.closed-days.index') }}"
+                        class="@if (Route::is('admin.closed-days*')) active @endif">
+                        <i class="fas fa-shop fa-xl"></i>
+                    </a>
+                </li>
+
                 {{-- Profile --}}
                 <li class="dropend">
 
