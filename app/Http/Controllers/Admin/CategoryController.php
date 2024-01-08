@@ -13,7 +13,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::all();
+        return view('admin.categories.index', compact('categories'));
     }
 
     /**
@@ -21,7 +22,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        $category = new Category();
+        return view('admin.categories.create', compact('category'));
     }
 
     /**
@@ -29,7 +31,23 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //validation
+        $data = $request->validate(
+            ['name' => 'required|unique:categories|max:255',],
+            [
+                'name.required' => 'The category name is required',
+                'name.unique' => 'This category name already exists',
+                'name.max' => 'The category name may not be greater than 255 characters',
+            ]
+
+        );
+
+        //insert category
+        $category = new Category();
+        $category->fill($data);
+        $category->save();
+
+        return to_route('admin.categories.index');
     }
 
     /**
@@ -37,7 +55,6 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
     }
 
     /**
@@ -45,7 +62,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view('admin.categories.edit', compact('category'));
     }
 
     /**
@@ -53,7 +70,23 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $data = $request->validate(
+            [
+                'name' => 'required|unique:categories,name,' . $category->id . '|max:255',
+            ],
+
+            [
+                'name.required' => 'The category name is required',
+                'name.unique' => 'This category name already exists',
+                'name.max' => 'The category name may not be greater than 255 characters',
+            ]
+        );
+
+        // Update category
+        $category->update($data);
+
+
+        return to_route('admin.categories.index');
     }
 
     /**
@@ -61,6 +94,9 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        // Delete category
+        $category->delete();
+
+        return to_route('admin.categories.index');
     }
 }
