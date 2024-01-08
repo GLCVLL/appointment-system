@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\Admin\AppointmentController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Guest\HomeController as GuestHomeController;
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Admin\OpeningHourController;
+use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,8 +30,18 @@ Route::prefix('/admin')->name('admin')->middleware(['auth', 'verified'])->name('
     // Home Routes
     Route::get('/', [AdminHomeController::class, 'index'])->name('home');
 
+    // Categories Routes
+    Route::resource('categories', CategoryController::class); // CRUD
+
+    // Service Routes
+    Route::resource('services', ServiceController::class); // CRUD
+
+    // Appointment Routes
+    Route::resource('appointments', AppointmentController::class); // CRUD
+
     // Opening Hours Routes
     Route::resource('opening-hours', OpeningHourController::class); // CRUD
+
 });
 
 
@@ -42,9 +55,3 @@ Route::middleware('auth')->group(function () {
 
 // Auth Routes
 require __DIR__ . '/auth.php';
-
-
-// Admin resources routes
-Route::resource('admin/categories', App\Http\Controllers\Admin\CategoryController::class, ['as' => 'admin']);
-Route::resource('admin/services', App\Http\Controllers\Admin\ServiceController::class, ['as' => 'admin']);
-Route::resource('admin/appointments', App\Http\Controllers\Admin\AppointmentController::class, ['as' => 'admin']);
