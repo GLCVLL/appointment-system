@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
+            $table->foreignId('category_id')->nullable()->constrained('categories')->onDelete('cascade');
             $table->string('name');
             $table->time('duration');
             $table->boolean('is_available')->default(true);

@@ -21,5 +21,5 @@ class Service extends Model
         return $this->belongsTo(Category::class);
     }
 
-    protected $fillable = ['name', 'duration', 'is_available'];
+    protected $fillable = ['category_id', 'name', 'duration', 'is_available'];
 }
