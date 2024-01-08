@@ -85,7 +85,14 @@ class OpeningHourController extends Controller
         $opening_hour->save();
 
 
-        return to_route('admin.opening-hours.index');
+        return to_route('admin.opening-hours.index')
+            ->with('messages', [
+                [
+                    'sender' => 'System',
+                    'content' => 'Opening Hour added successfully.',
+                    'timestamp' => now()
+                ]
+            ]);
     }
 
     /**
@@ -154,7 +161,14 @@ class OpeningHourController extends Controller
         $openingHour->update($data);
 
 
-        return to_route('admin.opening-hours.index');
+        return to_route('admin.opening-hours.index')
+            ->with('messages', [
+                [
+                    'sender' => 'System',
+                    'content' => 'Opening Hour updated successfully.',
+                    'timestamp' => now()
+                ]
+            ]);
     }
 
     /**
@@ -165,6 +179,13 @@ class OpeningHourController extends Controller
         // Delete Opening Hour
         $openingHour->delete();
 
-        return to_route('admin.opening-hours.index');
+        return to_route('admin.opening-hours.index')
+            ->with('messages', [
+                [
+                    'sender' => 'System',
+                    'content' => 'Opening Hour deleted.',
+                    'timestamp' => now()
+                ]
+            ]);
     }
 }
