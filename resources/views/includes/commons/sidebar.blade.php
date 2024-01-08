@@ -50,6 +50,13 @@
                 {{-- categories --}}
                 <li>
                     <a href="{{ route('admin.categories.index') }}" class="@if (Route::is('admin.categories*')) active @endif">
+                        <i class="fas fa-boxes fa-xl"></i>
+                    </a>
+                </li>
+
+                {{-- services --}}
+                <li>
+                    <a href="{{ route('admin.services.index') }}" class="@if (Route::is('admin.categories*')) active @endif">
                         <i class="fas fa-scissors fa-xl"></i>
                     </a>
                 </li>
