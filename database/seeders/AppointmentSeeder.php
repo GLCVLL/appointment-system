@@ -22,8 +22,8 @@ class AppointmentSeeder extends Seeder
             $appointment = new Appointment();
             $appointment->user_id = 1;
             $appointment->date = $faker->dateTimeBetween('+1 days', '+3 days');
-            $appointment->start_time = $faker->time("H:i:s");
-            $appointment->end_time = $faker->time("H:i:s");
+            $appointment->start_time = $faker->time("H:i");
+            $appointment->end_time = $faker->time("H:i");
             $appointment->save();
 
             $selectedServices = [];
