@@ -314,7 +314,13 @@ class AppointmentController extends Controller
         $appointment->services()->sync($data['services']);
 
         return redirect()->route('admin.appointments.index')
-            ->with('success', 'Appointment updated successfully.');
+            ->with('messages', [
+                [
+                    'sender' => 'System',
+                    'content' => 'Appointment updated successfully.',
+                    'timestamp' => now()
+                ]
+            ]);
     }
 
     /**
