@@ -39,6 +39,15 @@
                     </a>
                 </li>
 
+                {{-- Appointments --}}
+                <li>
+                    <a href="{{ route('admin.appointments.index') }}"
+                        class="@if (Route::is('admin.appointments*')) active @endif">
+                        <i class="fas fa-calendar-days fa-xl"></i>
+
+                    </a>
+                </li>
+
                 {{-- Opening Hours --}}
                 <li>
                     <a href="{{ route('admin.opening-hours.index') }}"
@@ -52,7 +61,7 @@
                     <a href="{{ route('admin.closed-days.index') }}"
                         class="@if (Route::is('admin.closed-days*')) active @endif">
                         <i class="fas fa-shop fa-xl"></i>
-                </a>
+                    </a>
                 </li>
 
                 {{-- categories --}}
@@ -64,7 +73,7 @@
 
                 {{-- services --}}
                 <li>
-                    <a href="{{ route('admin.services.index') }}" class="@if (Route::is('admin.categories*')) active @endif">
+                    <a href="{{ route('admin.services.index') }}" class="@if (Route::is('admin.services*')) active @endif">
                         <i class="fas fa-scissors fa-xl"></i>
 
                     </a>
