@@ -74,35 +74,32 @@ class AppointmentController extends Controller
             ]
         );
 
+
+        // Appointment Validation
         $errorMessage = '';
 
-        // Check if is a public Holiday
+
+        // Check public koliday
         $appointmentDate = Carbon::parse($data['date']);
 
         $isPublicHolidays = ClosedDay::whereMonth('date', $appointmentDate->month)->whereDay('date', $appointmentDate->day)->first();
 
-        if ($isPublicHolidays) {
+        if ($isPublicHolidays) $errorMessage = "Hi there, {$appointmentDate->format('d F')} is a public Holiday!";
 
-            $errorMessage = "Hi there, {$appointmentDate->format('d F')} is a public Holiday!";
-        }
 
+        // Check opening hours
         if (!$errorMessage) {
-            // check on Opening Hours
 
             // all variables
-
             $dayOfWeek = Carbon::parse($data['date'])->englishDayOfWeek;
-
             $startTime = Carbon::parse($data['start_time'])->format('H:i:s');
             $endTime = Carbon::parse($data['end_time'])->format('H:i:s');
 
-
             // Get Opening Hours current day
-
             $openingHour = OpeningHour::where('day', $dayOfWeek)->first();
 
-            // if is a closing day or not
 
+            // if is a closing day or not
             if (!$openingHour) {
                 $errorMessage = "I'm sorry but $dayOfWeek is a closing day!";
             }
@@ -127,29 +124,34 @@ class AppointmentController extends Controller
             }
         }
 
+
+        // Check appointments overlapping
         if (!$errorMessage) {
 
-            // Overlapping appointments checking
-            $overlappingAppointments = Appointment::where('is_deleted', false)->where('date', $data['date'])
+            $overlappingAppointments = Appointment::where('is_deleted', false)
+                ->where('date', $data['date'])
                 ->where('start_time', '<', $endTime)
                 ->where('end_time', '>', $startTime)
                 ->count();
-            // Throw Exception Overlapping appointments    
-            if ($overlappingAppointments) {
 
-                $errorMessage = 'This appointment already exists';
-            }
+            // Set Error Message   
+            if ($overlappingAppointments) $errorMessage = 'This appointment already exists';
         }
 
+
+        // Return if error occurred
         if ($errorMessage) {
             return back()->withInput($request->input())->with('messages', [
                 [
                     'sender' => 'System',
+                    'color' => 'danger',
                     'content' => $errorMessage,
                     'timestamp' => now()
                 ]
             ]);
         }
+
+
         // Insert appointments
         $appointment = new Appointment();
         $appointment->fill($data);
@@ -299,6 +301,7 @@ class AppointmentController extends Controller
             return back()->withInput($request->input())->with('messages', [
                 [
                     'sender' => 'System',
+                    'color' => 'danger',
                     'content' => $errorMessage,
                     'timestamp' => now()
                 ]
