@@ -4,8 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\Appointment;
 use App\Models\Service;
+use Carbon\Carbon;
 use Faker\Generator;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Arr;
 
@@ -22,8 +22,8 @@ class AppointmentSeeder extends Seeder
             $appointment = new Appointment();
             $appointment->user_id = 1;
             $appointment->date = $faker->dateTimeBetween('+1 days', '+3 days');
-            $appointment->start_time = $faker->time("H:i");
-            $appointment->end_time = $faker->time("H:i");
+            $appointment->start_time = Carbon::parse('08:30:00');
+            $appointment->end_time = Carbon::parse($appointment->start_time)->addHour();
             $appointment->save();
 
             $selectedServices = [];
@@ -32,7 +32,7 @@ class AppointmentSeeder extends Seeder
                 if (rand(0, 1)) $selectedServices[] = $service;
             }
 
-            if (!count($selectedServices)) Arr::random($services);
+            if (!count($selectedServices)) $selectedServices[] =  Arr::random($services);
 
             $appointment->services()->attach($selectedServices);
         };
