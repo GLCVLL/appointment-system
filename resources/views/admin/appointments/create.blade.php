@@ -30,3 +30,8 @@
 
     </section>
 @endsection
+
+
+@section('scripts')
+    @vite(['resources/js/commons/validate'])
+@endsection
