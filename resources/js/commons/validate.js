@@ -55,9 +55,18 @@ export const initValidation = (form, errorMessages) => {
             // Validation
             form[key].forEach(ruleStr => {
 
-                const ruleElems = ruleStr.split(':');
-                const rule = ruleElems[0];
-                const param = ruleElems.length > 1 ? ruleElems[1] : '';
+                const paramCharPos = ruleStr.indexOf(':');
+
+                let rule = '';
+                let param = '';
+
+                if (paramCharPos > 0) {
+                    rule = ruleStr.substring(0, paramCharPos);
+                    param = ruleStr.substring(paramCharPos + 1);
+                } else {
+                    rule = ruleStr;
+                }
+
 
                 if (!formErrors[key]) {
 
@@ -82,9 +91,14 @@ export const initValidation = (form, errorMessages) => {
                             if (!(/^\d{4}-\d{2}-\d{2}$/.test(elem.value))) formErrors[key] = errorMessages[key]['date'];
                             break;
 
-                        // Format H:i
+                        // Format H:i:s
                         case 'time':
-                            if (!(/^([01]\d|2[0-3]):[0-5]\d$/.test(elem.value))) formErrors[key] = errorMessages[key]['time'];
+
+                            if (param === 'H:i:s') {
+                                if (!(/^(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d$/.test(elem.value))) formErrors[key] = errorMessages[key]['time'];
+                            } else {
+                                if (!(/^([01]\d|2[0-3]):[0-5]\d$/.test(elem.value))) formErrors[key] = errorMessages[key]['time'];
+                            }
                             break;
 
                         case 'after':
