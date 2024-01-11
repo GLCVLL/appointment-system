@@ -23,3 +23,7 @@
         @include('includes.service.form')
     </section>
 @endsection
+
+@section('scripts')
+    @vite(['resources/js/validations/services-form'])
+@endsection
