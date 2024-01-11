@@ -29,3 +29,7 @@
 
     </section>
 @endsection
+
+@section('scripts')
+    @vite(['resources/js/validations/closed-days-form'])
+@endsection

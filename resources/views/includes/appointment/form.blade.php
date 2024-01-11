@@ -10,8 +10,8 @@
 
 <div class="row">
 
-    {{-- user --}}
-    <div class="col-12 col-md-7 mb-4">
+    {{-- User --}}
+    <div class="col-12 col-md-5 mb-4">
 
         <label for="user_id" class="form-label fs-5">Client</label>
 
@@ -25,16 +25,16 @@
         @error('user_id')
             <span class="invalid-feedback error-message" role="alert">{{ $message }}</span>
         @enderror
-        <span id="user_id-error" class="error-message"></span>
+        <span id="user_id-error" class="invalid-feedback"></span>
     </div>
 
 
     {{-- Services --}}
-
     <div class="col-12 mb-4">
-        <h5>Services</h5>
+        <p class="fs-5 mb-2">Services</p>
 
-        <div class="d-flex flex-wrap gap-3 rounded p-1 @error('services') border border-danger @enderror">
+        <div id="services"
+            class="d-flex flex-wrap gap-3 rounded p-1 @error('services') border border-danger @enderror">
             @foreach ($services as $service)
                 <div>
                     <input class="form-check-input" type="checkbox" @if (in_array($service->id, old('services', $selectedServices ?? []))) checked @endif
@@ -47,7 +47,7 @@
         @error('services')
             <span class="error-message text-danger mt-2" role="alert">{{ $message }}</span>
         @enderror
-        <span id="services-error" class="error-message"></span>
+        <span id="services-error" class="invalid-feedback"></span>
     </div>
 
 
@@ -60,8 +60,9 @@
         @error('date')
             <span class="invalid-feedback error-message" role="alert">{{ $message }}</span>
         @enderror
-        <span id="date-error" class="error-message"></span>
+        <span id="date-error" class="invalid-feedback"></span>
     </div>
+
 
     {{-- Appointment Start Time --}}
     <div class="col-12 mb-4">
@@ -73,8 +74,9 @@
         @error('start_time')
             <span class="invalid-feedback error-message" role="alert">{{ $message }}</span>
         @enderror
-        <span id="start_time-error" class="error-message"></span>
+        <span id="start_time-error" class="invalid-feedback"></span>
     </div>
+
 
     {{-- Appointment End Time --}}
     <div class="col-12 mb-4">
@@ -85,8 +87,9 @@
         @error('end_time')
             <span class="invalid-feedback error-message" role="alert">{{ $message }}</span>
         @enderror
-        <span id="end_time-error" class="error-message"></span>
+        <span id="end_time-error" class="invalid-feedback"></span>
     </div>
+
 
     {{-- Additional Notes --}}
     <div class="col-12 mb-4">
@@ -97,10 +100,11 @@
         @error('notes')
             <span class="invalid-feedback error-message" role="alert">{{ $message }}</span>
         @enderror
-        <span id="notes-error" class="error-message"></span>
+        <span id="notes-error" class="invalid-feedback"></span>
     </div>
 
-    {{-- # Submit --}}
+
+    {{-- Submit --}}
     <div class="col-12">
         <button class="btn btn-primary">Confirm</button>
     </div>

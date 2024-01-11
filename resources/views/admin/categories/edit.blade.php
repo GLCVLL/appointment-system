@@ -30,3 +30,7 @@
 
     </section>
 @endsection
+
+@section('scripts')
+    @vite(['resources/js/validations/categories-form'])
+@endsection
