@@ -86,6 +86,11 @@ export const initValidation = (form, errorMessages) => {
                             if (typeof elem.value !== 'string') formErrors[key] = errorMessages[key]['string'];
                             break;
 
+                        case 'max':
+                            console.log(parseInt(elem.value));
+                            if (elem.value.length > parseInt(param)) formErrors[key] = errorMessages[key]['max'];
+                            break;
+
                         // Format Y-m-d
                         case 'date':
                             if (!(/^\d{4}-\d{2}-\d{2}$/.test(elem.value))) formErrors[key] = errorMessages[key]['date'];
