@@ -25,7 +25,7 @@
         @error('day')
             <span class="invalid-feedback error-message" role="alert">{{ $message }}</span>
         @enderror
-        <span id="day-error" class="error-message"></span>
+        <span id="day-error" class="invalid-feedback"></span>
     </div>
 
 
@@ -49,7 +49,7 @@
                 @error('opening_time')
                     <span class="invalid-feedback error-message" role="alert">{{ $message }}</span>
                 @enderror
-                <span id="opening_time-error" class="error-message"></span>
+                <span id="opening_time-error" class="invalid-feedback"></span>
             </div>
 
             <div class="col-6">
@@ -66,7 +66,7 @@
                 @error('closing_time')
                     <span class="invalid-feedback error-message" role="alert">{{ $message }}</span>
                 @enderror
-                <span id="closing_time-error" class="error-message"></span>
+                <span id="closing_time-error" class="invalid-feedback"></span>
             </div>
         </div>
 
@@ -93,7 +93,7 @@
                 @error('break_start')
                     <span class="invalid-feedback error-message" role="alert">{{ $message }}</span>
                 @enderror
-                <span id="break_start-error" class="error-message"></span>
+                <span id="break_start-error" class="invalid-feedback"></span>
             </div>
 
             <div class="col-6">
@@ -109,7 +109,7 @@
                 @error('break_end')
                     <span class="invalid-feedback error-message" role="alert">{{ $message }}</span>
                 @enderror
-                <span id="break_end-error" class="error-message"></span>
+                <span id="break_end-error" class="invalid-feedback"></span>
             </div>
         </div>
 
