@@ -20,7 +20,7 @@
         @error('date')
             <span class="invalid-feedback error-message" role="alert">{{ $message }}</span>
         @enderror
-        <span id="date-error" class="error-message"></span>
+        <span id="date-error" class="invalid-feedback"></span>
     </div>
 
 
