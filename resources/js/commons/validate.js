@@ -76,24 +76,28 @@ export const initValidation = (form, errorMessages) => {
                             // If type is undefined than is a div containing checkboxes
                             if (elem.type === undefined) {
                                 const isChecked = elem.querySelector(':checked');
-                                if (!isChecked) formErrors[key] = errorMessages[key]['required'];
+                                if (!isChecked) formErrors[key] = errorMessages[key][rule];
                             } else {
-                                if (!elem.value) formErrors[key] = errorMessages[key]['required'];
+                                if (!elem.value) formErrors[key] = errorMessages[key][rule];
                             }
                             break;
 
                         case 'string':
-                            if (typeof elem.value !== 'string') formErrors[key] = errorMessages[key]['string'];
+                            if (typeof elem.value !== 'string') formErrors[key] = errorMessages[key][rule];
                             break;
 
                         case 'max':
-                            console.log(parseInt(elem.value));
-                            if (elem.value.length > parseInt(param)) formErrors[key] = errorMessages[key]['max'];
+                            if (elem.value.length > parseInt(param)) formErrors[key] = errorMessages[key][rule];
+                            break;
+
+                        case 'boolean':
+                            const validBooleanValues = [true, false, 1, 0, "1", "0"];
+                            if (!validBooleanValues.includes(elem.value)) formErrors[key] = errorMessages[key][rule];
                             break;
 
                         // Format Y-m-d
                         case 'date':
-                            if (!(/^\d{4}-\d{2}-\d{2}$/.test(elem.value))) formErrors[key] = errorMessages[key]['date'];
+                            if (!(/^\d{4}-\d{2}-\d{2}$/.test(elem.value))) formErrors[key] = errorMessages[key][rule];
                             break;
 
                         // Format H:i:s
@@ -102,13 +106,13 @@ export const initValidation = (form, errorMessages) => {
                             if (param === 'H:i:s') {
                                 if (!(/^(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d$/.test(elem.value))) formErrors[key] = errorMessages[key]['time'];
                             } else {
-                                if (!(/^([01]\d|2[0-3]):[0-5]\d$/.test(elem.value))) formErrors[key] = errorMessages[key]['time'];
+                                if (!(/^([01]\d|2[0-3]):[0-5]\d$/.test(elem.value))) formErrors[key] = errorMessages[key][rule];
                             }
                             break;
 
                         case 'after':
                             const otherElem = document.getElementById(param);
-                            if (otherElem.value >= elem.value) formErrors[key] = errorMessages[key]['after'];
+                            if (otherElem.value >= elem.value) formErrors[key] = errorMessages[key][rule];
                             break;
 
                         default:
