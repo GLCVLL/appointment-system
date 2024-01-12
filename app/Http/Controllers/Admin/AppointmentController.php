@@ -208,7 +208,24 @@ class AppointmentController extends Controller
 
         $selectedServices = $appointment->services->pluck('id')->toArray();
 
-        return view('admin.appointments.edit', compact('appointment', 'users', 'services', 'selectedServices'));
+        // Create time array
+        $start = Carbon::createFromTimeString('00:00');
+        $end = Carbon::createFromTimeString('23:30');
+        $interval = 'PT30M'; // Period Time di 30 minuti
+        $period = new CarbonPeriod($start, $interval, $end);
+        $time_array = [];
+
+        foreach ($period as $date) {
+            $time_array[] = [
+                'value' => $date->format('H:i'),
+                'text' => $date->format('H:i'),
+            ];
+        }
+
+        // Get opening hours
+        $openingHours = OpeningHour::all();
+
+        return view('admin.appointments.edit', compact('appointment', 'users', 'services', 'selectedServices', 'time_array', 'openingHours'));
     }
 
     /**
@@ -337,6 +354,7 @@ class AppointmentController extends Controller
             ->with('messages', [
                 [
                     'sender' => 'System',
+                    'color' => 'success',
                     'content' => 'Appointment updated successfully.',
                     'timestamp' => now()
                 ]
