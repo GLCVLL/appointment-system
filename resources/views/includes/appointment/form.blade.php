@@ -65,11 +65,18 @@
 
 
     {{-- Appointment Start Time --}}
-    <div class="col-12 mb-4">
+    <div class="col-6 mb-4">
+
         <label for="start_time" class="form-label fs-5">Start Time</label>
-        <input type="time" class="form-control @error('start_time') is-invalid @enderror" id="start_time"
-            name="start_time" value="{{ old('start_time', $appointment->getDate('start_time', 'H:i') ?? '') }}"
-            required>
+
+        <select id="start_time" class="form-select @error('start_time') is-invalid @enderror" name="start_time">
+            <option value="">----</option>
+
+            @foreach ($time_array as $time)
+                <option @if (old('start_time', $appointment->getDate('start_time', 'H:i')) == $time['value']) selected @endif value="{{ $time['value'] }}">
+                    {{ $time['text'] }}</option>
+            @endforeach
+        </select>
 
         @error('start_time')
             <span class="invalid-feedback error-message" role="alert">{{ $message }}</span>
@@ -79,10 +86,17 @@
 
 
     {{-- Appointment End Time --}}
-    <div class="col-12 mb-4">
+    <div class="col-6 mb-4">
         <label for="end_time" class="form-label fs-5">End Time</label>
-        <input type="time" class="form-control @error('end_time') is-invalid @enderror" id="end_time"
-            name="end_time" value="{{ old('end_time', $appointment->getDate('end_time', 'H:i') ?? '') }}" required>
+        <select id="end_time" class="form-select @error('end_time') is-invalid @enderror" name="end_time">
+            <option value="">----</option>
+
+            @foreach ($time_array as $time)
+                <option @if (old('end_time', $appointment->getDate('end_time', 'H:i')) == $time['value']) selected @endif value="{{ $time['value'] }}">
+                    {{ $time['text'] }}</option>
+            @endforeach
+        </select>
+
 
         @error('end_time')
             <span class="invalid-feedback error-message" role="alert">{{ $message }}</span>
