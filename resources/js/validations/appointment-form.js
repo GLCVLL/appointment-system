@@ -4,7 +4,7 @@ import { initValidation } from '~resources/js/commons/validate';
 const form = {
     'user_id': ['required'],
     'services': ['required'],
-    'date': ['required', 'date'],
+    'date': ['required', 'date', 'after_or_equal'],
     'start_time': ['required', 'time'],
     'end_time': ['required', 'time', 'after:start_time'],
     'notes': ['nullable', 'string'],
@@ -28,7 +28,8 @@ const errorMessages = {
     },
     'date': {
         'required': 'The date is required',
-        'date': 'Insert a valide date'
+        'date': 'Insert a valide date',
+        'after_or_equal': 'Date must be after or equal current date'
     },
     'notes': {
         'string': 'The notes must be a string'

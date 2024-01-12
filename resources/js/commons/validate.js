@@ -115,6 +115,16 @@ export const initValidation = (form, errorMessages) => {
                             if (otherElem.value >= elem.value) formErrors[key] = errorMessages[key][rule];
                             break;
 
+                        case 'after_or_equal':
+                            const currentDate = new Date();
+                            const currentYear = currentDate.getFullYear();
+                            const currentMonth = currentDate.getMonth() + 1;
+                            const currentDay = currentDate.getDate();
+
+                            const currentDateStr = `${currentYear}-${currentMonth.toString().padStart(2, '0')}-${currentDay.toString().padStart(2, '0')}`;
+                            if (currentDateStr > elem.value) formErrors[key] = errorMessages[key][rule];
+                            break;
+
                         default:
                             break;
                     }
