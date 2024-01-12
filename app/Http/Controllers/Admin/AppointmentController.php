@@ -52,11 +52,14 @@ class AppointmentController extends Controller
             ];
         }
 
+        // Get closed days
+        $closedDays = ClosedDay::all();
+
         // Get opening hours
         $openingHours = OpeningHour::all();
 
 
-        return view('admin.appointments.create', compact('appointment', 'users', 'services', 'time_array', 'openingHours'));
+        return view('admin.appointments.create', compact('appointment', 'users', 'services', 'time_array', 'closedDays', 'openingHours'));
     }
 
     /**
@@ -222,10 +225,13 @@ class AppointmentController extends Controller
             ];
         }
 
+        // Get closed days
+        $closedDays = ClosedDay::all();
+
         // Get opening hours
         $openingHours = OpeningHour::all();
 
-        return view('admin.appointments.edit', compact('appointment', 'users', 'services', 'selectedServices', 'time_array', 'openingHours'));
+        return view('admin.appointments.edit', compact('appointment', 'users', 'services', 'selectedServices', 'time_array', 'closedDays', 'openingHours'));
     }
 
     /**

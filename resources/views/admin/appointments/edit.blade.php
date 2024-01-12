@@ -36,8 +36,22 @@
         // FUNCTIONS
         const setWorkingHours = () => {
 
+            // Check Public Holidays
+            const currentDate = new Date(dateInput.value);
+            let isPublicHoliday = false;
+
+            closedDays.forEach(closedDay => {
+
+                const closedDayDate = new Date(closedDay.date);
+
+                if (currentDate.getMonth() === closedDayDate.getMonth() &&
+                    currentDate.getDate() === closedDayDate.getDate()) {
+                    isPublicHoliday = true;
+                }
+            });
+
             // Check if disabled
-            if (!dateInput.value) {
+            if (!dateInput.value || isPublicHoliday) {
                 startTimeInput.disabled = true;
                 startTimeInput.selectedIndex = 0;
                 endTimeInput.disabled = true;
@@ -118,6 +132,7 @@
 
         // Get Generic Data
         const dayOfWeeks = @json(config('data.day_of_week'));
+        const closedDays = @json($closedDays);
         const openingHours = @json($openingHours);
 
         // Get Current Times
