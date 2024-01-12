@@ -37,24 +37,25 @@
         // FUNCTIONS
         const setWorkingHours = () => {
 
+            // Get data
             const currentDate = new Date(new Date().setHours(0, 0, 0, 0));
+            const selectedDate = new Date(new Date(dateInput.value).setHours(0, 0, 0, 0));
+            const dayOfWeek = dayOfWeeks[new Date(dateInput.value).getDay()];
+            const currentOpeningHours = openingHours.find(({
+                day
+            }) => day === dayOfWeek);
+
 
             // Check Public Holidays
-            const selectedDate = new Date(new Date(dateInput.value).setHours(0, 0, 0, 0));
-            let isPublicHoliday = false;
+            let isPublicHoliday = isPubliHoliday(selectedDate, closedDays);
 
-            closedDays.forEach(closedDay => {
 
-                const closedDayDate = new Date(closedDay.date);
+            // Check Passed Date
+            let isDatePassed = selectedDate.getTime() < currentDate.getTime();
 
-                if (selectedDate.getMonth() === closedDayDate.getMonth() &&
-                    selectedDate.getDate() === closedDayDate.getDate()) {
-                    isPublicHoliday = true;
-                }
-            });
 
-            // Check if disabled
-            if (!dateInput.value || selectedDate.getTime() < currentDate.getTime() || isPublicHoliday) {
+            // Disable Time inputs
+            if (!dateInput.value || isDatePassed || isPublicHoliday || !currentOpeningHours) {
                 startTimeInput.disabled = true;
                 startTimeInput.selectedIndex = 0;
                 endTimeInput.disabled = true;
@@ -62,63 +63,76 @@
 
             } else {
 
+                // Time Array Data
+                let openingTime = currentOpeningHours.opening_time;
+                let closingTime = currentOpeningHours.closing_time;
+                let breakStart = currentOpeningHours.break_start;
+                let breakEnd = currentOpeningHours.break_end;
+                let interval = 30;
 
-                const dayOfWeek = dayOfWeeks[new Date(dateInput.value).getDay()];
-                const currentOpeningHour = openingHours.find(({
-                    day
-                }) => day === dayOfWeek);
+                // Correct opening time with today available time
+                if (selectedDate.getTime() === currentDate.getTime() && openingTime < getTimeString(new Date())) {
 
+                    const now = new Date();
 
-                if (currentOpeningHour) {
+                    const minutes = now.getMinutes();
+                    let roundedHours = now.getHours();
+                    let roundedMinutes = Math.ceil((minutes / interval)) * interval;
+                    if (roundedMinutes >= 60) {
+                        roundedHours = (roundedHours + 1) % 24;
+                        roundedMinutes = 0;
+                    }
 
-                    let timeArray = createTimeArray(currentOpeningHour.opening_time, currentOpeningHour
-                        .closing_time, 30, currentOpeningHour.break_start, currentOpeningHour.break_end);
+                    openingTime =
+                        `${String(roundedHours).padStart(2, '0')}:${String(roundedMinutes).padStart(2, '0')}:00`;
 
-                    // Populate start time input
-                    let options = '<option value = "" > -- -- </option>';
-                    timeArray.forEach(time => {
-                        const isSelected = time.value === currentStartTime;
-                        options +=
-                            `<option ${isSelected ? 'selected': ''} value="${time.value}">${time.text}</option>`;
-                    });
-                    startTimeInput.innerHTML = options;
-                    startTimeInput.disabled = false;
-
-
-                    // Populate end time input
-                    options = '<option value = "" > -- -- </option>';
-                    timeArray.forEach(time => {
-                        const isSelected = time.value === currentEndTime;
-                        options +=
-                            `<option ${isSelected ? 'selected': ''} value="${time.value}">${time.text}</option>`;
-                    });
-                    endTimeInput.innerHTML = options;
-                    endTimeInput.disabled = false;
-
-                } else {
-                    startTimeInput.selectedIndex = 0;
-                    startTimeInput.disabled = true;
-                    endTimeInput.selectedIndex = 0;
-                    endTimeInput.disabled = true;
                 }
+
+                // Create Time Array
+                let timeArray = createTimeArray(openingTime, closingTime, interval, breakStart, breakEnd);
+
+                // Populate start time input
+                let options = '<option value="" > -- -- </option>';
+                timeArray.forEach(time => {
+                    const isSelected = time.value === currentStartTime;
+                    options +=
+                        `<option ${isSelected ? 'selected': ''} value="${time.value}">${time.text}</option>`;
+                });
+                startTimeInput.innerHTML = options;
+                startTimeInput.disabled = false;
+
+
+                // Populate end time input
+                options = '<option value="" > -- -- </option>';
+                timeArray.forEach(time => {
+                    const isSelected = time.value === currentEndTime;
+                    options +=
+                        `<option ${isSelected ? 'selected': ''} value="${time.value}">${time.text}</option>`;
+                });
+                endTimeInput.innerHTML = options;
+                endTimeInput.disabled = false;
 
             }
         }
 
+
         const createTimeArray = (openingTime, closingTime, intervalMinutes, breakStart = null, breakEnd = null) => {
 
+            // Data
             let openingTimeArray = openingTime.split(':');
             let closingTimeArray = closingTime.split(':');
             let timeArray = [];
 
+            // Current Time Setup
             let currentTime = new Date();
             currentTime.setHours(openingTimeArray[0], openingTimeArray[1], openingTimeArray[2]);
 
+            // End Time Setup
             let endTime = new Date();
             endTime.setHours(closingTimeArray[0], closingTimeArray[1], closingTimeArray[2]);
 
 
-            // Set Break time
+            // Break Time Setup
             let breakStartTime = null;
             let breakEndTime = null;
             if (breakStart && breakEnd) {
@@ -133,7 +147,10 @@
                 breakEndTime.setHours(breakEndArray[0], breakEndArray[1], breakEndArray[2]);
             }
 
+            // Create time intervals
             while (currentTime <= endTime) {
+
+                // Break Time Check
                 if (breakStartTime && breakEndTime && currentTime < breakEndTime && currentTime > breakStartTime) {
                     currentTime = breakEndTime;
                 } else {
@@ -149,6 +166,37 @@
 
             return timeArray;
         }
+
+        const getTimeString = (date) => {
+
+            // Format time members
+            const hours = date.getHours().toString().padStart(2, '0');
+            const minutes = date.getMinutes().toString().padStart(2, '0');
+            const seconds = date.getSeconds().toString().padStart(2, '0');
+
+            // return formatted time
+            return `${hours}:${minutes}:${seconds}`;
+        }
+
+        const isPubliHoliday = (date, holidays) => {
+
+            // Flag
+            let found = false;
+
+            holidays.forEach(holiday => {
+
+                const day = new Date(holiday);
+
+                // Check only Month and Day
+                if (date.getMonth() === day.getMonth() &&
+                    date.getDate() === day.getDate()) {
+                    found = true;
+                }
+            });
+
+            return found;
+        }
+
 
         // INIT
         // Get DOM Elems

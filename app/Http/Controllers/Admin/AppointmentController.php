@@ -53,7 +53,7 @@ class AppointmentController extends Controller
         }
 
         // Get closed days
-        $closedDays = ClosedDay::all();
+        $closedDays = ClosedDay::pluck('date')->toArray();
 
         // Get opening hours
         $openingHours = OpeningHour::all();
@@ -235,7 +235,7 @@ class AppointmentController extends Controller
         }
 
         // Get closed days
-        $closedDays = ClosedDay::all();
+        $closedDays = ClosedDay::pluck('date')->toArray();
 
         // Get opening hours
         $openingHours = OpeningHour::all();
