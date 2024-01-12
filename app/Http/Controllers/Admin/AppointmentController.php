@@ -72,8 +72,17 @@ class AppointmentController extends Controller
             [
                 'user_id' => 'required|exists:users,id',
                 'services' => 'required|exists:services,id',
-                'date' => 'required|date',
-                'start_time' => 'required|date_format:H:i',
+                'date' => ['required', 'date', 'after_or_equal:' . date('Y-m-d')],
+                'start_time' => [
+                    'required', 'date_format:H:i',
+                    function ($attribute, $value, $fail) {
+                        $selectedDate = request('date');
+                        $currentTime = date('H:i');
+                        if ($selectedDate == date('Y-m-d') && $value < $currentTime) {
+                            $fail('The Start Time must be a time after the current time.');
+                        }
+                    },
+                ],
                 'end_time' => 'required|date_format:H:i|after:start_time',
                 'notes' => 'nullable|string',
             ],
@@ -245,8 +254,17 @@ class AppointmentController extends Controller
                 'user_id' => 'required|exists:users,id',
                 'services' => 'required|array',
                 'services.*' => 'exists:services,id',
-                'date' => 'required|date',
-                'start_time' => 'required|date_format:H:i',
+                'date' => ['required', 'date', 'after_or_equal:' . date('Y-m-d')],
+                'start_time' => [
+                    'required', 'date_format:H:i',
+                    function ($attribute, $value, $fail) {
+                        $selectedDate = request('date');
+                        $currentTime = date('H:i');
+                        if ($selectedDate == date('Y-m-d') && $value < $currentTime) {
+                            $fail('The Start Time must be a time after the current time.');
+                        }
+                    },
+                ],
                 'end_time' => 'required|date_format:H:i|after:start_time',
                 'notes' => 'nullable|string',
             ],
