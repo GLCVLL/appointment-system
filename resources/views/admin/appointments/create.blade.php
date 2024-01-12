@@ -73,7 +73,7 @@
                 if (currentOpeningHour) {
 
                     let timeArray = createTimeArray(currentOpeningHour.opening_time, currentOpeningHour
-                        .closing_time, 30);
+                        .closing_time, 30, currentOpeningHour.break_start, currentOpeningHour.break_end);
 
                     // Populate start time input
                     let options = '<option value = "" > -- -- </option>';
@@ -106,24 +106,46 @@
             }
         }
 
-        const createTimeArray = (openingTime, closingTime, intervalMinutes) => {
+        const createTimeArray = (openingTime, closingTime, intervalMinutes, breakStart = null, breakEnd = null) => {
 
             let openingTimeArray = openingTime.split(':');
             let closingTimeArray = closingTime.split(':');
             let timeArray = [];
+
             let currentTime = new Date();
             currentTime.setHours(openingTimeArray[0], openingTimeArray[1], openingTimeArray[2]);
 
             let endTime = new Date();
             endTime.setHours(closingTimeArray[0], closingTimeArray[1], closingTimeArray[2]);
 
-            while (currentTime <= endTime) {
-                timeArray.push({
-                    value: currentTime.toTimeString().substring(0, 5), // "HH:MM"
-                    text: currentTime.toTimeString().substring(0, 5) // "HH:MM"
-                });
 
-                currentTime.setMinutes(currentTime.getMinutes() + intervalMinutes);
+            // Set Break time
+            let breakStartTime = null;
+            let breakEndTime = null;
+            if (breakStart && breakEnd) {
+
+                let breakStartArray = breakStart.split(':');
+                let breakEndArray = breakEnd.split(':');
+
+                breakStartTime = new Date();
+                breakStartTime.setHours(breakStartArray[0], breakStartArray[1], breakStartArray[2]);
+
+                breakEndTime = new Date();
+                breakEndTime.setHours(breakEndArray[0], breakEndArray[1], breakEndArray[2]);
+            }
+
+            while (currentTime <= endTime) {
+                if (breakStartTime && breakEndTime && currentTime < breakEndTime && currentTime > breakStartTime) {
+                    currentTime = breakEndTime;
+                } else {
+
+                    timeArray.push({
+                        value: currentTime.toTimeString().substring(0, 5), // "HH:MM"
+                        text: currentTime.toTimeString().substring(0, 5) // "HH:MM"
+                    });
+
+                    currentTime.setMinutes(currentTime.getMinutes() + intervalMinutes);
+                }
             }
 
             return timeArray;
