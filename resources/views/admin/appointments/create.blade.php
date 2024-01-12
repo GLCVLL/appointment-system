@@ -37,30 +37,15 @@
     @vite(['resources/js/validations/appointment-form'])
 
     <script>
-        // Get DOM Elems
-        const dateInput = document.getElementById('date');
-        const startTimeInput = document.getElementById('start_time');
-        const endTimeInput = document.getElementById('end_time');
-
-        // Get Generic Data
-        const dayOfWeeks = @json(config('data.day_of_week'));
-        const openingHours = @json($openingHours);
-
-
-        // Check if disabled
-        if (!dateInput.value) {
-            startTimeInput.disabled = true;
-            startTimeInput.selectedIndex = 0;
-            endTimeInput.disabled = true;
-            endTimeInput.selectedIndex = 0;
-        }
-
-        dateInput.addEventListener('change', () => {
+        // FUNCTIONS
+        const setWorkingHours = () => {
 
             // Check if disabled
             if (!dateInput.value) {
                 startTimeInput.disabled = true;
+                startTimeInput.selectedIndex = 0;
                 endTimeInput.disabled = true;
+                endTimeInput.selectedIndex = 0;
             } else {
 
 
@@ -75,13 +60,24 @@
                     let timeArray = createTimeArray(currentOpeningHour.opening_time, currentOpeningHour
                         .closing_time, 30);
 
+                    // Populate start time input
                     let options = '<option value = "" > -- -- </option>';
                     timeArray.forEach(time => {
-                        options += `<option value="${time.value}">${time.text}</option>`;
+                        const isSelected = time.value === currentStartTime;
+                        options +=
+                            `<option ${isSelected ? 'selected': ''} value="${time.value}">${time.text}</option>`;
                     });
-
                     startTimeInput.innerHTML = options;
                     startTimeInput.disabled = false;
+
+
+                    // Populate end time input
+                    options = '<option value = "" > -- -- </option>';
+                    timeArray.forEach(time => {
+                        const isSelected = time.value === currentEndTime;
+                        options +=
+                            `<option ${isSelected ? 'selected': ''} value="${time.value}">${time.text}</option>`;
+                    });
                     endTimeInput.innerHTML = options;
                     endTimeInput.disabled = false;
 
@@ -93,10 +89,9 @@
                 }
 
             }
-        });
+        }
 
-
-        function createTimeArray(openingTime, closingTime, intervalMinutes) {
+        const createTimeArray = (openingTime, closingTime, intervalMinutes) => {
 
             let openingTimeArray = openingTime.split(':');
             let closingTimeArray = closingTime.split(':');
@@ -118,5 +113,23 @@
 
             return timeArray;
         }
+
+        // INIT
+        // Get DOM Elems
+        const dateInput = document.getElementById('date');
+        const startTimeInput = document.getElementById('start_time');
+        const endTimeInput = document.getElementById('end_time');
+
+        // Get Generic Data
+        const dayOfWeeks = @json(config('data.day_of_week'));
+        const openingHours = @json($openingHours);
+
+        // Get Current Times
+        const currentStartTime = @json(old('start_time', $appointment->getDate('start_time', 'H:i')));
+        const currentEndTime = @json(old('end_time', $appointment->getDate('end_time', 'H:i')));
+
+        // LOGIC
+        setWorkingHours();
+        dateInput.addEventListener('change', setWorkingHours);
     </script>
 @endsection
