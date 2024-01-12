@@ -10,6 +10,7 @@ use App\Models\Service;
 use App\Models\User;
 use App\View\Components\AppLayout;
 use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Validation\ValidationException;
@@ -30,13 +31,32 @@ class AppointmentController extends Controller
      */
     public function create()
     {
+        // Get Empty Appointment
         $appointment = new Appointment();
 
+        // Get user and services
         $users = User::all();
         $services = Service::all();
 
+        // Create time array
+        $start = Carbon::createFromTimeString('00:00');
+        $end = Carbon::createFromTimeString('23:30');
+        $interval = 'PT30M'; // Period Time di 30 minuti
+        $period = new CarbonPeriod($start, $interval, $end);
+        $time_array = [];
 
-        return view('admin.appointments.create', compact('appointment', 'users', 'services'));
+        foreach ($period as $date) {
+            $time_array[] = [
+                'value' => $date->format('H:i'),
+                'text' => $date->format('H:i'),
+            ];
+        }
+
+        // Get opening hours
+        $openingHours = OpeningHour::all();
+
+
+        return view('admin.appointments.create', compact('appointment', 'users', 'services', 'time_array', 'openingHours'));
     }
 
     /**
