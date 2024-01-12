@@ -40,22 +40,24 @@
         // FUNCTIONS
         const setWorkingHours = () => {
 
+            const currentDate = new Date(new Date().setHours(0, 0, 0, 0));
+
             // Check Public Holidays
-            const currentDate = new Date(dateInput.value);
+            const selectedDate = new Date(new Date(dateInput.value).setHours(0, 0, 0, 0));
             let isPublicHoliday = false;
 
             closedDays.forEach(closedDay => {
 
                 const closedDayDate = new Date(closedDay.date);
 
-                if (currentDate.getMonth() === closedDayDate.getMonth() &&
-                    currentDate.getDate() === closedDayDate.getDate()) {
+                if (selectedDate.getMonth() === closedDayDate.getMonth() &&
+                    selectedDate.getDate() === closedDayDate.getDate()) {
                     isPublicHoliday = true;
                 }
             });
 
             // Check if disabled
-            if (!dateInput.value || isPublicHoliday) {
+            if (!dateInput.value || selectedDate.getTime() < currentDate.getTime() || isPublicHoliday) {
                 startTimeInput.disabled = true;
                 startTimeInput.selectedIndex = 0;
                 endTimeInput.disabled = true;
