@@ -5,7 +5,7 @@ const form = {
     'user_id': ['required'],
     'services': ['required'],
     'date': ['required', 'date', 'after_or_equal'],
-    'start_time': ['required', 'time'],
+    'start_time': ['required', 'time', 'after_date_time:date'],
     'end_time': ['required', 'time', 'after:start_time'],
     'notes': ['nullable', 'string'],
 };
@@ -19,7 +19,8 @@ const errorMessages = {
     },
     'start_time': {
         'required': 'The start Time is required',
-        'time': 'Insert a valide time'
+        'time': 'Insert a valide time',
+        'after_date_time': 'Start Time must be after current time'
     },
     'end_time': {
         'required': 'The end Time is required',
