@@ -116,13 +116,7 @@ export const initValidation = (form, errorMessages) => {
                             break;
 
                         case 'after_or_equal':
-                            const currentDate = new Date();
-                            const currentYear = currentDate.getFullYear();
-                            const currentMonth = currentDate.getMonth() + 1;
-                            const currentDay = currentDate.getDate();
-
-                            const currentDateStr = `${currentYear}-${currentMonth.toString().padStart(2, '0')}-${currentDay.toString().padStart(2, '0')}`;
-                            if (currentDateStr > elem.value) formErrors[key] = errorMessages[key][rule];
+                            if (isAfterOrEqual(elem.value)) formErrors[key] = errorMessages[key][rule];
                             break;
 
                         case 'after_date_time':
@@ -142,6 +136,21 @@ export const initValidation = (form, errorMessages) => {
     }
 
     // Validation Rules
+    const isAfterOrEqual = (value) => {
+
+        // Get current date
+        const currentDate = new Date();
+
+        // Create current date string [Y-m-d]
+        const currentYear = currentDate.getFullYear();
+        const currentMonth = currentDate.getMonth() + 1;
+        const currentDay = currentDate.getDate();
+        const currentDateStr = `${currentYear}-${currentMonth.toString().padStart(2, '0')}-${currentDay.toString().padStart(2, '0')}`;
+
+        if (value < currentDateStr) return false;
+        return true;
+    }
+
     const isAfterDateTime = (value, date) => {
 
         // Get current date
