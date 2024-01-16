@@ -49,11 +49,11 @@
             }) => day === dayOfWeek);
 
 
-            // Check Public Holidays
+            /*** CHECK PUBLIC HOLIDAYS ***/
             let isPublicHoliday = isPubliHoliday(selectedDate, closedDays);
 
 
-            // Check Passed Date
+            /*** CHECK PASSED DAYS ***/
             let isDatePassed = selectedDate.getTime() < currentDate.getTime();
 
 
@@ -73,6 +73,7 @@
                 let breakEnd = currentOpeningHours.break_end;
                 let interval = 30;
 
+                /*** CHECK TODAY DATE AVAILABLE TIMES ***/
                 // Correct opening time with today available time
                 if (selectedDate.getTime() === currentDate.getTime() && openingTime < getTimeString(new Date())) {
 
@@ -93,6 +94,28 @@
 
                 // Create Time Array
                 let timeArray = createTimeArray(openingTime, closingTime, interval, breakStart, breakEnd);
+
+
+
+                /*** CHECK FREE SLOTS ***/
+                // Get appointments of selected date 
+                const selectedDateAppointments = appointments.filter(({
+                    date
+                }) => date === dateInput.value);
+
+                // Remove times already taken by other appointments
+                selectedDateAppointments.forEach(appointment => {
+
+                    timeArray = timeArray.filter(({
+                        value
+                    }) => {
+                        const timeFormatted = value + ':00';
+                        return timeFormatted < appointment.start_time || timeFormatted >= appointment
+                            .end_time
+                    });
+
+                });
+
 
                 // Populate start time input
                 let options = '<option value="" > -- -- </option>';
@@ -208,6 +231,7 @@
         const endTimeInput = document.getElementById('end_time');
 
         // Get Generic Data
+        const appointments = @json($appointments);
         const dayOfWeeks = @json(config('data.day_of_week'));
         const closedDays = @json($closedDays);
         const openingHours = @json($openingHours);

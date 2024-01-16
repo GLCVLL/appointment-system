@@ -52,6 +52,9 @@ class AppointmentController extends Controller
             ];
         }
 
+        // Get valid appointments
+        $appointments = Appointment::where('is_deleted', false)->where('date', '>=', date('Y-m-d'))->get();
+
         // Get closed days
         $closedDays = ClosedDay::pluck('date')->toArray();
 
@@ -59,7 +62,7 @@ class AppointmentController extends Controller
         $openingHours = OpeningHour::all();
 
 
-        return view('admin.appointments.create', compact('appointment', 'users', 'services', 'time_array', 'closedDays', 'openingHours'));
+        return view('admin.appointments.create', compact('appointment', 'users', 'services', 'time_array', 'appointments', 'closedDays', 'openingHours'));
     }
 
     /**
@@ -234,13 +237,16 @@ class AppointmentController extends Controller
             ];
         }
 
+        // Get valid appointments
+        $appointments = Appointment::where('is_deleted', false)->where('date', '>=', date('Y-m-d'))->get();
+
         // Get closed days
         $closedDays = ClosedDay::pluck('date')->toArray();
 
         // Get opening hours
         $openingHours = OpeningHour::all();
 
-        return view('admin.appointments.edit', compact('appointment', 'users', 'services', 'selectedServices', 'time_array', 'closedDays', 'openingHours'));
+        return view('admin.appointments.edit', compact('appointment', 'users', 'services', 'selectedServices', 'time_array', 'appointments', 'closedDays', 'openingHours'));
     }
 
     /**
