@@ -7,6 +7,11 @@ html {
     font-size: 14px;
 }
 
+body {
+    color: $col-gray-200;
+    background-color: $col-dark;
+}
+
 ul {
     margin: 0;
     padding: 0;
