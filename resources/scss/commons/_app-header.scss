@@ -1,0 +1,40 @@
+/* -----------------------------------------
+* APP HEADER
+-------------------------------------------*/
+@use '../vars' as *;
+
+.app-header {
+    height: $header-height;
+    position: sticky;
+    top: 0;
+
+    background-color: $col-dark-500;
+    border: 1px solid $col-gray-800;
+    border-left: none;
+    z-index: 1;
+
+    >nav {
+        display: flex;
+        align-items: center;
+    }
+
+    &-menu {
+        flex-grow: 1;
+        height: 100%;
+        padding: 0 1rem;
+
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+
+        a {
+            padding: 0.5rem;
+
+            display: block;
+        }
+
+        .dropdown-toggle::after {
+            display: none;
+        }
+    }
+}

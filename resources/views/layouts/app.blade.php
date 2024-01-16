@@ -37,10 +37,16 @@
         {{-- Main Sidebar --}}
         @include('includes.commons.sidebar')
 
-        {{-- Main Content --}}
-        <main class="app-main">
-            @yield('content')
-        </main>
+        <div class="flex-grow-1">
+
+            <main class="app-main">
+                {{-- Main Header --}}
+                @include('includes.commons.header')
+
+                {{-- Main Content --}}
+                @yield('content')
+            </main>
+        </div>
 
         {{-- Modal --}}
         @include('includes.commons.modal')
@@ -51,7 +57,7 @@
     </div>
 
     {{-- Scripts --}}
-    @vite(['resources/js/commons/modal'])
+    @vite(['resources/js/commons/modal.js'])
     @yield('scripts')
 </body>
 
