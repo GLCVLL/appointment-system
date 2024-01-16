@@ -10,6 +10,7 @@ use App\Models\Service;
 use App\Models\User;
 use App\View\Components\AppLayout;
 use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Validation\ValidationException;
@@ -30,13 +31,38 @@ class AppointmentController extends Controller
      */
     public function create()
     {
+        // Get Empty Appointment
         $appointment = new Appointment();
 
+        // Get user and services
         $users = User::all();
         $services = Service::all();
 
+        // Create time array
+        $start = Carbon::createFromTimeString('00:00');
+        $end = Carbon::createFromTimeString('23:30');
+        $interval = 'PT30M'; // Period Time di 30 minuti
+        $period = new CarbonPeriod($start, $interval, $end);
+        $time_array = [];
 
-        return view('admin.appointments.create', compact('appointment', 'users', 'services'));
+        foreach ($period as $date) {
+            $time_array[] = [
+                'value' => $date->format('H:i'),
+                'text' => $date->format('H:i'),
+            ];
+        }
+
+        // Get valid appointments
+        $appointments = Appointment::where('is_deleted', false)->where('date', '>=', date('Y-m-d'))->get();
+
+        // Get closed days
+        $closedDays = ClosedDay::pluck('date')->toArray();
+
+        // Get opening hours
+        $openingHours = OpeningHour::all();
+
+
+        return view('admin.appointments.create', compact('appointment', 'users', 'services', 'time_array', 'appointments', 'closedDays', 'openingHours'));
     }
 
     /**
@@ -49,8 +75,17 @@ class AppointmentController extends Controller
             [
                 'user_id' => 'required|exists:users,id',
                 'services' => 'required|exists:services,id',
-                'date' => 'required|date',
-                'start_time' => 'required|date_format:H:i',
+                'date' => ['required', 'date', 'after_or_equal:' . date('Y-m-d')],
+                'start_time' => [
+                    'required', 'date_format:H:i',
+                    function ($attribute, $value, $fail) {
+                        $selectedDate = request('date');
+                        $currentTime = date('H:i');
+                        if ($selectedDate == date('Y-m-d') && $value < $currentTime) {
+                            $fail('The Start Time must be a time after the current time.');
+                        }
+                    },
+                ],
                 'end_time' => 'required|date_format:H:i|after:start_time',
                 'notes' => 'nullable|string',
             ],
@@ -188,7 +223,30 @@ class AppointmentController extends Controller
 
         $selectedServices = $appointment->services->pluck('id')->toArray();
 
-        return view('admin.appointments.edit', compact('appointment', 'users', 'services', 'selectedServices'));
+        // Create time array
+        $start = Carbon::createFromTimeString('00:00');
+        $end = Carbon::createFromTimeString('23:30');
+        $interval = 'PT30M'; // Period Time di 30 minuti
+        $period = new CarbonPeriod($start, $interval, $end);
+        $time_array = [];
+
+        foreach ($period as $date) {
+            $time_array[] = [
+                'value' => $date->format('H:i'),
+                'text' => $date->format('H:i'),
+            ];
+        }
+
+        // Get valid appointments
+        $appointments = Appointment::where('is_deleted', false)->where('date', '>=', date('Y-m-d'))->get();
+
+        // Get closed days
+        $closedDays = ClosedDay::pluck('date')->toArray();
+
+        // Get opening hours
+        $openingHours = OpeningHour::all();
+
+        return view('admin.appointments.edit', compact('appointment', 'users', 'services', 'selectedServices', 'time_array', 'appointments', 'closedDays', 'openingHours'));
     }
 
     /**
@@ -202,8 +260,17 @@ class AppointmentController extends Controller
                 'user_id' => 'required|exists:users,id',
                 'services' => 'required|array',
                 'services.*' => 'exists:services,id',
-                'date' => 'required|date',
-                'start_time' => 'required|date_format:H:i',
+                'date' => ['required', 'date', 'after_or_equal:' . date('Y-m-d')],
+                'start_time' => [
+                    'required', 'date_format:H:i',
+                    function ($attribute, $value, $fail) {
+                        $selectedDate = request('date');
+                        $currentTime = date('H:i');
+                        if ($selectedDate == date('Y-m-d') && $value < $currentTime) {
+                            $fail('The Start Time must be a time after the current time.');
+                        }
+                    },
+                ],
                 'end_time' => 'required|date_format:H:i|after:start_time',
                 'notes' => 'nullable|string',
             ],
@@ -317,6 +384,7 @@ class AppointmentController extends Controller
             ->with('messages', [
                 [
                     'sender' => 'System',
+                    'color' => 'success',
                     'content' => 'Appointment updated successfully.',
                     'timestamp' => now()
                 ]
