@@ -27,10 +27,12 @@
         justify-content: flex-end;
         align-items: center;
 
-        a {
+        >li>a {
             padding: 0.5rem;
+            height: $header-height;
 
-            display: block;
+            display: flex;
+            align-items: center;
         }
 
         .dropdown-toggle::after {
