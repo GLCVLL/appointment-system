@@ -1,9 +1,9 @@
 @if ($category->exists)
-    <form id="validation-form" class="px-4" method="POST" action="{{ route('admin.categories.update', $category) }}"
+    <form id="validation-form" class="card p-3" method="POST" action="{{ route('admin.categories.update', $category) }}"
         enctype="multipart/form-data" novalidate>
         @method('PUT')
     @else
-        <form id="validation-form" class="px-4" method="POST" action="{{ route('admin.categories.store') }}"
+        <form id="validation-form" class="card p-3" method="POST" action="{{ route('admin.categories.store') }}"
             enctype="multipart/form-data" novalidate>
 @endif
 @csrf
