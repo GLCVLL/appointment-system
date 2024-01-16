@@ -4,31 +4,36 @@
 @use '../vars' as *;
 
 .app-sidebar {
-    width: $sidebar-width;
+    flex: 0 0 $sidebar-width-sm;
     height: 100vh;
 
-    background-color: $col-gray-300;
-    text-align: center;
+    background-color: $col-dark-500;
 
     &-logo {
-        width: $sidebar-width;
-        height: $sidebar-width;
+        padding: 0 1rem;
+        height: $header-height;
 
         display: flex;
         justify-content: center;
         align-items: center;
+        border: 1px solid $col-gray-800;
     }
 
     &-menu {
+        padding: 1rem 0;
+        height: calc(100vh - $header-height);
 
-        >li>a {
-            width: $sidebar-width;
-            height: $sidebar-width;
+        border: 1px solid $col-gray-800;
+        border-top: none;
+
+        a {
+            padding: 1rem;
+            min-height: 49px;
 
             display: flex;
-            justify-content: center;
             align-items: center;
-            color: $col-gray-700;
+            gap: 0.5rem;
+            color: $col-gray-600;
 
             &:hover,
             &.active {
@@ -41,5 +46,15 @@
             display: none;
         }
 
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .app-sidebar {
+        flex: 0 0 $sidebar-width-lg;
+
+        &-logo {
+            justify-content: flex-start;
+        }
     }
 }
