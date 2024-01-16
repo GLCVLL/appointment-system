@@ -6,7 +6,7 @@
     <section class="container-fluid py-4">
 
         {{-- Header --}}
-        <header class="mb-3">
+        <header class="mb-4">
             <div class="d-flex align-items-center gap-3">
                 {{-- Back --}}
                 <a href="{{ route('admin.services.index') }}" class="btn btn-light">
@@ -16,8 +16,6 @@
                 <h2 class="mb-0">Edit Service</h2>
             </div>
         </header>
-
-        <hr class="mb-4">
 
         {{-- Form --}}
         @include('includes.service.form')

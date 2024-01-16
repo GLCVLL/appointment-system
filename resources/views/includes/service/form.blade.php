@@ -1,9 +1,9 @@
 @if ($service->exists)
-    <form id="validation-form" class="px-4" method="POST" action="{{ route('admin.services.update', $service) }}"
+    <form id="validation-form" class="card p-3" method="POST" action="{{ route('admin.services.update', $service) }}"
         enctype="multipart/form-data" novalidate>
         @method('PUT')
     @else
-        <form id="validation-form" class="px-4" method="POST" action="{{ route('admin.services.store') }}"
+        <form id="validation-form" class="card p-3" method="POST" action="{{ route('admin.services.store') }}"
             enctype="multipart/form-data" novalidate>
 @endif
 @csrf
