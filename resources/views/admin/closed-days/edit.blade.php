@@ -6,7 +6,7 @@
     <section class="container-fluid py-4">
 
         {{-- Header --}}
-        <header class="mb-3">
+        <header class="mb-4">
 
             {{-- Title --}}
             <div class="d-flex align-items-center gap-3">
@@ -23,7 +23,6 @@
 
         </header>
 
-        <hr class="mb-4">
         {{-- Form --}}
         @include('includes.closed-days.form')
 
