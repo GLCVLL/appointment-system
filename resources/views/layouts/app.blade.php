@@ -37,16 +37,13 @@
         {{-- Main Sidebar --}}
         @include('includes.commons.sidebar')
 
-        <div class="flex-grow-1">
+        <main class="app-main">
+            {{-- Main Header --}}
+            @include('includes.commons.header')
 
-            <main class="app-main">
-                {{-- Main Header --}}
-                @include('includes.commons.header')
-
-                {{-- Main Content --}}
-                @yield('content')
-            </main>
-        </div>
+            {{-- Main Content --}}
+            @yield('content')
+        </main>
 
         {{-- Modal --}}
         @include('includes.commons.modal')
