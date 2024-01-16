@@ -6,7 +6,7 @@
     <section class="container-fluid py-4">
 
         {{-- Header --}}
-        <header class="d-flex justify-content-between align-items-center mb-3">
+        <header class="d-flex justify-content-between align-items-center mb-4">
 
             {{-- Title --}}
             <h2 class="mb-0">Appointments</h2>
@@ -16,8 +16,6 @@
                 <i class="fas fa-plus fa-lg"></i>
             </a>
         </header>
-
-        <hr class="mb-4">
 
         {{-- List --}}
         <div class="table-responsive px-4">
