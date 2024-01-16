@@ -18,8 +18,8 @@
         </header>
 
         {{-- List --}}
-        <div class="table-responsive px-4">
-            <table class="table table-striped align-middle">
+        <div class="table-responsive card p-3">
+            <table class="table align-middle">
                 <thead>
                     <tr>
                         <th scope="col">Client</th>
