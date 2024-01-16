@@ -19,7 +19,7 @@
 
         {{-- List --}}
         <div class="table-responsive card p-3">
-            <table class="table align-middle">
+            <table class="table table-hover align-middle">
                 <thead>
                     <tr>
                         <th scope="col">Client</th>
