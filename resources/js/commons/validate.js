@@ -90,6 +90,10 @@ export const initValidation = (form, errorMessages) => {
                             if (elem.value.length > parseInt(param)) formErrors[key] = errorMessages[key][rule];
                             break;
 
+                        case 'min':
+                            if (elem.value.length < parseInt(param)) formErrors[key] = errorMessages[key][rule];
+                            break;
+
                         case 'boolean':
                             const validBooleanValues = [true, false, 1, 0, "1", "0"];
                             if (!validBooleanValues.includes(elem.value)) formErrors[key] = errorMessages[key][rule];
@@ -104,10 +108,14 @@ export const initValidation = (form, errorMessages) => {
                         case 'time':
 
                             if (param === 'H:i:s') {
-                                if (!(/^(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d$/.test(elem.value))) formErrors[key] = errorMessages[key]['time'];
+                                if (!(/^(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d$/.test(elem.value))) formErrors[key] = errorMessages[key][rule];
                             } else {
                                 if (!(/^([01]\d|2[0-3]):[0-5]\d$/.test(elem.value))) formErrors[key] = errorMessages[key][rule];
                             }
+                            break;
+                        
+                        case 'email':
+                            if (!isEmail(elem.value)) formErrors[key] = errorMessages[key][rule];
                             break;
 
                         case 'after':
@@ -176,4 +184,8 @@ export const initValidation = (form, errorMessages) => {
         if (dateStr === currentDateStr && value < currentTimeStr) return false;
         return true;
     }
-}
+
+    const isEmail = (value) => {
+        return (/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(value))
+    }
+} 
