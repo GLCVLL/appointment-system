@@ -57,7 +57,8 @@
 
                                     {{-- Delete --}}
                                     <form action="{{ route('admin.appointments.destroy', $appointment) }}" method="POST"
-                                        class="delete-form" data-modal-name="{{ $appointment->name }}">
+                                        class="delete-form"
+                                        data-modal-name="appointment of {{ $appointment->getDate('start_time', 'H:i') }}">
                                         @csrf
                                         @method('DELETE')
                                         <button class="btn btn-danger">

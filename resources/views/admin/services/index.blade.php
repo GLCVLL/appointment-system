@@ -40,7 +40,8 @@
                                         <i class="fas fa-pencil-alt"></i>
                                     </a>
                                     {{-- Delete --}}
-                                    <form action="{{ route('admin.services.destroy', $service) }}" method="POST">
+                                    <form action="{{ route('admin.services.destroy', $service) }}" method="POST"
+                                        class="delete-form" data-modal-name="{{ $service->name }}">
                                         @csrf
                                         @method('DELETE')
                                         <button class="btn btn-danger">
