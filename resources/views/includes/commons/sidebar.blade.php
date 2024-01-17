@@ -57,6 +57,14 @@
                     </a>
                 </li>
 
+                {{-- Users --}}
+                <li>
+                    <a href="{{ route('admin.users.index') }}" class="@if (Route::is('admin.users*')) active @endif">
+                        <i class="fas fa-users fa-xl fa-fw"></i>
+                        <span class="d-none d-md-inline">Clients</span>
+                    </a>
+                </li>
+
                 {{-- categories --}}
                 <li>
                     <a href="{{ route('admin.categories.index') }}" class="@if (Route::is('admin.categories*')) active @endif">
