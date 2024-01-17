@@ -12,7 +12,7 @@
             <div class="d-flex align-items-center gap-3">
 
                 {{-- Back --}}
-                <a href="{{ route('admin.closed-days.index') }}" class="btn btn-light">
+                <a href="{{ route('admin.closed-days.index') }}" class="btn btn-outline-light">
                     <i class="fa-solid fa-chevron-left fa-xl"></i>
                 </a>
 
