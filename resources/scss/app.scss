@@ -11,6 +11,7 @@
 
 
 // COMMONS
+@use '~resources/scss/commons/app-header';
 @use '~resources/scss/commons/app-main';
 @use '~resources/scss/commons/app-modal';
 @use '~resources/scss/commons/app-sidebar';
@@ -18,6 +19,12 @@
 
 // COMPONENTS
 @use '~resources/scss/components/btn';
+@use '~resources/scss/components/card';
+@use '~resources/scss/components/dropdown';
+@use '~resources/scss/components/form';
+@use '~resources/scss/components/indicator';
+@use '~resources/scss/components/profile-icon';
+@use '~resources/scss/components/table';
 
 
 // Style Loader

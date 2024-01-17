@@ -1,0 +1,14 @@
+/* -----------------------------------------
+* CARD
+-------------------------------------------*/
+@use '../vars' as *;
+
+.card {
+    color: $col-light;
+    background-color: $col-dark-500;
+    border-color: $col-gray-800;
+
+    &-header {
+        border-color: $col-gray-800;
+    }
+}

@@ -1,0 +1,18 @@
+/* -----------------------------------------
+* PROFILE ICON
+-------------------------------------------*/
+@use '../vars' as *;
+
+.profile-icon {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $col-dark;
+    background-color: $col-gray-500;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    font-weight: bold;
+}

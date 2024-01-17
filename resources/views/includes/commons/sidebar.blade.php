@@ -3,7 +3,10 @@
 
         {{-- Logo --}}
         <a href="{{ route('admin.home') }}" class="app-sidebar-logo">
-            <h2 class="fw-bold mb-0">A</h2>
+            <h2 class="fw-bold mb-0">
+                <span class="d-md-none">L</span>
+                <span class="d-none d-md-inline">Logo</span>
+            </h2>
         </a>
 
         {{-- Menu --}}
@@ -14,28 +17,16 @@
                 {{-- Guest Home --}}
                 <li>
                     <a href="{{ url('/') }}" class="@if (Route::is('guest.home')) active @endif">
-                        <i class="fas fa-home fa-xl"></i>
+                        <i class="fas fa-home fa-xl fa-fw"></i>
+                        <span class="d-none d-md-inline">Home</span>
                     </a>
-                </li>
-
-                {{-- Login/Register --}}
-                <li class="dropend">
-
-                    <a id="login-menu" class="dropdown-toggle @if (Route::is('login') || Route::is('register')) active @endif" href="#"
-                        role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-user fa-xl"></i>
-                    </a>
-
-                    <div class="dropdown-menu" aria-labelledby="login-menu">
-                        <a class="dropdown-item" href="{{ route('login') }}">Login</a>
-                        <a class="dropdown-item" href="{{ route('register') }}">Register</a>
-                    </div>
                 </li>
             @else
                 {{-- Admin Home --}}
                 <li>
                     <a href="{{ route('admin.home') }}" class="@if (Route::is('admin.home')) active @endif">
-                        <i class="fas fa-home fa-xl"></i>
+                        <i class="fas fa-home fa-xl fa-fw"></i>
+                        <span class="d-none d-md-inline">Home</span>
                     </a>
                 </li>
 
@@ -43,8 +34,8 @@
                 <li>
                     <a href="{{ route('admin.appointments.index') }}"
                         class="@if (Route::is('admin.appointments*')) active @endif">
-                        <i class="fas fa-calendar-days fa-xl"></i>
-
+                        <i class="fas fa-calendar-days fa-xl fa-fw"></i>
+                        <span class="d-none d-md-inline">Appointments</span>
                     </a>
                 </li>
 
@@ -52,7 +43,8 @@
                 <li>
                     <a href="{{ route('admin.opening-hours.index') }}"
                         class="@if (Route::is('admin.opening-hours*')) active @endif">
-                        <i class="fas fa-hourglass fa-xl"></i>
+                        <i class="fas fa-hourglass fa-xl fa-fw"></i>
+                        <span class="d-none d-md-inline">Opening Hours</span>
                     </a>
                 </li>
 
@@ -60,53 +52,36 @@
                 <li>
                     <a href="{{ route('admin.closed-days.index') }}"
                         class="@if (Route::is('admin.closed-days*')) active @endif">
-                        <i class="fas fa-users fa-xl"></i>
+                        <i class="fas fa-shop fa-xl fa-fw"></i>
+                        <span class="d-none d-md-inline">Closed Days</span>
                     </a>
                 </li>
 
                 {{-- Users --}}
                 <li>
                     <a href="{{ route('admin.users.index') }}" class="@if (Route::is('admin.users*')) active @endif">
-                        <i class="fas fa-shop fa-xl"></i>
+                        <i class="fas fa-users fa-xl fa-fw"></i>
+                        <span class="d-none d-md-inline">Clients</span>
                     </a>
                 </li>
 
                 {{-- categories --}}
                 <li>
                     <a href="{{ route('admin.categories.index') }}" class="@if (Route::is('admin.categories*')) active @endif">
-                        <i class="fas fa-boxes fa-xl"></i>
+                        <i class="fas fa-boxes fa-xl fa-fw"></i>
+                        <span class="d-none d-md-inline">Categories</span>
                     </a>
                 </li>
 
                 {{-- services --}}
                 <li>
                     <a href="{{ route('admin.services.index') }}" class="@if (Route::is('admin.services*')) active @endif">
-                        <i class="fas fa-scissors fa-xl"></i>
-
+                        <i class="fas fa-scissors fa-xl fa-fw"></i>
+                        <span class="d-none d-md-inline">Services</span>
                     </a>
                 </li>
 
-                {{-- Profile --}}
-                <li class="dropend">
 
-                    <a id="profile-menu" class="dropdown-toggle @if (Route::is('profile*')) active @endif"
-                        href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-user fa-xl"></i>
-                    </a>
-
-                    <div class="dropdown-menu" aria-labelledby="profile-menu">
-                        <a class="dropdown-item" href="{{ url('profile') }}">{{ __('Profile') }}</a>
-                        <a class="dropdown-item" href="{{ route('logout') }}"
-                            onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
-                        </a>
-
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
-                    </div>
-                </li>
             @endguest
         </ul>
 

@@ -1,9 +1,9 @@
 @if ($closedDay->exists)
-    <form id="validation-form" class="px-4" method="POST" action="{{ route('admin.closed-days.update', $closedDay) }}"
+    <form id="validation-form" class="card p-3" method="POST" action="{{ route('admin.closed-days.update', $closedDay) }}"
         enctype="multipart/form-data" novalidate>
         @method('PUT')
     @else
-        <form id="validation-form" class="px-4" method="POST" action="{{ route('admin.closed-days.store') }}"
+        <form id="validation-form" class="card p-3" method="POST" action="{{ route('admin.closed-days.store') }}"
             enctype="multipart/form-data" novalidate>
 @endif
 @csrf

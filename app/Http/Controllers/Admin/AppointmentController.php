@@ -22,7 +22,11 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        $appointments = Appointment::where('is_deleted', false)->with(['user'])->get();
+        $appointments = Appointment::where('is_deleted', false)
+            ->with(['user'])
+            ->orderBy('date')
+            ->get();
+
         return view('admin.appointments.index', compact('appointments'));
     }
 

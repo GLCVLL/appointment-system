@@ -1,9 +1,9 @@
 @if ($appointment->exists)
-    <form id="validation-form" class="px-4" method="POST" action="{{ route('admin.appointments.update', $appointment) }}"
-        enctype="multipart/form-data" novalidate>
+    <form id="validation-form" class="card p-3" method="POST"
+        action="{{ route('admin.appointments.update', $appointment) }}" enctype="multipart/form-data" novalidate>
         @method('PUT')
     @else
-        <form id="validation-form" class="px-4" method="POST" action="{{ route('admin.appointments.store') }}"
+        <form id="validation-form" class="card p-3" method="POST" action="{{ route('admin.appointments.store') }}"
             enctype="multipart/form-data" novalidate>
 @endif
 @csrf

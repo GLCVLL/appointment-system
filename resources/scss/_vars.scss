@@ -4,18 +4,29 @@
 
 // Colors
 $col-light: #fff;
+$col-gray-100: #f8f9fa;
+$col-gray-200: #e9ecef;
+$col-gray-300: #dee2e6;
+$col-gray-400: #cbd1db;
+$col-gray-500: #aeb7c5;
+$col-gray-600: #7987a1;
+$col-gray-700: #41516c;
+$col-gray-800: #212a3a;
+$col-gray-900: #060c17;
 
-$col-gray-300: #f5f5f5;
-$col-gray-500: #d9d9d9;
-$col-gray-700: #9fa2a1;
-$col-gray-900: #58585b;
+$col-dark-500: #0c1427;
+$col-dark: #070d19;
 
-$col-dark: #2d2d2d;
-
-$col-emerald-300: #aafed9;
-$col-emerald-500: #7accae;
-$col-emerald-700: #04af81;
+// Bootstrap Custom Theme Colors
+$col-primary: #6571ff;
+$col-secondary: $col-gray-600;
+$col-success: #05a34a;
+$col-info: #66d1d1;
+$col-warning: #fbbc06;
+$col-danger: #ff3366;
 
 
 // Layout
-$sidebar-width: 60px;
+$sidebar-width-sm: 60px;
+$sidebar-width-lg: 240px;
+$header-height: 60px;

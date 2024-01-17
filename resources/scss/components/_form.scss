@@ -1,0 +1,46 @@
+/* -----------------------------------------
+* FORM
+-------------------------------------------*/
+@use '../vars' as *;
+
+
+.form-control {
+    color: $col-gray-500;
+    background-color: $col-dark-500;
+    border-color: $col-gray-800;
+    color-scheme: dark;
+
+    &:focus {
+        color: $col-gray-500;
+        background-color: $col-dark-500;
+        border-color: $col-gray-800;
+
+    }
+
+    &::placeholder {
+        color: $col-gray-700;
+    }
+
+    &:disabled {
+        background-color: $col-gray-800;
+    }
+}
+
+.form-select {
+    color: $col-gray-500;
+    background-color: $col-dark-500;
+    border-color: $col-gray-800;
+
+    &:disabled {
+        background-color: $col-gray-800;
+    }
+
+    * {
+        background-color: $col-dark;
+    }
+
+}
+
+.form-check-input {
+    background-color: $col-dark-500;
+}

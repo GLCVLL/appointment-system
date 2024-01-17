@@ -1,0 +1,22 @@
+/* -----------------------------------------
+* DROPDOWN
+-------------------------------------------*/
+@use '../vars' as *;
+
+.dropdown {
+    &-menu {
+        padding: 0.25rem;
+
+        background-color: $col-dark;
+        border: 1px solid $col-gray-800;
+
+        a {
+            color: $col-light;
+
+            &:hover {
+                color: $col-light;
+                background-color: $col-gray-700;
+            }
+        }
+    }
+}

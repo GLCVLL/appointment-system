@@ -3,31 +3,32 @@
 @section('title', ' - Edit Category')
 
 @section('content')
-    <section class="container-fluid py-4">
+    <section class="p-4">
 
-        {{-- Header --}}
-        <header class="mb-3">
+        <div class="container-fluid">
 
-            {{-- Title --}}
-            <div class="d-flex align-items-center gap-3">
-
-                {{-- Back --}}
-                <a href="{{ route('admin.categories.index') }}" class="btn btn-light">
-                    <i class="fa-solid fa-chevron-left fa-xl"></i>
-                </a>
+            {{-- Header --}}
+            <header class="mb-4">
 
                 {{-- Title --}}
-                <h2 class="mb-0">Edit Category</h2>
+                <div class="d-flex align-items-center gap-3">
 
-            </div>
+                    {{-- Back --}}
+                    <a href="{{ route('admin.categories.index') }}" class="btn btn-outline-light">
+                        <i class="fa-solid fa-chevron-left fa-xl"></i>
+                    </a>
 
-        </header>
+                    {{-- Title --}}
+                    <h2 class="mb-0">Edit Category</h2>
 
-        <hr class="mb-4">
+                </div>
 
-        {{-- Form --}}
-        @include('includes.category.form')
+            </header>
 
+            {{-- Form --}}
+            @include('includes.category.form')
+
+        </div>
     </section>
 @endsection
 

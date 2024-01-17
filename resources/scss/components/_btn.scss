@@ -16,4 +16,52 @@
         align-items: center;
         border-radius: 50%;
     }
+
+    &.btn-primary {
+        background-color: $col-primary;
+
+        &:hover {
+            filter: brightness(0.9);
+        }
+    }
+
+    &.btn-secondary {
+        background-color: $col-secondary;
+
+        &:hover {
+            filter: brightness(0.9);
+        }
+    }
+
+    &.btn-success {
+        background-color: $col-success;
+
+        &:hover {
+            filter: brightness(0.9);
+        }
+    }
+
+    &.btn-info {
+        background-color: $col-info;
+
+        &:hover {
+            filter: brightness(0.9);
+        }
+    }
+
+    &.btn-warning {
+        background-color: $col-warning;
+
+        &:hover {
+            filter: brightness(0.9);
+        }
+    }
+
+    &.btn-danger {
+        background-color: $col-danger;
+
+        &:hover {
+            filter: brightness(0.9);
+        }
+    }
 }

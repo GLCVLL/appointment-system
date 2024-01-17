@@ -37,8 +37,11 @@
         {{-- Main Sidebar --}}
         @include('includes.commons.sidebar')
 
-        {{-- Main Content --}}
         <main class="app-main">
+            {{-- Main Header --}}
+            @include('includes.commons.header')
+
+            {{-- Main Content --}}
             @yield('content')
         </main>
 
@@ -51,7 +54,7 @@
     </div>
 
     {{-- Scripts --}}
-    @vite(['resources/js/commons/modal'])
+    @vite(['resources/js/commons/modal.js'])
     @yield('scripts')
 </body>
 

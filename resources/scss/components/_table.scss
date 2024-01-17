@@ -1,0 +1,23 @@
+/* -----------------------------------------
+* TABLE
+-------------------------------------------*/
+@use '../vars' as *;
+
+
+.table {
+    border-color: $col-gray-800;
+
+    th {
+        padding: 1rem;
+
+        color: $col-gray-500;
+        background-color: $col-dark-500;
+    }
+
+    td {
+        padding: 1rem;
+
+        color: $col-gray-300;
+        background-color: $col-dark-500;
+    }
+}

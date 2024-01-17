@@ -1,9 +1,9 @@
 @if ($openingHour->exists)
-    <form id="validation-form" class="px-4" method="POST"
+    <form id="validation-form" class="card p-3" method="POST"
         action="{{ route('admin.opening-hours.update', $openingHour) }}" enctype="multipart/form-data" novalidate>
         @method('PUT')
     @else
-        <form id="validation-form" class="px-4" method="POST" action="{{ route('admin.opening-hours.store') }}"
+        <form id="validation-form" class="card p-3" method="POST" action="{{ route('admin.opening-hours.store') }}"
             enctype="multipart/form-data" novalidate>
 @endif
 @csrf
