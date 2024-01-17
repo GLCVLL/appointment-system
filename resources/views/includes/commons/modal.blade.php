@@ -12,7 +12,7 @@
         </div>
 
         <div class="app-modal-footer">
-            <button class="btn btn-outline-secondary me-2" data-close>Cancel</button>
+            <button class="btn btn-secondary me-2" data-close>Cancel</button>
             <button class="btn btn-primary app-modal-submit" data-close>Ok</button>
         </div>
 

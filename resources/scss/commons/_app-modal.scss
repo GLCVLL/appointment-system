@@ -27,18 +27,19 @@
         padding: 1rem;
         max-width: 350px;
 
-        color: $col-dark;
-        background-color: $col-light;
+        color: $col-light;
+        background-color: $col-dark-500;
+        border-color: $col-gray-800;
         border-radius: 0.5rem;
     }
 
     &-title {
-        padding-bottom: 0.5rem;
+        padding-bottom: 1rem;
 
         display: flex;
         justify-content: space-between;
         align-items: center;
-        font-size: 1.5rem;
+        font-size: 1.3rem;
         font-weight: bold;
     }
 
@@ -46,14 +47,14 @@
         padding: 1.5rem 0.5rem;
         max-height: 50vh;
 
-        border-top: 1px solid $col-gray-500;
+        border-top: 1px solid $col-gray-800;
         overflow-y: auto;
     }
 
     &-footer {
-        padding-top: 0.5rem;
+        padding-top: 1rem;
 
-        border-top: 1px solid $col-gray-500;
+        border-top: 1px solid $col-gray-800;
         text-align: right;
     }
 

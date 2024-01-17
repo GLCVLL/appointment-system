@@ -19,7 +19,7 @@ deleteForms.forEach(form => {
         if (modalElem) {
             // Set modal data
             modalTitleElem.innerText = 'Delete';
-            modalBodyElem.innerText = `Are you you want to delete "${modalName}"?`;
+            modalBodyElem.innerText = `Are you sure you want to delete "${modalName}"?`;
 
             // Show modal
             modalElem.classList.add('is-open');
