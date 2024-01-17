@@ -24,6 +24,7 @@ class AppointmentController extends Controller
     {
         $appointments = Appointment::with(['user'])
             ->orderBy('date')
+            ->orderBy('start_time')
             ->get();
 
         return view('admin.appointments.index', compact('appointments'));
