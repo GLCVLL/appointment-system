@@ -7,6 +7,7 @@ use App\Http\Controllers\Guest\HomeController as GuestHomeController;
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Admin\OpeningHourController;
 use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,7 +27,7 @@ Route::get('/', [GuestHomeController::class, 'index'])->name('guest.home');
 
 
 // Admin Routes
-Route::prefix('/admin')->name('admin')->middleware(['auth', 'verified'])->name('admin.')->group(function () {
+Route::prefix('/admin')->name('admin')->middleware(['auth', 'verified', 'checkrole:admin'])->name('admin.')->group(function () {
 
     // Home Routes
     Route::get('/', [AdminHomeController::class, 'index'])->name('home');
@@ -45,6 +46,9 @@ Route::prefix('/admin')->name('admin')->middleware(['auth', 'verified'])->name('
 
     // Closed Days Routes
     Route::resource('closed-days', ClosedDayController::class); // CRUD
+
+    // Users Routes
+    Route::resource('users', UserController::class); // CRUD
 
 });
 

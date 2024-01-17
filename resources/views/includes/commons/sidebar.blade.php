@@ -60,6 +60,13 @@
                 <li>
                     <a href="{{ route('admin.closed-days.index') }}"
                         class="@if (Route::is('admin.closed-days*')) active @endif">
+                        <i class="fas fa-users fa-xl"></i>
+                    </a>
+                </li>
+
+                {{-- Users --}}
+                <li>
+                    <a href="{{ route('admin.users.index') }}" class="@if (Route::is('admin.users*')) active @endif">
                         <i class="fas fa-shop fa-xl"></i>
                     </a>
                 </li>
