@@ -22,9 +22,9 @@
 
                     <a id="profile-menu" class="dropdown-toggle @if (Route::is('profile*')) active @endif"
                         href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-
-                        <i class="fas fa-user fa-xl"></i>
-
+                        <span class="profile-icon">
+                            {{ auth()->user()->name ? substr(auth()->user()->name, 0, 1) : 'U' }}
+                        </span>
                     </a>
 
                     <div class="dropdown-menu" aria-labelledby="profile-menu">
