@@ -22,9 +22,9 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        $appointments = Appointment::where('is_deleted', false)
-            ->with(['user'])
+        $appointments = Appointment::with(['user'])
             ->orderBy('date')
+            ->orderBy('start_time')
             ->get();
 
         return view('admin.appointments.index', compact('appointments'));
@@ -57,7 +57,7 @@ class AppointmentController extends Controller
         }
 
         // Get valid appointments
-        $appointments = Appointment::where('is_deleted', false)->where('date', '>=', date('Y-m-d'))->get();
+        $appointments = Appointment::where('date', '>=', date('Y-m-d'))->get();
 
         // Get closed days
         $closedDays = ClosedDay::pluck('date')->toArray();
@@ -167,8 +167,7 @@ class AppointmentController extends Controller
         // Check appointments overlapping
         if (!$errorMessage) {
 
-            $overlappingAppointments = Appointment::where('is_deleted', false)
-                ->where('date', $data['date'])
+            $overlappingAppointments = Appointment::where('date', $data['date'])
                 ->where('start_time', '<', $endTime)
                 ->where('end_time', '>', $startTime)
                 ->count();
@@ -242,7 +241,7 @@ class AppointmentController extends Controller
         }
 
         // Get valid appointments
-        $appointments = Appointment::where('is_deleted', false)->where('date', '>=', date('Y-m-d'))->get();
+        $appointments = Appointment::where('date', '>=', date('Y-m-d'))->get();
 
         // Get closed days
         $closedDays = ClosedDay::pluck('date')->toArray();
@@ -355,8 +354,7 @@ class AppointmentController extends Controller
         if (!$errorMessage) {
 
             // Overlapping appointments checking
-            $overlappingAppointments = Appointment::where('is_deleted', false)
-                ->where('date', $data['date'])
+            $overlappingAppointments = Appointment::where('date', $data['date'])
                 ->where('id', '!=', $appointment->id)
                 ->where('start_time', '<', $endTime)
                 ->where('end_time', '>', $startTime)
