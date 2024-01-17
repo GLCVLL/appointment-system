@@ -1,9 +1,9 @@
 @if ($user->exists)
-    <form id="validation-form" class="px-4" method="POST" action="{{ route('admin.users.update', $user) }}"
+    <form id="validation-form" class="card p-3" method="POST" action="{{ route('admin.users.update', $user) }}"
         enctype="multipart/form-data" novalidate>
         @method('PUT')
     @else
-        <form id="validation-form" class="px-4" method="POST" action="{{ route('admin.users.store') }}"
+        <form id="validation-form" class="card p-3" method="POST" action="{{ route('admin.users.store') }}"
             enctype="multipart/form-data" novalidate>
 @endif
 @csrf
