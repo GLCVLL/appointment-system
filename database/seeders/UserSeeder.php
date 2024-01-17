@@ -13,12 +13,23 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+
+        // Creating an admin user
+        $admin = new User();
+
+        $admin->name = 'Admin';
+        $admin->email = 'admin@mail.it';
+        $admin->password = bcrypt('password');
+        $admin->role = 'admin';
+
+        $admin->save();
+
+        // Creating a normal user
         $user = new User();
-
-        $user->name = 'Admin';
-        $user->email = 'admin@mail.it';
+        $user->name = 'User';
+        $user->email = 'user@mail.it';
         $user->password = bcrypt('password');
-
+        $user->role = 'user';
         $user->save();
     }
 }
