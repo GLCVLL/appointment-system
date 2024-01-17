@@ -10,7 +10,7 @@ class Appointment extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'date', 'start_time', 'end_time', 'notes', 'is_deleted'];
+    protected $fillable = ['user_id', 'date', 'start_time', 'end_time', 'notes'];
 
     // One to Many with User
     public function user()

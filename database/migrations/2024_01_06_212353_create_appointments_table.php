@@ -18,7 +18,6 @@ return new class extends Migration
             $table->time('start_time');
             $table->time('end_time');
             $table->text('notes')->nullable();
-            $table->boolean('is_deleted')->default(false);
             $table->timestamps();
         });
     }
