@@ -32,7 +32,7 @@
                         @forelse ($services as $service)
                             <tr>
                                 <td>{{ $service->name }}</td>
-                                <td class="text-center">{{ $service->duration }}</td>
+                                <td class="text-center">{{ $service->getDate('duration', 'H:i') }}</td>
                                 <td class="text-center">{{ $service->is_available ? 'Yes' : 'No' }}</td>
                                 <td class="text-end">
                                     {{-- Actions --}}
