@@ -1,0 +1,41 @@
+/* -----------------------------------------
+* INDICATOR
+-------------------------------------------*/
+@use '../vars' as *;
+
+.indicator {
+    width: 8px;
+    height: 8px;
+    position: absolute;
+    top: 16px;
+    right: 6px;
+
+    background-color: $col-primary;
+    border-radius: 50%;
+
+    &::after {
+        content: '';
+        width: 8px;
+        height: 8px;
+        position: absolute;
+
+        background-color: $col-primary;
+        border-radius: 50%;
+        scale: 1;
+        opacity: 1;
+
+        animation: pulse infinite 1s 1s;
+    }
+}
+
+@keyframes pulse {
+    0% {
+        scale: 1;
+        opacity: 1;
+    }
+
+    100% {
+        scale: 3;
+        opacity: 0;
+    }
+}
