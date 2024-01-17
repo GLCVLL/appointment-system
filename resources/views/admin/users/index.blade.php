@@ -24,6 +24,7 @@
                         <tr>
                             <th scope="col">Name</th>
                             <th scope="col">Email</th>
+                            <th scope="col">Phone Number</th>
                             <th scope="col">Role</th>
                             <th scope="col"></th>
                         </tr>
@@ -33,6 +34,7 @@
                             <tr>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
+                                <td>{{ $user->phone_number ?? '-' }}</td>
                                 <td>{{ ucfirst($user->role) }}</td>
                                 <td>
                                     {{-- Actions --}}
