@@ -39,9 +39,11 @@
                             <tr>
                                 <td>{{ $appointment->user->name }}</td>
                                 <td>
-                                    @foreach ($appointment->services as $service)
+                                    @forelse ($appointment->services as $service)
                                         {{ $service->name }} <br>
-                                    @endforeach
+                                    @empty
+                                        -
+                                    @endforelse
                                 </td>
                                 <td>{{ $appointment->getDate('date', 'd/m/Y') }}</td>
                                 <td>{{ $appointment->getDate('start_time', 'H:i') }}</td>
