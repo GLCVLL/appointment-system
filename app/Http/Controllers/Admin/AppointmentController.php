@@ -411,4 +411,52 @@ class AppointmentController extends Controller
                 ]);
         }
     }
+
+    /**
+     * Trashed Appointments list
+     */
+    public function trash()
+    {
+        $appointments = Appointment::onlyTrashed()->paginate(10);
+
+        return view('admin.appointments.trash', compact('appointments'));
+    }
+
+    /**
+     * Delete permanently the given Appointment
+     */
+    public function drop(string $id)
+    {
+        $appointments = Appointment::onlyTrashed()->findOrFail($id);
+
+        $appointments->forceDelete();
+
+        return to_route('admin.appointments.trash')
+            ->with('messages', [
+                [
+                    'sender' => 'System',
+                    'content' => 'Appointment deleted.',
+                    'timestamp' => now()
+                ]
+            ]);
+    }
+
+    /**
+     * Delete permanently given Appointments
+     */
+    public function dropAll()
+    {
+        $total = Appointment::onlyTrashed()->paginate(10);
+
+        Appointment::onlyTrashed()->forceDelete();
+
+        return to_route('admin.appointments.trash')
+            ->with('messages', [
+                [
+                    'sender' => 'System',
+                    'content' => "$total Appointments deleted.",
+                    'timestamp' => now()
+                ]
+            ]);
+    }
 }

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', ' - Appointments')
+@section('title', ' - Appointments Trashed')
 
 @section('content')
     <section class="p-4">
@@ -11,15 +11,12 @@
             <header class="d-flex justify-content-between align-items-center mb-4">
 
                 {{-- Title --}}
-                <h2 class="mb-0">Appointments</h2>
+                <h2 class="mb-0">Appointments Trashed</h2>
 
-                {{-- Add Appointments --}}
-                <div class="d-flex align-items-center gap-2">
-                    <a href="{{ route('admin.appointments.create') }}" class="btn btn-success btn-circle">
-                        <i class="fas fa-plus fa-lg"></i>
-                    </a>
-                    <small><a href="{{ route('admin.appointments.trash') }}" class="btn btn-outline-light">Trash</a></small>
-                </div>
+                {{-- Back --}}
+                <a href="{{ route('admin.appointments.index') }}" class="btn btn-outline-light">
+                    <i class="fa-solid fa-chevron-left fa-xl"></i>
+                </a>
             </header>
 
             {{-- List --}}
@@ -57,15 +54,9 @@
                                 <td>
                                     <div class="d-flex justify-content-end gap-2">
 
-                                        {{-- Edit --}}
-                                        <a href="{{ route('admin.appointments.edit', $appointment) }}"
-                                            class="btn btn-warning">
-                                            <i class="fas fa-pencil"></i>
-                                        </a>
-
                                         {{-- Delete --}}
-                                        <form action="{{ route('admin.appointments.destroy', $appointment) }}"
-                                            method="POST" class="delete-form"
+                                        <form action="{{ route('admin.appointments.drop', $appointment) }}" method="POST"
+                                            class="delete-form"
                                             data-modal-name="appointment of {{ $appointment->getDate('start_time', 'H:i') }}">
                                             @csrf
                                             @method('DELETE')
@@ -79,11 +70,22 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="7" class="text-center p-3">No Appointments Found</td>
+                                <td colspan="7" class="text-center p-3">No Appointments trashed Found</td>
                             </tr>
                         @endforelse
                     </tbody>
                 </table>
+                <div class="d-flex justify-content-end align-items-center">
+                    {{-- Delete All --}}
+                    <form action="{{ route('admin.appointments.dropAll') }}" method="POST" class="delete-form"
+                        data-modal-name='all appointments'>
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-danger">
+                            Empty Trash
+                        </button>
+                    </form>
+                </div>
                 {{-- PAGINATION --}}
                 @if ($appointments->hasPages())
                     {{ $appointments->links() }}
