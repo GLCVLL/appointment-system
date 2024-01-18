@@ -13,10 +13,13 @@
                 {{-- Title --}}
                 <h2 class="mb-0">Appointments</h2>
 
-                {{-- Add Category --}}
-                <a href="{{ route('admin.appointments.create') }}" class="btn btn-success btn-circle">
-                    <i class="fas fa-plus fa-lg"></i>
-                </a>
+                {{-- Add Appointments --}}
+                <div class="d-flex align-items-center gap-2">
+                    <a href="{{ route('admin.appointments.create') }}" class="btn btn-success btn-circle">
+                        <i class="fas fa-plus fa-lg"></i>
+                    </a>
+                    <small><a href="{{ route('admin.appointments.trash') }}" class="btn btn-outline-light">Trash</a></small>
+                </div>
             </header>
 
             {{-- List --}}
@@ -76,7 +79,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="2" class="text-center p-3">No Appointments Found</td>
+                                <td colspan="7" class="text-center p-3">No Appointments Found</td>
                             </tr>
                         @endforelse
                     </tbody>
