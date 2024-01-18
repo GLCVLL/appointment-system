@@ -393,22 +393,54 @@ class AppointmentController extends Controller
             ]);
     }
 
+
+    /**
+     * Calendar view.
+     */
+    public function calendar()
+    {
+        $appointments = Appointment::with(['user', 'services'])
+            ->orderBy('date')
+            ->orderBy('start_time')
+            ->get();
+
+        // Create events
+        $events = [];
+
+        foreach ($appointments as $appointment) {
+
+            $title = "{$appointment->user->name}";
+
+            foreach ($appointment->services as $service) {
+                $title .= " - {$service->name}";
+            }
+
+            $events[] = [
+                'title' => $title,
+                'start' => "{$appointment->date}T{$appointment->start_time}",
+                'end' => "{$appointment->date}T{$appointment->end_time}",
+            ];
+        }
+
+        return view('admin.appointments.calendar', compact('appointments', 'events'));
+    }
+
+
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Appointment $appointment)
-    { {
-            // Delete Appointment
-            $appointment->delete();
+    {
+        // Delete Appointment
+        $appointment->delete();
 
-            return to_route('admin.appointments.index')
-                ->with('messages', [
-                    [
-                        'sender' => 'System',
-                        'content' => 'Appointment deleted.',
-                        'timestamp' => now()
-                    ]
-                ]);
-        }
+        return to_route('admin.appointments.index')
+            ->with('messages', [
+                [
+                    'sender' => 'System',
+                    'content' => 'Appointment deleted.',
+                    'timestamp' => now()
+                ]
+            ]);
     }
 }
