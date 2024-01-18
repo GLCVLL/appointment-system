@@ -8,15 +8,10 @@
         <div class="container-fluid">
 
             {{-- Header --}}
-            <header class="d-flex justify-content-between align-items-center mb-4">
+            <header class="mb-4">
 
                 {{-- Title --}}
                 <h2 class="mb-0">Calendar</h2>
-
-                {{-- Add Category --}}
-                <a href="{{ route('admin.appointments.create') }}" class="btn btn-success btn-circle">
-                    <i class="fas fa-plus fa-lg"></i>
-                </a>
             </header>
 
             {{-- Calendar --}}
