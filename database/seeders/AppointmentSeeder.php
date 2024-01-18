@@ -25,7 +25,7 @@ class AppointmentSeeder extends Seeder
             $openingHour = null;
             $date = null;
             while (!$openingHour) {
-                $date = Carbon::parse($faker->dateTimeBetween('+1 days', '+7 days'));
+                $date = Carbon::parse($faker->dateTimeBetween('+1 days', '+14 days'));
                 $day_of_week = $date->englishDayOfWeek;
                 $openingHour = OpeningHour::where('day', $day_of_week)->first();
             }
@@ -34,8 +34,8 @@ class AppointmentSeeder extends Seeder
             $appointment = new Appointment();
             $appointment->user_id = 1;
             $appointment->date = $date;
-            $appointment->start_time =  Carbon::parse($openingHour->opening_time)->addHour(rand(0, 4));
-            $appointment->end_time = Carbon::parse($appointment->start_time)->addHour();
+            $appointment->start_time =  Carbon::parse($openingHour->opening_time)->addHour(rand(0, 8));
+            $appointment->end_time = Carbon::parse($appointment->start_time)->addMinutes(Arr::random([30, 60]));
             $appointment->save();
 
             // Add at least 1 service
