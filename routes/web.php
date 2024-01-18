@@ -39,7 +39,10 @@ Route::prefix('/admin')->name('admin')->middleware(['auth', 'verified', 'checkro
     Route::resource('services', ServiceController::class); // CRUD
 
     // Appointment Routes
-    Route::resource('appointments', AppointmentController::class); // CRUD
+    // Calendar View
+    Route::get('appointments/calendar', [AppointmentController::class, 'calendar'])->name('appointments.calendar');
+    // CRUD
+    Route::resource('appointments', AppointmentController::class);
 
     // Opening Hours Routes
     Route::resource('opening-hours', OpeningHourController::class); // CRUD
