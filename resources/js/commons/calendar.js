@@ -14,10 +14,19 @@ if (calendarEl && calendarEl.dataset.events) {
 
         // Calendar config
         let calendar = new Calendar(calendarEl, {
+            height: 400,
             headerToolbar: {
                 left: "prev,today,next",
                 center: 'title',
                 right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+            },
+            views: {
+                timeGridWeek: {
+                    dayHeaderFormat: {
+                        weekday: 'short',
+                        day: '2-digit'
+                    }
+                },
             },
             slotLabelFormat: {
                 hour: '2-digit',

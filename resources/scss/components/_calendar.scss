@@ -26,9 +26,14 @@
         background-color: $col-dark-500;
         border-color: $col-primary;
 
-        &:hover {
+        &:hover,
+        &.fc-button-active {
             color: $col-light;
             background-color: $col-primary;
+        }
+
+        &:focus {
+            box-shadow: none;
         }
     }
 
@@ -46,6 +51,19 @@
 
     .fc-list-event:hover td {
         background-color: $col-dark-300;
+    }
+
+    // Hide scrollbars
+    .fc-scroller::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .fc-scroller {
+        -ms-overflow-style: none;
+        /* IE and Edge */
+        scrollbar-width: none;
+        /* Firefox */
     }
 }
 
