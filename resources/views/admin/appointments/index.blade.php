@@ -81,6 +81,10 @@
                         @endforelse
                     </tbody>
                 </table>
+                {{-- PAGINATION --}}
+                @if ($appointments->hasPages())
+                    {{ $appointments->links() }}
+                @endif
             </div>
         </div>
     </section>

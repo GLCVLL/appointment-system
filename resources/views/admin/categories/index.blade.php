@@ -62,6 +62,10 @@
                         @endforelse
                     </tbody>
                 </table>
+                {{-- PAGINATION --}}
+                @if ($categories->hasPages())
+                    {{ $categories->links() }}
+                @endif
             </div>
 
         </div>
