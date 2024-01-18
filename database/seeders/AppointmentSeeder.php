@@ -19,7 +19,7 @@ class AppointmentSeeder extends Seeder
     {
         $services = Service::pluck('id')->toArray();
 
-        for ($i = 0; $i <= 10; $i++) {
+        for ($i = 0; $i <= 50; $i++) {
 
             // Get random date
             $openingHour = null;

@@ -60,6 +60,10 @@
                         @endforelse
                     </tbody>
                 </table>
+                {{-- PAGINATION --}}
+                @if ($services->hasPages())
+                    {{ $services->links() }}
+                @endif
             </div>
 
         </div>
