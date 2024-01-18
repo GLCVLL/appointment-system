@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
+use App\Models\Service;
 use Illuminate\Http\Request;
 
 class CalendarController extends Controller
@@ -11,8 +12,15 @@ class CalendarController extends Controller
     /**
      * Calendar view.
      */
-    public function index()
+    public function index(Request $request)
     {
+        // Get filters
+        $filter_services = $request->filter_services ?? [];
+
+        // Get all services
+        $services = Service::all();
+
+        // Get all appointments
         $appointments = Appointment::with(['user', 'services'])
             ->orderBy('date')
             ->orderBy('start_time')
@@ -36,6 +44,6 @@ class CalendarController extends Controller
             ];
         }
 
-        return view('admin.calendar.index', compact('appointments', 'events'));
+        return view('admin.calendar.index', compact('events', 'services', 'filter_services'));
     }
 }
