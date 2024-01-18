@@ -1,0 +1,34 @@
+/* -----------------------------------------
+* APP PAGINATION
+-------------------------------------------*/
+@use '../vars' as *;
+
+.pagination {
+    .page-item{
+        
+        &.active .page-link{
+            background-color: $col-primary;
+            color: $col-light;
+        }
+
+        &.disabled .page-link{
+            color: $col-gray-600;
+        }
+    }
+    .page-link {
+        background-color: $col-dark-500;
+        border-color: $col-gray-800;
+        color: $col-primary;
+
+        &:hover {
+            background-color: $col-gray-800;
+        }
+
+        &:focus{
+            outline: none;
+            box-shadow: none;
+        }
+
+
+    }
+}
