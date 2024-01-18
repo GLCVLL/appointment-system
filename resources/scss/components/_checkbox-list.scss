@@ -1,0 +1,40 @@
+/* -----------------------------------------
+* CHECKBOX LIST
+-------------------------------------------*/
+@use '../vars' as *;
+
+.checkbox-list {
+
+    &:has(:checked) .dropdown-toggle {
+        color: $col-light;
+        border-color: $col-success;
+    }
+
+    .dropdown-menu {
+        padding: 0.5rem;
+        min-width: 200px;
+
+        li {
+            padding: 0.25rem;
+
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+
+            &:hover {
+                background-color: $col-dark-500;
+            }
+
+            label,
+            input {
+                margin: 0;
+                padding: 0;
+                cursor: pointer;
+            }
+
+            label {
+                flex-grow: 1;
+            }
+        }
+    }
+}
