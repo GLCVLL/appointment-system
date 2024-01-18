@@ -3,10 +3,9 @@
 
         {{-- Logo --}}
         <a href="{{ route('admin.home') }}" class="app-sidebar-logo">
-            <h2 class="fw-bold mb-0">
-                <span class="d-md-none">L</span>
-                <span class="d-none d-md-inline">Logo</span>
-            </h2>
+            <img src="{{ asset('img/logoSmartphone.webp') }}" alt="logo-smartPhone" class="d-md-none img-fluid">
+            <img src="{{ asset('img/logoDesktop.webp') }}" alt="logo-desktop" class="d-none d-md-inline img-fluid">
+
         </a>
 
         {{-- Menu --}}
