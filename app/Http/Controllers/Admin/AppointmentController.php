@@ -20,12 +20,21 @@ class AppointmentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $appointments = Appointment::with(['user'])
-            ->orderBy('date')
-            ->orderBy('start_time')
-            ->paginate(10);
+        $query = Appointment::with(['user']);
+
+        if ($request->has('from_date') && $request->from_date) {
+            $query->where('date', '>=', $request->from_date);
+        }
+
+        if ($request->has('to_date') && $request->to_date) {
+            $query->where('date', '<=', $request->to_date);
+        }
+
+        $appointments = $query->orderBy('date')->orderBy('start_time')->paginate(10);
+
+        $appointments->appends(['from_date' => $request->from_date, 'to_date' => $request->to_date]);
 
         return view('admin.appointments.index', compact('appointments'));
     }

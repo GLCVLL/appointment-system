@@ -22,6 +22,28 @@
                 </div>
             </header>
 
+            <div class="my-3">
+                {{-- Date Filter Form --}}
+                <form action="{{ route('admin.appointments.index') }}" method="GET">
+                    <div class="row">
+                        <div class="col-12 col-lg-3 col-sm-4 mb-2">
+                            <input type="date" name="from_date" class="form-control" value="{{ request('from_date') }}">
+                        </div>
+                        <div class="col-12 col-lg-3 col-sm-4 mb-2">
+                            <input type="date" name="to_date" class="form-control" value="{{ request('to_date') }}">
+                        </div>
+                        <div class="col-12 col-sm-4 col-lg-3">
+                            <button type="submit" class="btn btn-success me-1">
+                                <i class="fas fa-rotate"></i>
+                            </button>
+                            <a href="{{ route('admin.appointments.index') }}" class="btn btn-danger">
+                                <i class="fas fa-close"></i>
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
             {{-- List --}}
             <div class="table-responsive card p-3">
                 <table class="table table-hover align-middle">
