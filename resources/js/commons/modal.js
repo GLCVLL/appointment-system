@@ -1,7 +1,7 @@
 // Get modal
-const modalElem = document.querySelector('.app-modal');
+const modalElems = document.querySelectorAll('.app-modal');
 
-if (modalElem) {
+modalElems.forEach(modalElem => {
     // Get modal elements
     const modalContentElem = modalElem.querySelector('.app-modal-content');
     const modalCloseElems = modalElem.querySelectorAll('[data-close]');
@@ -17,4 +17,4 @@ if (modalElem) {
             modalElem.classList.remove('is-open');
         });
     });
-}
+});
