@@ -30,10 +30,10 @@
                         @foreach ($services as $service)
                             <li>
                                 <input class="form-check-input" type="checkbox"
-                                    @if (in_array($service->id, $filter_services)) checked @endif id="service-{{ $service->id }}"
+                                    @if (in_array($service->id, $filter_services)) checked @endif id="filter_service-{{ $service->id }}"
                                     value="{{ $service->id }}" name="filter_services[]">
                                 <label class="form-check-label"
-                                    for="service-{{ $service->id }}">{{ $service->name }}</label>
+                                    for="filter_service-{{ $service->id }}">{{ $service->name }}</label>
                             </li>
                         @endforeach
                     </ul>
@@ -53,6 +53,10 @@
 
         </div>
     </section>
+
+    {{-- Modals --}}
+    @include('includes.calendar.create_modal')
+
 @endsection
 
 @section('scripts')
