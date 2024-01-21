@@ -1,4 +1,4 @@
-<div id="create-modal" class="app-modal modal-full">
+<div id="create-modal" class="app-modal modal-full @if (session('modal-error')) has-error @endif">
     <div class="app-modal-content">
         <div class="app-modal-title">
             Create Appointment

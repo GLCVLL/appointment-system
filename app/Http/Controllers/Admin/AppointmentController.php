@@ -179,14 +179,16 @@ class AppointmentController extends Controller
 
         // Return if error occurred
         if ($errorMessage) {
-            return back()->withInput($request->input())->with('messages', [
-                [
-                    'sender' => 'System',
-                    'color' => 'danger',
-                    'content' => $errorMessage,
-                    'timestamp' => now()
-                ]
-            ]);
+            return back()->withInput($request->input())
+                ->with('messages', [
+                    [
+                        'sender' => 'System',
+                        'color' => 'danger',
+                        'content' => $errorMessage,
+                        'timestamp' => now()
+                    ]
+                ])
+                ->with('modal-error', true);
         }
 
 
@@ -198,7 +200,8 @@ class AppointmentController extends Controller
         if (Arr::exists($data, 'services')) $appointment->services()->attach($data['services']);
 
 
-        return to_route('admin.appointments.index')
+        // return to_route('admin.appointments.index')
+        return back()
             ->with('messages', [
                 [
                     'sender' => 'System',

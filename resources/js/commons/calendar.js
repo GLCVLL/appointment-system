@@ -275,6 +275,7 @@ const dateInput = document.getElementById('date');
 const startTimeInput = document.getElementById('start_time');
 const endTimeInput = document.getElementById('end_time');
 const notesInput = document.getElementById('notes');
+const modalHasError = document.querySelector('.app-modal.has-error');
 
 // Vars
 let appointments, businessHours, holidays;
@@ -295,4 +296,10 @@ if (calendarEl) {
     // Add Events
     document.addEventListener('DOMContentLoaded', initCalendar);
     dateInput.addEventListener('change', setBusinessHoursOptions);
+
+
+    // Show modal if there's errors
+    if (modalElem && (modalElem.querySelectorAll('.error-message').length || modalHasError)) {
+        modalElem.classList.add('is-open');
+    }
 }
