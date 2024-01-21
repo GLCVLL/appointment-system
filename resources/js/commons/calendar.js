@@ -70,6 +70,8 @@ const createAppointment = info => {
 
     if (modalElem) {
 
+        resetForm();
+
         // Data
         const date = info.date;
         const interval = 30; // In minutes
@@ -250,11 +252,24 @@ const formatHolidaysEvents = (data) => {
     return holidays;
 }
 
+/**
+ * Reset all modal inputs
+ */
+const resetForm = () => {
+    userInput.selectedIndex = 0;
+    servicesInputs.forEach(serviceInput => { serviceInput.checked = false })
+    dateInput.value = '';
+    startTimeInput.selectedIndex = 0;
+    endTimeInput.selectedIndex = 0;
+}
+
 
 /*** DATA ***/
 // Get DOM Elems
 const calendarEl = document.getElementById('calendar');
 const modalElem = document.getElementById('create-modal');
+const userInput = document.getElementById('user_id');
+const servicesInputs = document.querySelectorAll('[id^="service-"]');
 const dateInput = document.getElementById('date');
 const startTimeInput = document.getElementById('start_time');
 const endTimeInput = document.getElementById('end_time');
