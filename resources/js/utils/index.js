@@ -1,5 +1,5 @@
 /**
- * Utility for getting a formatted date string from a date
+ * Get a formatted date string from a date
  * 
  * [ Available formats: m,d,Y,H,i,s ]
  * 
@@ -20,6 +20,16 @@ const formatDate = (date = new Date(), format = 'Y-m-d') => {
 
     return format.replace(/m|d|Y|H|i|s/gi, matched => map[matched].toString().padStart(2, '0'));
 }
+
+
+/**
+ * 
+ * @param {Date} date - date objec to modify
+ * @param {number} interval - a number representing minutes difference (can be negative)
+ * @return {Date} - modified date object
+ */
+const addMinutes = (date, interval) => new Date(date.getTime() + interval * 60000);
+
 
 
 /**
@@ -80,4 +90,4 @@ const getTimePeriod = (start, end, interval = 30, pauseStart = null, pauseEnd = 
 }
 
 
-export { formatDate, getTimePeriod };
+export { formatDate, addMinutes, getTimePeriod };

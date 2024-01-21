@@ -1,5 +1,5 @@
 import { Calendar } from 'fullcalendar';
-import { formatDate, getTimePeriod } from '~resources/js/utils/';
+import { formatDate, addMinutes, getTimePeriod } from '~resources/js/utils/';
 
 
 /*** FUNCTIONS ***/
@@ -77,7 +77,7 @@ const createAppointment = info => {
         // Get selected date values
         const dateStr = formatDate(date, 'Y-m-d');
         const startTimeStr = formatDate(date, 'H:i');
-        const endTimeStr = formatDate(new Date(date.getTime() + interval * 60000), 'H:i');
+        const endTimeStr = formatDate(addMinutes(date, interval), 'H:i');
 
         // Set form date input
         dateInput.value = dateStr;
