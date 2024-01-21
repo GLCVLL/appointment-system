@@ -26,7 +26,8 @@
                                 name="user_id">
                                 <option value="">-- Choose a Client --</option>
                                 @foreach ($users as $user)
-                                    <option value="{{ $user->id }}">
+                                    <option @if (old('user_id') == $user->id) selected @endif
+                                        value="{{ $user->id }}">
                                         {{ $user->name }}</option>
                                 @endforeach
                             </select>
@@ -46,7 +47,8 @@
                                 @foreach ($services as $service)
                                     <div>
                                         <input class="form-check-input" type="checkbox" id="service-{{ $service->id }}"
-                                            value="{{ $service->id }}" name="services[]">
+                                            @if (in_array($service->id, old('services', $selectedServices ?? []))) checked @endif value="{{ $service->id }}"
+                                            name="services[]">
                                         <label class="form-check-label"
                                             for="service-{{ $service->id }}">{{ $service->name }}</label>
                                     </div>
@@ -64,7 +66,7 @@
                         <div class="col-12 mb-4">
                             <label for="date" class="form-label fs-5">Appointment Date</label>
                             <input type="date" class="form-control @error('date') is-invalid @enderror"
-                                id="date" name="date" required>
+                                id="date" name="date" value="{{ old('date') }}" required>
 
                             @error('date')
                                 <span class="invalid-feedback error-message" role="alert">{{ $message }}</span>
@@ -83,7 +85,8 @@
                                 <option value="">----</option>
 
                                 @foreach ($time_array as $time)
-                                    <option value="{{ $time['value'] }}">
+                                    <option @if (old('start_time') == $time['value']) selected @endif
+                                        value="{{ $time['value'] }}">
                                         {{ $time['text'] }}</option>
                                 @endforeach
                             </select>
@@ -103,7 +106,8 @@
                                 <option value="">----</option>
 
                                 @foreach ($time_array as $time)
-                                    <option value="{{ $time['value'] }}">
+                                    <option @if (old('end_time') == $time['value']) selected @endif
+                                        value="{{ $time['value'] }}">
                                         {{ $time['text'] }}</option>
                                 @endforeach
                             </select>
@@ -120,7 +124,7 @@
                         <div class="col-12 mb-4">
                             <label for="notes" class="form-label fs-5">Notes</label>
                             <textarea class="form-control @error('notes') is-invalid @enderror" id="notes" name="notes"
-                                placeholder="Enter additional notes"></textarea>
+                                placeholder="Enter additional notes">{{ old('notes') }}</textarea>
 
                             @error('notes')
                                 <span class="invalid-feedback error-message" role="alert">{{ $message }}</span>
