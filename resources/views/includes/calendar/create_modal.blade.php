@@ -132,7 +132,7 @@
                         {{-- Submit --}}
                         <div class="col-12">
                             <button type="button" class="btn btn-secondary me-2" data-close>Cancel</button>
-                            <button class="btn btn-primary app-modal-submit" data-close>Confirm</button>
+                            <button class="btn btn-primary app-modal-submit">Confirm</button>
                         </div>
 
                     </div>

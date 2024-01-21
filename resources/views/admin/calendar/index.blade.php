@@ -61,5 +61,5 @@
 @endsection
 
 @section('scripts')
-    @vite(['resources/js/commons/calendar.js'])
+    @vite(['resources/js/commons/calendar.js', 'resources/js/validations/appointment-form.js'])
 @endsection
