@@ -49,7 +49,8 @@
             </form>
 
             {{-- Calendar --}}
-            <div id="calendar" data-events='@json($events)'></div>
+            <div id="calendar" data-events='@json($events)' data-opening-hours='@json($openingHours)'
+                data-holidays='@json($closedDays)'></div>
 
         </div>
     </section>
