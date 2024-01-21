@@ -261,6 +261,7 @@ const resetForm = () => {
     dateInput.value = '';
     startTimeInput.selectedIndex = 0;
     endTimeInput.selectedIndex = 0;
+    notesInput.value = '';
 }
 
 
@@ -273,6 +274,7 @@ const servicesInputs = document.querySelectorAll('[id^="service-"]');
 const dateInput = document.getElementById('date');
 const startTimeInput = document.getElementById('start_time');
 const endTimeInput = document.getElementById('end_time');
+const notesInput = document.getElementById('notes');
 
 // Vars
 let appointments, businessHours, holidays;
