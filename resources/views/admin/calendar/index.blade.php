@@ -56,7 +56,7 @@
     </section>
 
     {{-- Modals --}}
-    @include('includes.calendar.create_modal')
+    @include('includes.calendar.modal_form')
 
 @endsection
 

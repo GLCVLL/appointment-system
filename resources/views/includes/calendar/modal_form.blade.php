@@ -1,7 +1,7 @@
 <div id="create-modal" class="app-modal modal-full @if (session('modal-error')) has-error @endif">
     <div class="app-modal-content">
         <div class="app-modal-title">
-            Create Appointment
+            <span></span>
             <button class="btn app-modal-close" data-close>
                 <i class="fas fa-close fa-2xl"></i>
             </button>
@@ -14,6 +14,9 @@
                 <form id="validation-form" class="card p-3" method="POST"
                     action="{{ route('admin.appointments.store') }}" enctype="multipart/form-data" novalidate>
                     @csrf
+
+                    {{-- Edit method input (disconnected) --}}
+                    <input id="method" type="hidden" name="" value="PUT">
 
                     <div class="row">
 

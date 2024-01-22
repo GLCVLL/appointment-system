@@ -1,5 +1,5 @@
 import { Calendar } from 'fullcalendar';
-import { formatDate, addMinutes, getTimePeriod } from '~resources/js/utils/';
+import { formatDate, getTimePeriod } from '~resources/js/utils/';
 
 
 /*** FUNCTIONS ***/
@@ -74,12 +74,10 @@ const createAppointment = info => {
 
         // Data
         const date = info.date;
-        const interval = 30; // In minutes
 
         // Get selected date values
         const dateStr = formatDate(date, 'Y-m-d');
         const startTimeStr = formatDate(date, 'H:i');
-        const endTimeStr = formatDate(addMinutes(date, interval), 'H:i');
 
         // Set form date input
         dateInput.value = dateStr;
@@ -87,9 +85,16 @@ const createAppointment = info => {
         // Set form business hours selects options and values
         setBusinessHoursOptions();
         startTimeInput.value = startTimeStr;
-        endTimeInput.value = endTimeStr;
+        endTimeInput.selectedIndex = startTimeInput.selectedIndex + 1 === endTimeInput.options.length ?
+            startTimeInput.selectedIndex :
+            startTimeInput.selectedIndex + 1;
+
+        // Set form action
+        formElem.action = baseFormAction;
+        methodInput.name = '';
 
         // Show modal
+        modalElem.querySelector('.app-modal-title span').innerText = 'Create Appointment';
         modalElem.classList.add('is-open');
     }
 }
@@ -98,14 +103,38 @@ const createAppointment = info => {
 // Edit appointment
 const editAppointment = info => {
 
-    let eventObj = info.event;
-
     // Check Holidays
-    if (eventObj._def.extendedProps.holiday) {
-        return false;
-    }
+    if (info.event._def.extendedProps.holiday) return false;
 
-    console.log(eventObj._def.extendedProps.services);
+    if (modalElem) {
+
+        // Data
+        const currentAppointment = info.event._def.extendedProps.data;
+        const servicesIds = currentAppointment.services.map(({ id }) => id);
+
+
+        // Set main inputs
+        userInput.value = currentAppointment.user_id;
+        dateInput.value = currentAppointment.date;
+        notesInput.value = currentAppointment.notes;
+        servicesInputs.forEach(serviceInput => {
+            serviceInput.checked = servicesIds.includes(parseInt(serviceInput.value))
+        });
+
+
+        // Set form business hours selects options and other inputs
+        setBusinessHoursOptions(currentAppointment);
+        startTimeInput.value = formatDate(new Date(info.event.start), 'H:i');
+        endTimeInput.value = formatDate(new Date(info.event.end), 'H:i');
+
+        // Set form action
+        formElem.action = `${baseFormAction}/${currentAppointment.id}`;
+        methodInput.name = '_method';
+
+        // Show modal
+        modalElem.querySelector('.app-modal-title span').innerText = 'Edit Appointment';
+        modalElem.classList.add('is-open');
+    }
 }
 
 
@@ -114,7 +143,7 @@ const editAppointment = info => {
  * 
  * @returns {void}
  */
-const setBusinessHoursOptions = () => {
+const setBusinessHoursOptions = (currentAppointment = null) => {
 
     // Reset time selects
     startTimeInput.innerHTML = '<option value="" > -- -- </option>';
@@ -156,15 +185,42 @@ const setBusinessHoursOptions = () => {
     }
 
 
-    // Create time array
+    // Create base time array
     const { endTime, breakStart, breakEnd } = selectedBusinessHours;
     const timeArray = getTimePeriod(startTime, endTime, interval, breakStart, breakEnd);
-    const options = setTimeOptions(timeArray);
+
+
+    // Remove taken slots
+    const selectedDateAppointments = appointments.filter(({ data }) => data.date === dateInput.value);
+    let startTimeArray = [...timeArray];
+    let endTimeArray = [...timeArray];
+    selectedDateAppointments.forEach(({ data }) => {
+
+        if (!currentAppointment || data.id !== currentAppointment.id) {
+
+            // Include end time
+            startTimeArray = startTimeArray.filter(({ value }) => {
+                const selectedTimeFormatted = value + ':00';
+                return selectedTimeFormatted < data.start_time || selectedTimeFormatted >= data.end_time;
+            });
+
+            // Include start time
+            endTimeArray = endTimeArray.filter(({ value }) => {
+                const selectedTimeFormatted = value + ':00';
+                return selectedTimeFormatted <= data.start_time || selectedTimeFormatted > data.end_time;
+            });
+        }
+
+    });
+
+    // Create options
+    const startOptions = setTimeOptions(startTimeArray);
+    const endOptions = setTimeOptions(endTimeArray);
 
 
     // Populate selects
-    startTimeInput.innerHTML += options;
-    endTimeInput.innerHTML += options;
+    startTimeInput.innerHTML += startOptions;
+    endTimeInput.innerHTML += endOptions;
 }
 
 
@@ -257,7 +313,7 @@ const formatHolidaysEvents = (data) => {
  */
 const resetForm = () => {
     userInput.selectedIndex = 0;
-    servicesInputs.forEach(serviceInput => { serviceInput.checked = false })
+    servicesInputs.forEach(serviceInput => { serviceInput.checked = false });
     dateInput.value = '';
     startTimeInput.selectedIndex = 0;
     endTimeInput.selectedIndex = 0;
@@ -269,15 +325,20 @@ const resetForm = () => {
 // Get DOM Elems
 const calendarEl = document.getElementById('calendar');
 const modalElem = document.getElementById('create-modal');
+const modalHasError = document.querySelector('.app-modal.has-error');
+
+const formElem = document.getElementById('validation-form');
+const methodInput = document.getElementById('method');
 const userInput = document.getElementById('user_id');
 const servicesInputs = document.querySelectorAll('[id^="service-"]');
 const dateInput = document.getElementById('date');
 const startTimeInput = document.getElementById('start_time');
 const endTimeInput = document.getElementById('end_time');
 const notesInput = document.getElementById('notes');
-const modalHasError = document.querySelector('.app-modal.has-error');
+
 
 // Vars
+const baseFormAction = formElem.action;
 let appointments, businessHours, holidays;
 
 

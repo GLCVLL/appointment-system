@@ -200,8 +200,12 @@ class AppointmentController extends Controller
         if (Arr::exists($data, 'services')) $appointment->services()->attach($data['services']);
 
 
-        // return to_route('admin.appointments.index')
-        return back()
+        // Check back loop
+        $is_back_loop = url()->previous() === route('admin.appointments.create');
+        $redirect_header = $is_back_loop ? redirect()->route('admin.appointments.index') : back();
+
+
+        return $redirect_header
             ->with('messages', [
                 [
                     'sender' => 'System',
@@ -377,7 +381,8 @@ class AppointmentController extends Controller
                     'content' => $errorMessage,
                     'timestamp' => now()
                 ]
-            ]);
+            ])
+                ->with('modal-error', true);
         }
 
         $appointment->fill($data);
@@ -385,7 +390,12 @@ class AppointmentController extends Controller
 
         $appointment->services()->sync($data['services']);
 
-        return redirect()->route('admin.appointments.index')
+        // Check back loop
+        $is_back_loop = url()->previous() === route('admin.appointments.edit', $appointment);
+        $redirect_header = $is_back_loop ? redirect()->route('admin.appointments.index') : back();
+
+
+        return $redirect_header
             ->with('messages', [
                 [
                     'sender' => 'System',

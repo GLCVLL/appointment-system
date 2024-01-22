@@ -68,7 +68,7 @@ class CalendarController extends Controller
                 'title' => $title,
                 'start' => "{$appointment->date}T{$appointment->start_time}",
                 'end' => "{$appointment->date}T{$appointment->end_time}",
-                'services' => $appointment->services->pluck('name')->toArray(),
+                'data' => $appointment,
             ];
         }
 
