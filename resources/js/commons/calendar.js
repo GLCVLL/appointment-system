@@ -73,6 +73,7 @@ const createAppointment = info => {
 
         // Data
         const date = info.date;
+        resourceId = '';
 
         // Get selected date values
         const dateStr = formatDate(date, 'Y-m-d');
@@ -90,7 +91,10 @@ const createAppointment = info => {
 
         // Set form action
         formElem.action = baseFormAction;
-        methodInput.name = '';
+        methodInput.value = '';
+
+        // Hide delete btn
+        deleteBtn.classList.add('d-none');
 
         // Show modal
         modalElem.querySelector('.app-modal-title span').innerText = 'Create Appointment';
@@ -110,7 +114,7 @@ const editAppointment = info => {
         // Data
         const currentAppointment = info.event._def.extendedProps.data;
         const servicesIds = currentAppointment.services.map(({ id }) => id);
-
+        resourceId = currentAppointment.id;
 
         // Set main inputs
         userInput.value = currentAppointment.user_id;
@@ -128,7 +132,10 @@ const editAppointment = info => {
 
         // Set form action
         formElem.action = `${baseFormAction}/${currentAppointment.id}`;
-        methodInput.name = '_method';
+        methodInput.value = 'PUT';
+
+        // Show delete btn
+        deleteBtn.classList.remove('d-none');
 
         // Show modal
         modalElem.querySelector('.app-modal-title span').innerText = 'Edit Appointment';
@@ -197,7 +204,7 @@ const setBusinessHoursOptions = (currentAppointmentId = null) => {
     selectedDateAppointments.forEach(({ data }) => {
 
         if (!currentAppointmentId || data.id != currentAppointmentId) {
-            console.log(data.id, currentAppointmentId);
+
             // Include end time
             startTimeArray = startTimeArray.filter(({ value }) => {
                 const selectedTimeFormatted = value + ':00';
@@ -326,6 +333,7 @@ const resetForm = () => {
 const calendarEl = document.getElementById('calendar');
 const modalElem = document.getElementById('modal-form');
 const modalHasError = document.querySelector('.app-modal.has-error');
+const deleteBtn = document.getElementById('delete-btn');
 
 const formElem = document.getElementById('validation-form');
 const methodInput = document.getElementById('method');
@@ -336,10 +344,9 @@ const startTimeInput = document.getElementById('start_time');
 const endTimeInput = document.getElementById('end_time');
 const notesInput = document.getElementById('notes');
 
-
 // Vars
 const baseFormAction = formElem.action;
-const oldResourceId = formElem.dataset.resourceId;
+let resourceId = formElem.dataset.resourceId;
 let appointments, businessHours, holidays;
 
 
@@ -358,6 +365,14 @@ if (calendarEl) {
     // Add Events
     document.addEventListener('DOMContentLoaded', initCalendar);
     dateInput.addEventListener('change', setBusinessHoursOptions);
+    deleteBtn.addEventListener('click', () => {
+
+        // Set form action
+        formElem.action = `${baseFormAction}/${resourceId}`;
+        methodInput.value = 'DELETE';
+
+        formElem.submit();
+    });
 
 
     // Show modal if there are errors
@@ -370,28 +385,33 @@ if (calendarEl) {
         const oldEndTime = endTimeInput.value;
 
         // Create
-        if (!oldResourceId) {
+        if (!resourceId) {
 
             // Set form business hours selects options and values
             setBusinessHoursOptions();
             startTimeInput.value = oldStartTime;
             endTimeInput.value = oldEndTime;
 
+            // Hide delete btn
+            deleteBtn.classList.add('d-none');
         }
         // Edit
         else {
 
             // Set form business hours selects options and other inputs
-            setBusinessHoursOptions(oldResourceId);
+            setBusinessHoursOptions(resourceId);
             startTimeInput.value = oldStartTime;
             endTimeInput.value = oldEndTime;
 
             // Set form action
-            formElem.action = `${baseFormAction}/${oldResourceId}`;
-            methodInput.name = '_method';
+            formElem.action = `${baseFormAction}/${resourceId}`;
+            methodInput.value = 'PUT';
 
             modalTitle = 'Edit Appointment';
         }
+
+        // Show delete btn
+        deleteBtn.classList.remove('d-none');
 
         // Show modal
         modalElem.querySelector('.app-modal-title span').innerText = modalTitle;

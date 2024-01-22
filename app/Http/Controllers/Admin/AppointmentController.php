@@ -415,7 +415,7 @@ class AppointmentController extends Controller
         // Delete Appointment
         $appointment->delete();
 
-        return to_route('admin.appointments.index')
+        return back()
             ->with('messages', [
                 [
                     'sender' => 'System',

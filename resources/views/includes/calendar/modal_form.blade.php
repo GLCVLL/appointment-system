@@ -17,7 +17,7 @@
                     @csrf
 
                     {{-- Edit method input (disconnected) --}}
-                    <input id="method" type="hidden" name="" value="PUT">
+                    <input id="method" type="hidden" name="_method" value="">
 
                     <div class="row">
 
@@ -138,9 +138,16 @@
 
 
                         {{-- Submit --}}
-                        <div class="col-12">
-                            <button type="button" class="btn btn-secondary me-2" data-close>Cancel</button>
-                            <button class="btn btn-primary app-modal-submit">Confirm</button>
+                        <div class="col-12 d-flex justify-content-between">
+                            <div>
+                                <button type="button" class="btn btn-secondary me-2" data-close>Cancel</button>
+                                <button class="btn btn-primary app-modal-submit">Confirm</button>
+                            </div>
+
+                            {{-- Delete --}}
+                            <button type="button" id="delete-btn" class="btn btn-danger" data-close>
+                                <i class="fas fa-trash"></i>
+                            </button>
                         </div>
 
                     </div>
