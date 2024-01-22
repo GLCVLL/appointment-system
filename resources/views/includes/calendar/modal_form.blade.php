@@ -1,4 +1,4 @@
-<div id="create-modal" class="app-modal modal-full @if (session('modal-error')) has-error @endif">
+<div id="modal-form" class="app-modal modal-full @if (session('modal-error')) has-error @endif">
     <div class="app-modal-content">
         <div class="app-modal-title">
             <span></span>
@@ -12,6 +12,7 @@
             <div class="container-full">
 
                 <form id="validation-form" class="card p-3" method="POST"
+                    data-resource-id="{{ session('resource-id') ?? '' }}"
                     action="{{ route('admin.appointments.store') }}" enctype="multipart/form-data" novalidate>
                     @csrf
 

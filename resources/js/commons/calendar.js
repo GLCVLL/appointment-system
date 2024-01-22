@@ -59,7 +59,6 @@ const initCalendar = () => {
 
 // Create appointment
 const createAppointment = info => {
-    // console.log(info);
 
     // Check business hours
     if (info.jsEvent.target.classList.contains('fc-non-business')) return;
@@ -123,7 +122,7 @@ const editAppointment = info => {
 
 
         // Set form business hours selects options and other inputs
-        setBusinessHoursOptions(currentAppointment);
+        setBusinessHoursOptions(currentAppointment.id);
         startTimeInput.value = formatDate(new Date(info.event.start), 'H:i');
         endTimeInput.value = formatDate(new Date(info.event.end), 'H:i');
 
@@ -139,11 +138,12 @@ const editAppointment = info => {
 
 
 /**
- * Set Busines Hours select options
+ * Set Business hours select options
  * 
+ * @param {string} currentAppointmentId - id of current appointment
  * @returns {void}
  */
-const setBusinessHoursOptions = (currentAppointment = null) => {
+const setBusinessHoursOptions = (currentAppointmentId = null) => {
 
     // Reset time selects
     startTimeInput.innerHTML = '<option value="" > -- -- </option>';
@@ -196,8 +196,8 @@ const setBusinessHoursOptions = (currentAppointment = null) => {
     let endTimeArray = [...timeArray];
     selectedDateAppointments.forEach(({ data }) => {
 
-        if (!currentAppointment || data.id !== currentAppointment.id) {
-
+        if (!currentAppointmentId || data.id != currentAppointmentId) {
+            console.log(data.id, currentAppointmentId);
             // Include end time
             startTimeArray = startTimeArray.filter(({ value }) => {
                 const selectedTimeFormatted = value + ':00';
@@ -324,7 +324,7 @@ const resetForm = () => {
 /*** DATA ***/
 // Get DOM Elems
 const calendarEl = document.getElementById('calendar');
-const modalElem = document.getElementById('create-modal');
+const modalElem = document.getElementById('modal-form');
 const modalHasError = document.querySelector('.app-modal.has-error');
 
 const formElem = document.getElementById('validation-form');
@@ -339,6 +339,7 @@ const notesInput = document.getElementById('notes');
 
 // Vars
 const baseFormAction = formElem.action;
+const oldResourceId = formElem.dataset.resourceId;
 let appointments, businessHours, holidays;
 
 
@@ -359,8 +360,41 @@ if (calendarEl) {
     dateInput.addEventListener('change', setBusinessHoursOptions);
 
 
-    // Show modal if there's errors
+    // Show modal if there are errors
     if (modalElem && (modalElem.querySelectorAll('.error-message').length || modalHasError)) {
+
+        let modalTitle = 'Create Appointment';
+
+        // Get old values
+        const oldStartTime = startTimeInput.value;
+        const oldEndTime = endTimeInput.value;
+
+        // Create
+        if (!oldResourceId) {
+
+            // Set form business hours selects options and values
+            setBusinessHoursOptions();
+            startTimeInput.value = oldStartTime;
+            endTimeInput.value = oldEndTime;
+
+        }
+        // Edit
+        else {
+
+            // Set form business hours selects options and other inputs
+            setBusinessHoursOptions(oldResourceId);
+            startTimeInput.value = oldStartTime;
+            endTimeInput.value = oldEndTime;
+
+            // Set form action
+            formElem.action = `${baseFormAction}/${oldResourceId}`;
+            methodInput.name = '_method';
+
+            modalTitle = 'Edit Appointment';
+        }
+
+        // Show modal
+        modalElem.querySelector('.app-modal-title span').innerText = modalTitle;
         modalElem.classList.add('is-open');
     }
 }

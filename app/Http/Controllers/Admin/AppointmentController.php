@@ -382,7 +382,8 @@ class AppointmentController extends Controller
                     'timestamp' => now()
                 ]
             ])
-                ->with('modal-error', true);
+                ->with('modal-error', true)
+                ->with('resource-id', $appointment->id);
         }
 
         $appointment->fill($data);
