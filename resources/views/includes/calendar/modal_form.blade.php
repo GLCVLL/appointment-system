@@ -145,7 +145,7 @@
                             </div>
 
                             {{-- Delete --}}
-                            <button type="button" id="delete-btn" class="btn btn-danger" data-close>
+                            <button type="button" id="delete-btn" class="btn btn-danger">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </div>
