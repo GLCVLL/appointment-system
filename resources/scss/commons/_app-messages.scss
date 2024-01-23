@@ -1,0 +1,55 @@
+/* -----------------------------------------
+* APP MESSAGES
+-------------------------------------------*/
+@use '../vars' as *;
+
+.toast {
+    margin: auto;
+    max-width: 350px;
+    color: $col-light;
+    background-color: $col-dark-500;
+    border: 1px solid $col-gray-800;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    text-align: center;
+    position: fixed;
+    bottom: 1rem;
+    right: 1.2rem;
+    z-index: 3;
+
+    &-header {
+        font-weight: bold;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.5rem;
+        background-color: $col-gray-800;
+      }
+    
+      &-body {
+        overflow-y: auto;
+        max-height: 50vh;
+      }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+    .message {
+      max-width: 100%;
+      padding: 0.5rem;
+    }
+  
+    .message-header {
+      font-size: 0.9rem;
+    }
+  
+    .message-body {
+      font-size: 0.8rem;
+    }
+  }
+  
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .message {
+      max-width: 80%;
+    }
+  }
