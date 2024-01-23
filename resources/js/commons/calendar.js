@@ -60,6 +60,9 @@ const initCalendar = () => {
 // Create appointment
 const createAppointment = info => {
 
+    // Check Holidays
+    if (holidays.some(holyday => formatDate(new Date(holyday.start), 'Y-m-d') === formatDate(new Date(info.date), 'Y-m-d'))) return false;
+
     // Check business hours
     if (info.jsEvent.target.classList.contains('fc-non-business')) return;
 
@@ -84,10 +87,17 @@ const createAppointment = info => {
 
         // Set form business hours selects options and values
         setBusinessHoursOptions();
-        startTimeInput.value = startTimeStr;
-        endTimeInput.selectedIndex = startTimeInput.selectedIndex + 1 === endTimeInput.options.length ?
-            startTimeInput.selectedIndex :
-            startTimeInput.selectedIndex + 1;
+        const startTimeIndex = Array.from(startTimeInput.options).findIndex(options => options.value === startTimeStr);
+
+        if (startTimeIndex < 0) {
+            startTimeInput.selectedIndex = 0;
+            endTimeInput.selectedIndex = 0;
+        } else {
+            startTimeInput.selectedIndex = startTimeIndex;
+            endTimeInput.selectedIndex = endTimeInput.selectedIndex = startTimeInput.selectedIndex + 1 === endTimeInput.options.length ?
+                startTimeInput.selectedIndex :
+                startTimeInput.selectedIndex + 1;
+        };
 
         // Set form action
         formElem.action = baseFormAction;
@@ -328,7 +338,7 @@ const formatHolidaysEvents = (data) => {
 
         holidays.push(...yearHolidays);
     }
-    console.log(holidays);
+
     return holidays;
 }
 
@@ -383,7 +393,7 @@ if (calendarEl) {
     appointments = JSON.parse(calendarEl.dataset.events);
     const businessHoursData = JSON.parse(calendarEl.dataset.openingHours);
     const holidaysData = JSON.parse(calendarEl.dataset.holidays);
-    console.log(holidaysData);
+
 
     // Format data
     businessHours = formatBusinessHours(businessHoursData);
