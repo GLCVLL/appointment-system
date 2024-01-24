@@ -29,7 +29,7 @@
                     <ul class="dropdown-menu text-light" aria-labelledby="filter_services_toggler">
                         @foreach ($services as $service)
                             <li>
-                                <input class="form-check-input" type="checkbox"
+                                <input class="form-check-input" type="checkbox" data-name="{{ $service->name }}"
                                     @if (in_array($service->id, $filter_services)) checked @endif id="filter_service-{{ $service->id }}"
                                     value="{{ $service->id }}" name="filter_services[]">
                                 <label class="form-check-label"

@@ -69,6 +69,11 @@
         scrollbar-width: none;
         /* Firefox */
     }
+
+    // Events highlighted style
+    .fc-event-main-frame.highlighted {
+        background-color: $col-success;
+    }
 }
 
 @media screen and (min-width: 576px) {

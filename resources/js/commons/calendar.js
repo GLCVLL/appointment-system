@@ -40,17 +40,16 @@ const initCalendar = () => {
         allDaySlot: false,
         businessHours,
         eventSources: [{
-            id: 1,
             backgroundColor: '#6571ff88',
             events: appointments
         },
         {
-            id: 2,
             backgroundColor: '#ff336644',
             events: holidays
         }],
         dateClick: createAppointment,
         eventClick: editAppointment,
+        eventDidMount: applyServicesFilter,
     });
 
     calendar.render();
@@ -355,6 +354,35 @@ const resetForm = () => {
 }
 
 
+/**
+ * Apply highlighted class to filtered events
+ */
+const applyServicesFilter = () => {
+
+    // Data
+    const selectedCheckboxes = document.querySelectorAll('[id^="filter_service-"]:checked');
+    const events = document.querySelectorAll('.fc-event-main-frame');
+
+    // Reset
+    for (let i = 0; i < events.length; i++) {
+        const eventElem = events[i];
+        eventElem.classList.remove('highlighted');
+    }
+
+    // Filter for each checked checkboxes
+    for (let i = 0; i < selectedCheckboxes.length; i++) {
+
+        const searchTerm = selectedCheckboxes[i].dataset.name;
+
+        for (let j = 0; j < events.length; j++) {
+            const eventElem = events[j];
+            if (eventElem.textContent.indexOf(searchTerm) >= 0) eventElem.classList.add('highlighted');
+        }
+    }
+
+}
+
+
 /*** DATA ***/
 // Get Calenda Elem
 const calendarEl = document.getElementById('calendar');
@@ -380,6 +408,10 @@ const modalDeletTitleElem = modalDeleteElem.querySelector('.app-modal-title');
 const modalDeletBodyElem = modalDeleteElem.querySelector('.app-modal-body');
 const modalDeletSubmitBtn = modalDeleteElem.querySelector('.app-modal-submit');
 
+// Get services filter
+const servicesCheckboxes = document.querySelectorAll('[id^="filter_service-"]');
+
+
 // Vars
 const baseFormAction = formElem.action;
 let resourceId = formElem.dataset.resourceId;
@@ -404,6 +436,9 @@ if (calendarEl) {
     document.addEventListener('DOMContentLoaded', initCalendar);
     dateInput.addEventListener('change', setBusinessHoursOptions);
     deleteBtn.addEventListener('click', deleteAppointment);
+    servicesCheckboxes.forEach(serviceCheckbox => {
+        serviceCheckbox.addEventListener('change', applyServicesFilter);
+    });
 
 
     // Show modal if there are errors
