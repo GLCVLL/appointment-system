@@ -15,7 +15,7 @@
             </header>
 
             {{-- Filters --}}
-            <form class="d-flex justify-content-end gap-2 py-4">
+            <div class="d-flex justify-content-end gap-2 py-4">
 
 
                 {{-- Services --}}
@@ -30,8 +30,7 @@
                         @foreach ($services as $service)
                             <li>
                                 <input class="form-check-input" type="checkbox" data-name="{{ $service->name }}"
-                                    @if (in_array($service->id, $filter_services)) checked @endif id="filter_service-{{ $service->id }}"
-                                    value="{{ $service->id }}" name="filter_services[]">
+                                    id="filter_service-{{ $service->id }}" value="{{ $service->id }}">
                                 <label class="form-check-label"
                                     for="filter_service-{{ $service->id }}">{{ $service->name }}</label>
                             </li>
@@ -40,13 +39,7 @@
 
                 </div>
 
-                {{-- Actions --}}
-                <div>
-                    <button class="btn btn-success">
-                        <i class="fas fa-rotate"></i>
-                    </button>
-                </div>
-            </form>
+            </div>
 
             {{-- Calendar --}}
             <div id="calendar" data-events='@json($events)' data-opening-hours='@json($openingHours)'

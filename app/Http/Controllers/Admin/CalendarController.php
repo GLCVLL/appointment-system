@@ -17,10 +17,8 @@ class CalendarController extends Controller
     /**
      * Calendar view.
      */
-    public function index(Request $request)
+    public function index()
     {
-        // Get filters
-        $filter_services = $request->filter_services ?? [];
 
         // Get all services and users
         $services = Service::all();
@@ -72,6 +70,6 @@ class CalendarController extends Controller
             ];
         }
 
-        return view('admin.calendar.index', compact('events', 'users', 'services', 'filter_services', 'time_array', 'openingHours', 'closedDays'));
+        return view('admin.calendar.index', compact('events', 'users', 'services', 'time_array', 'openingHours', 'closedDays'));
     }
 }
