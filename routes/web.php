@@ -42,8 +42,18 @@ Route::prefix('/admin')->name('admin')->middleware(['auth', 'verified', 'checkro
     // Calendar Route
     Route::get('calendar', [CalendarController::class, 'index'])->name('calendar.index');
 
+    // Trash Appointments Routes
+    Route::get('appointments/trash', [AppointmentController::class, 'trash'])->name('appointments.trash');
+
+    // Trash Appointments Routes delete all
+    Route::delete('appointments/drop', [AppointmentController::class, 'dropAll'])->name('appointments.dropAll');
+
+
     // Appointment Routes
     Route::resource('appointments', AppointmentController::class); // CRUD
+
+    // Trash Appointments Routes delete
+    Route::delete('appointments/{appointment}/drop', [AppointmentController::class, 'drop'])->name('appointments.drop');
 
     // Opening Hours Routes
     Route::resource('opening-hours', OpeningHourController::class); // CRUD
@@ -53,6 +63,7 @@ Route::prefix('/admin')->name('admin')->middleware(['auth', 'verified', 'checkro
 
     // Users Routes
     Route::resource('users', UserController::class); // CRUD
+
 
 });
 

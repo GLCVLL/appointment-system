@@ -20,12 +20,21 @@ class AppointmentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $appointments = Appointment::with(['user'])
-            ->orderBy('date')
-            ->orderBy('start_time')
-            ->paginate(10);
+        $query = Appointment::with(['user']);
+
+        if ($request->has('from_date') && $request->from_date) {
+            $query->where('date', '>=', $request->from_date);
+        }
+
+        if ($request->has('to_date') && $request->to_date) {
+            $query->where('date', '<=', $request->to_date);
+        }
+
+        $appointments = $query->orderBy('date')->orderBy('start_time')->paginate(10);
+
+        $appointments->appends(['from_date' => $request->from_date, 'to_date' => $request->to_date]);
 
         return view('admin.appointments.index', compact('appointments'));
     }
@@ -420,6 +429,54 @@ class AppointmentController extends Controller
                 [
                     'sender' => 'System',
                     'content' => 'Appointment deleted.',
+                    'timestamp' => now()
+                ]
+            ]);
+    }
+
+    /**
+     * Trashed Appointments list
+     */
+    public function trash()
+    {
+        $appointments = Appointment::onlyTrashed()->paginate(10);
+
+        return view('admin.appointments.trash', compact('appointments'));
+    }
+
+    /**
+     * Delete permanently the given Appointment
+     */
+    public function drop(string $id)
+    {
+        $appointments = Appointment::onlyTrashed()->findOrFail($id);
+
+        $appointments->forceDelete();
+
+        return to_route('admin.appointments.trash')
+            ->with('messages', [
+                [
+                    'sender' => 'System',
+                    'content' => 'Appointment deleted.',
+                    'timestamp' => now()
+                ]
+            ]);
+    }
+
+    /**
+     * Delete permanently given Appointments
+     */
+    public function dropAll()
+    {
+        $total = Appointment::onlyTrashed()->paginate(10);
+
+        Appointment::onlyTrashed()->forceDelete();
+
+        return to_route('admin.appointments.trash')
+            ->with('messages', [
+                [
+                    'sender' => 'System',
+                    'content' => "$total Appointments deleted.",
                     'timestamp' => now()
                 ]
             ]);

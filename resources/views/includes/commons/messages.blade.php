@@ -7,10 +7,9 @@
             <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
 
                 {{-- Header --}}
-                <div
-                    class="toast-header {{ isset($message['color']) ? "text-bg-{$message['color']}" : 'bg-dark' }} text-light">
+                <div class="toast-header text-light">
                     <strong class="me-auto">{{ $message['sender'] }}</strong>
-                    <small>{{ date('Y/m/d h:m:s', strtotime($message['timestamp'])) }}</small>
+                    <small>{{ date('Y/m/d h:i:s', strtotime($message['timestamp'])) }}</small>
                     <button type="button" class="btn btn-sm text-light ms-2" data-bs-dismiss="toast" aria-label="Close">
                         <i class="fas fa-times fa-lg"></i>
                     </button>
