@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AppointmentController;
+use App\Http\Controllers\Admin\CalendarController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ClosedDayController;
 use App\Http\Controllers\Guest\HomeController as GuestHomeController;
@@ -38,11 +39,15 @@ Route::prefix('/admin')->name('admin')->middleware(['auth', 'verified', 'checkro
     // Service Routes
     Route::resource('services', ServiceController::class); // CRUD
 
+    // Calendar Route
+    Route::get('calendar', [CalendarController::class, 'index'])->name('calendar.index');
+
     // Trash Appointments Routes
     Route::get('appointments/trash', [AppointmentController::class, 'trash'])->name('appointments.trash');
 
     // Trash Appointments Routes delete all
     Route::delete('appointments/drop', [AppointmentController::class, 'dropAll'])->name('appointments.dropAll');
+
 
     // Appointment Routes
     Route::resource('appointments', AppointmentController::class); // CRUD

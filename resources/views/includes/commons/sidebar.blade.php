@@ -29,11 +29,19 @@
                     </a>
                 </li>
 
+                {{-- Calendar --}}
+                <li>
+                    <a href="{{ route('admin.calendar.index') }}" class="@if (Route::is('admin.calendar*')) active @endif">
+                        <i class="fas fa-calendar-days fa-xl fa-fw"></i>
+                        <span class="d-none d-md-inline">Calendar</span>
+                    </a>
+                </li>
+
                 {{-- Appointments --}}
                 <li>
                     <a href="{{ route('admin.appointments.index') }}"
                         class="@if (Route::is('admin.appointments*')) active @endif">
-                        <i class="fas fa-calendar-days fa-xl fa-fw"></i>
+                        <i class="fas fa-calendar-check fa-xl fa-fw"></i>
                         <span class="d-none d-md-inline">Appointments</span>
                     </a>
                 </li>
@@ -66,7 +74,8 @@
 
                 {{-- categories --}}
                 <li>
-                    <a href="{{ route('admin.categories.index') }}" class="@if (Route::is('admin.categories*')) active @endif">
+                    <a href="{{ route('admin.categories.index') }}"
+                        class="@if (Route::is('admin.categories*')) active @endif">
                         <i class="fas fa-boxes fa-xl fa-fw"></i>
                         <span class="d-none d-md-inline">Categories</span>
                     </a>

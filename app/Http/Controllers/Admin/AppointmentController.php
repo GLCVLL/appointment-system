@@ -188,14 +188,16 @@ class AppointmentController extends Controller
 
         // Return if error occurred
         if ($errorMessage) {
-            return back()->withInput($request->input())->with('messages', [
-                [
-                    'sender' => 'System',
-                    'color' => 'danger',
-                    'content' => $errorMessage,
-                    'timestamp' => now()
-                ]
-            ]);
+            return back()->withInput($request->input())
+                ->with('messages', [
+                    [
+                        'sender' => 'System',
+                        'color' => 'danger',
+                        'content' => $errorMessage,
+                        'timestamp' => now()
+                    ]
+                ])
+                ->with('modal-error', true);
         }
 
 
@@ -207,7 +209,12 @@ class AppointmentController extends Controller
         if (Arr::exists($data, 'services')) $appointment->services()->attach($data['services']);
 
 
-        return to_route('admin.appointments.index')
+        // Check back loop
+        $is_back_loop = url()->previous() === route('admin.appointments.create');
+        $redirect_header = $is_back_loop ? redirect()->route('admin.appointments.index') : back();
+
+
+        return $redirect_header
             ->with('messages', [
                 [
                     'sender' => 'System',
@@ -383,7 +390,9 @@ class AppointmentController extends Controller
                     'content' => $errorMessage,
                     'timestamp' => now()
                 ]
-            ]);
+            ])
+                ->with('modal-error', true)
+                ->with('resource-id', $appointment->id);
         }
 
         $appointment->fill($data);
@@ -391,7 +400,12 @@ class AppointmentController extends Controller
 
         $appointment->services()->sync($data['services']);
 
-        return redirect()->route('admin.appointments.index')
+        // Check back loop
+        $is_back_loop = url()->previous() === route('admin.appointments.edit', $appointment);
+        $redirect_header = $is_back_loop ? redirect()->route('admin.appointments.index') : back();
+
+
+        return $redirect_header
             ->with('messages', [
                 [
                     'sender' => 'System',
@@ -406,19 +420,18 @@ class AppointmentController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(Appointment $appointment)
-    { {
-            // Delete Appointment
-            $appointment->delete();
+    {
+        // Delete Appointment
+        $appointment->delete();
 
-            return to_route('admin.appointments.index')
-                ->with('messages', [
-                    [
-                        'sender' => 'System',
-                        'content' => 'Appointment deleted.',
-                        'timestamp' => now()
-                    ]
-                ]);
-        }
+        return back()
+            ->with('messages', [
+                [
+                    'sender' => 'System',
+                    'content' => 'Appointment deleted.',
+                    'timestamp' => now()
+                ]
+            ]);
     }
 
     /**

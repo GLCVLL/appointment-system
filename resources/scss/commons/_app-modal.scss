@@ -26,11 +26,19 @@
         margin: auto;
         padding: 1rem;
         max-width: 350px;
+        max-height: 60vh;
 
+        display: flex;
+        flex-direction: column;
         color: $col-light;
         background-color: $col-dark-500;
         border-color: $col-gray-800;
         border-radius: 0.5rem;
+    }
+
+    &.modal-full .app-modal-content {
+        max-width: calc(100% - 42px);
+        max-height: calc(100vh - 42px);
     }
 
     &-title {
@@ -45,7 +53,7 @@
 
     &-body {
         padding: 1.5rem 0.5rem;
-        max-height: 50vh;
+        flex-grow: 1;
 
         border-top: 1px solid $col-gray-800;
         overflow-y: auto;
@@ -59,7 +67,7 @@
     }
 
     &-close {
-        color: $col-dark;
+        color: $col-light;
 
         &:hover {
             color: $col-gray-500;

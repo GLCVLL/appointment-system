@@ -25,6 +25,20 @@
         }
     }
 
+    &.btn-outline-primary {
+        color: $col-primary;
+        border-color: $col-primary;
+
+        &.show {
+            background-color: transparent;
+        }
+
+        &:hover {
+            color: $col-light;
+            background-color: $col-primary;
+        }
+    }
+
     &.btn-secondary {
         background-color: $col-secondary;
 
