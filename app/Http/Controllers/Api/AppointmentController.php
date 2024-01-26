@@ -208,10 +208,22 @@ class AppointmentController extends Controller
         // Retrieve the list of closed days
         $closedDays = ClosedDay::pluck('date')->toArray();
 
+        foreach ($closedDays as $closedDay) {
+
+            $currentYear = Carbon::now()->format('Y');
+            $nextYear = Carbon::parse($currentYear)->addYear()->format('Y');
+
+            $formatClosedDay = Carbon::createFromFormat('Y-m-d', $closedDay)->format('-m-d');
+
+            $closedDaysTwoYears[] = $currentYear . $formatClosedDay;
+
+            $closedDaysTwoYears[] = $nextYear . $formatClosedDay;
+        }
+
         // Prepare the working hours data for the response
         $workingHours = [
             'slotDays' => $slotDays,
-            'closedDays' => $closedDays
+            'closedDays' => $closedDaysTwoYears
         ];
 
         // Return the response with the working hours data
