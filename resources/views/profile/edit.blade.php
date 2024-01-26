@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <section class="p-4">
+    <section class="py-4 px-md-4">
 
         <div class="container-fluid">
             <h2 class="mb-4">
