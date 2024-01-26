@@ -1,5 +1,12 @@
 <header class="app-header">
     <nav class="h-100">
+
+        {{-- Sidebar Toggrer --}}
+        <button class="btn app-header-toggler">
+            <i class="fas fa-bars fa-2xl"></i>
+        </button>
+
+        {{-- Menu --}}
         <ul class="app-header-menu">
 
             @guest
