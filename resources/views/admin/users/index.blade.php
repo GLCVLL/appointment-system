@@ -3,7 +3,7 @@
 @section('title', ' - Users')
 
 @section('content')
-    <section class="p-4">
+    <section class="py-4 px-md-4">
 
         <div class="container-fluid">
 
@@ -23,9 +23,9 @@
                     <thead>
                         <tr>
                             <th scope="col">Name</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Phone Number</th>
-                            <th scope="col">Role</th>
+                            <th scope="col" class="d-none d-sm-table-cell">Email</th>
+                            <th scope="col" class="text-center">Phone Number</th>
+                            <th scope="col" class="d-none d-sm-table-cell">Role</th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
@@ -33,9 +33,9 @@
                         @forelse ($users as $user)
                             <tr>
                                 <td>{{ $user->name }}</td>
-                                <td>{{ $user->email }}</td>
-                                <td>{{ $user->phone_number ?? '-' }}</td>
-                                <td>{{ ucfirst($user->role) }}</td>
+                                <td class="d-none d-sm-table-cell">{{ $user->email }}</td>
+                                <td class="text-center">{{ $user->phone_number ?? '-' }}</td>
+                                <td class="d-none d-sm-table-cell">{{ ucfirst($user->role) }}</td>
                                 <td>
                                     {{-- Actions --}}
                                     <div class="d-flex justify-content-end gap-2">

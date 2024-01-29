@@ -18,6 +18,14 @@
         align-items: center;
     }
 
+    &-toggler {
+        color: $col-light;
+
+        &:hover {
+            color: $col-gray-500;
+        }
+    }
+
     &-menu {
         flex-grow: 1;
         height: 100%;

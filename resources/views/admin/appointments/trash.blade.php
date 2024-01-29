@@ -3,7 +3,7 @@
 @section('title', ' - Appointments Trashed')
 
 @section('content')
-    <section class="p-4">
+    <section class="py-4 px-md-4">
 
         <div class="container-fluid">
 

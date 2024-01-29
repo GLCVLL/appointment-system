@@ -30,6 +30,7 @@
         &.fc-button-active {
             color: $col-light;
             background-color: $col-primary;
+            z-index: 0;
         }
 
         &:focus {
