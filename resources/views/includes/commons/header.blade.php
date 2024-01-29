@@ -2,7 +2,7 @@
     <nav class="h-100">
 
         {{-- Sidebar Toggrer --}}
-        <button class="btn app-header-toggler">
+        <button id="sidebar-toggler" class="btn app-header-toggler d-md-none">
             <i class="fas fa-bars fa-2xl"></i>
         </button>
 

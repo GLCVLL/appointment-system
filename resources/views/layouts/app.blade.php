@@ -54,7 +54,7 @@
     </div>
 
     {{-- Scripts --}}
-    @vite(['resources/js/commons/modal.js'])
+    @vite(['resources/js/commons/modal.js', 'resources/js/commons/sidebar-toggler.js'])
     @yield('scripts')
 </body>
 

@@ -4,10 +4,25 @@
 @use '../vars' as *;
 
 .app-sidebar {
-    flex: 0 0 $sidebar-width-sm;
+    position: fixed;
+    left: -70px;
+    top: 0;
+    width: $sidebar-width-sm;
     height: 100vh;
 
     background-color: $col-dark-500;
+    z-index: 2;
+    box-shadow: 0 0 8px rgba($color: #000, $alpha: 0.5);
+
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.2s visibility, 0.2s opacity, 0.2s left;
+
+    &.is-open {
+        left: 0;
+        visibility: visible;
+        opacity: 1;
+    }
 
     &-logo {
         padding: 0 1rem;
@@ -51,7 +66,12 @@
 
 @media screen and (min-width: 768px) {
     .app-sidebar {
+        position: static;
         flex: 0 0 $sidebar-width-lg;
+
+
+        visibility: visible;
+        opacity: 1;
 
         &-logo {
             justify-content: flex-start;
