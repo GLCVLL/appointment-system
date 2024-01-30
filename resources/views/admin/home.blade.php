@@ -4,7 +4,7 @@
     <section class="py-4 px-md-4">
         <div class="container-fluid">
 
-            <header class="d-flex justify-content-between align-items-center mb-4">
+            <header class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
 
                 {{-- Title --}}
                 <h2 class="mb-0">
