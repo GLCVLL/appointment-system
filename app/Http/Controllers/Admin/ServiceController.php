@@ -37,7 +37,7 @@ class ServiceController extends Controller
             [
                 'name' => 'required|string|unique:services',
                 'duration' => 'required|date_format:H:i:s',
-                'price' => 'required|decimal',
+                'price' => 'required|decimal:0,2',
                 'is_available' => 'required|boolean',
             ],
             [
@@ -91,7 +91,7 @@ class ServiceController extends Controller
             [
                 'name' => ['required', 'string', Rule::unique('services')->ignore($service->id)],
                 'duration' => 'required|date_format:H:i:s',
-                'price' => 'required|decimal',
+                'price' => 'required|decimal:0,2',
                 'is_available' => 'required|boolean',
             ],
             [
