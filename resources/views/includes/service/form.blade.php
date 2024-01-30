@@ -34,6 +34,18 @@
         <span id="duration-error" class="invalid-feedback"></span>
     </div>
 
+    {{-- Service Price --}}
+    <div class="col-12 mb-4">
+        <label for="price" class="form-label fs-5">Service Price</label>
+        <input type="number" class="form-control @error('price') is-invalid @enderror" id="price" name="price"
+            value="{{ old('price', $service->price) }}" required>
+
+        @error('price')
+            <span class="invalid-feedback error-message" role="alert">{{ $message }}</span>
+        @enderror
+        <span id="name-error" class="invalid-feedback"></span>
+    </div>
+
     {{-- Availability --}}
     <div class="col-12 mb-4">
         <label for="is_available" class="form-label fs-5">Availability</label>
