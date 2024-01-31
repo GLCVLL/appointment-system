@@ -45,7 +45,7 @@ class HomeController extends Controller
 
             // Create chart data
             $clients_data[] = count($filtered_clients);
-            $clients_labels[] = $day->format('m/d');
+            $clients_labels[] = $day->format('d M');
         }
 
 
@@ -80,7 +80,7 @@ class HomeController extends Controller
                 return $services_sum;
             });
 
-            $profits_labels[] = $day->format('m/d');
+            $profits_labels[] = $day->format('d M');
         }
 
 

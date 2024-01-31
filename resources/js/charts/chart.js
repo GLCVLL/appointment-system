@@ -1,21 +1,31 @@
 import Chart from 'chart.js/auto';
 
 //*** FUNCTIONS ***//
-const initChart = (elem, title, labels, data) => {
+const initChart = (elem, labels, data, showAxis = true) => {
     return new Chart(elem, {
         type: 'line',
         data: {
             labels,
             datasets: [{
-                label: title,
                 data,
-                borderWidth: 1
+                borderWidth: 1,
+                pointRadius: 0,
+                tension: 0.1,
             }]
         },
         options: {
             scales: {
+                x: {
+                    display: showAxis,
+                },
                 y: {
+                    display: showAxis,
                     beginAtZero: true
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
                 }
             }
         }
@@ -29,7 +39,7 @@ const clientsChart = document.getElementById('chart-users');
 const clientsLabels = JSON.parse(clientsChart.dataset.labels);
 const clientsData = JSON.parse(clientsChart.dataset.values);
 
-initChart(clientsChart, '# of Clients', clientsLabels, clientsData);
+initChart(clientsChart, clientsLabels, clientsData, false);
 
 
 // New Profits Chart
@@ -37,4 +47,4 @@ const profitsChart = document.getElementById('chart-profits');
 const profitsLabels = JSON.parse(profitsChart.dataset.labels);
 const profitsData = JSON.parse(profitsChart.dataset.values);
 
-initChart(profitsChart, '# Profits per Day', profitsLabels, profitsData);
+initChart(profitsChart, profitsLabels, profitsData, false);
