@@ -1,8 +1,8 @@
 import Chart from 'chart.js/auto';
 
 //*** FUNCTIONS ***//
-const initChart = (title, labels, data) => {
-    return new Chart(ctx, {
+const initChart = (elem, title, labels, data) => {
+    return new Chart(elem, {
         type: 'line',
         data: {
             labels,
@@ -25,8 +25,16 @@ const initChart = (title, labels, data) => {
 
 //*** DATA ***//
 // New Clients Chart
-const ctx = document.getElementById('chart-users');
-const clientLabels = JSON.parse(ctx.dataset.labels);
-const clientsData = JSON.parse(ctx.dataset.values);
+const clientsChart = document.getElementById('chart-users');
+const clientsLabels = JSON.parse(clientsChart.dataset.labels);
+const clientsData = JSON.parse(clientsChart.dataset.values);
 
-initChart('# of Clients', clientLabels, clientsData);
+initChart(clientsChart, '# of Clients', clientsLabels, clientsData);
+
+
+// New Profits Chart
+const profitsChart = document.getElementById('chart-profits');
+const profitsLabels = JSON.parse(profitsChart.dataset.labels);
+const profitsData = JSON.parse(profitsChart.dataset.values);
+
+initChart(profitsChart, '# Profits per Day', profitsLabels, profitsData);

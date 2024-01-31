@@ -33,7 +33,8 @@
             </header>
 
             <div class="row">
-                <div class="col">
+
+                <div class="col-12 col-md-6">
 
                     {{-- New Clients Stats --}}
                     <div class="card p-2">
@@ -45,6 +46,20 @@
 
                     </div>
                 </div>
+
+                <div class="col-12 col-md-6">
+
+                    {{-- New Clients Stats --}}
+                    <div class="card p-2">
+
+                        <h3 class="text-center">Profits</h3>
+
+                        <canvas id="chart-profits" data-values='@json($profits_data)'
+                            data-labels='@json($profits_labels)'></canvas>
+
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
