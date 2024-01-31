@@ -43,7 +43,7 @@
         @error('price')
             <span class="invalid-feedback error-message" role="alert">{{ $message }}</span>
         @enderror
-        <span id="name-error" class="invalid-feedback"></span>
+        <span id="price-error" class="invalid-feedback"></span>
     </div>
 
     {{-- Availability --}}
