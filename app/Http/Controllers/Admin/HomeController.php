@@ -25,16 +25,22 @@ class HomeController extends Controller
         // Create Date Period
         $period = new CarbonPeriod($filters['date_min'], $filters['date_max']);
 
-
-        // Create Clients stats
-        $clients_data = [];
-        $clients_labels = [];
-
+        // Get all data
         $clients = User::where('role', 'user')
             ->whereDate('created_at', '>=', $filters['date_min'])
             ->whereDate('created_at', '<=', $filters['date_max'])
             ->orderBy('created_at')
             ->get();
+
+        $appointments = Appointment::with('services')
+            ->whereDate('date', '>=', $filters['date_min'])
+            ->whereDate('date', '<=', $filters['date_max'])
+            ->get();
+
+
+
+        // Create Clients stats
+        $clients_chart = [];
 
         foreach ($period as $day) {
 
@@ -46,22 +52,44 @@ class HomeController extends Controller
                 });
 
                 // Create chart data
-                $clients_data[] = count($filtered_clients);
+                $clients_chart['data'][] = count($filtered_clients);
             }
 
             // Retrieve all days labels
-            $clients_labels[] = $day->format('d M');
+            $clients_chart['labels'][] = $day->format('d M');
         }
+
+        $clients_chart['tot'] = array_sum($clients_chart['data']);
+
+
+        // Create Appointments stats
+        $appointments_chart = [];
+
+        foreach ($period as $day) {
+
+            // Retrieve data until today date
+            if ($day->format('Y-m-d') <= Carbon::now()->format('Y-m-d')) {
+                /// Filter appointments by date
+                $filtered_appointments = $appointments->filter(function ($appointment) use ($day) {
+
+                    $appointment_date_end = Carbon::parse($appointment->date . 'T' . $appointment->end_time);
+
+                    return $appointment->date === $day->format('Y-m-d') && $appointment_date_end < Carbon::now();
+                });
+
+                // Create chart data
+                $appointments_chart['data'][] = count($filtered_appointments);
+            }
+
+            // Retrieve all days labels
+            $appointments_chart['labels'][] = $day->format('d M');
+        }
+
+        $appointments_chart['tot'] = array_sum($appointments_chart['data']);
 
 
         // Create Profits stats
-        $profits_data = [];
-        $profits_labels = [];
-
-        $appointments = Appointment::with('services')
-            ->whereDate('date', '>=', $filters['date_min'])
-            ->whereDate('date', '<=', $filters['date_max'])
-            ->get();
+        $profits_chart = [];
 
         foreach ($period as $day) {
 
@@ -77,7 +105,7 @@ class HomeController extends Controller
                 });
 
                 // Create chart data
-                $profits_data[] = $filtered_appointments->sum(function ($appointment) {
+                $profits_chart['data'][] = $filtered_appointments->sum(function ($appointment) {
 
                     // Sum all services price for this appointment
                     $services_sum = 0;
@@ -90,10 +118,12 @@ class HomeController extends Controller
             }
 
             // Retrieve all days labels
-            $profits_labels[] = $day->format('d M');
+            $profits_chart['labels'][] = $day->format('d M');
         }
 
+        $profits_chart['tot'] = array_sum($profits_chart['data']);
 
-        return view('admin.home', compact('filters', 'clients_labels', 'clients_data', 'profits_labels', 'profits_data'));
+
+        return view('admin.home', compact('filters', 'clients_chart', 'appointments_chart', 'profits_chart'));
     }
 }

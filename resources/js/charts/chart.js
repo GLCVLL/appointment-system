@@ -43,7 +43,14 @@ const clientsData = JSON.parse(clientsChart.dataset.values);
 initChart(clientsChart, clientsLabels, clientsData, false);
 
 
-// New Profits Chart
+// Appointments Chart
+const appointmentsChart = document.getElementById('chart-appointments');
+const appointmentsLabels = JSON.parse(appointmentsChart.dataset.labels);
+const appointmentsData = JSON.parse(appointmentsChart.dataset.values);
+
+initChart(appointmentsChart, appointmentsLabels, appointmentsData, false);
+
+// Profits Chart
 const profitsChart = document.getElementById('chart-profits');
 const profitsLabels = JSON.parse(profitsChart.dataset.labels);
 const profitsData = JSON.parse(profitsChart.dataset.values);
