@@ -38,13 +38,18 @@ class HomeController extends Controller
 
         foreach ($period as $day) {
 
-            // Filter clients by date
-            $filtered_clients = $clients->filter(function ($client) use ($day) {
-                return Carbon::parse($client->created_at)->format('Y-m-d') === $day->format('Y-m-d');
-            });
+            // Retrieve data until today date
+            if ($day->format('Y-m-d') <= Carbon::now()->format('Y-m-d')) {
+                // Filter clients by date
+                $filtered_clients = $clients->filter(function ($client) use ($day) {
+                    return Carbon::parse($client->created_at)->format('Y-m-d') === $day->format('Y-m-d');
+                });
 
-            // Create chart data
-            $clients_data[] = count($filtered_clients);
+                // Create chart data
+                $clients_data[] = count($filtered_clients);
+            }
+
+            // Retrieve all days labels
             $clients_labels[] = $day->format('d M');
         }
 
@@ -60,26 +65,31 @@ class HomeController extends Controller
 
         foreach ($period as $day) {
 
-            // Filter appointments by date
-            $filtered_appointments = $appointments->filter(function ($appointment) use ($day) {
+            // Retrieve data until today date
+            if ($day->format('Y-m-d') <= Carbon::now()->format('Y-m-d')) {
 
-                $appointment_date_end = Carbon::parse($appointment->date . 'T' . $appointment->end_time);
+                // Filter appointments by date
+                $filtered_appointments = $appointments->filter(function ($appointment) use ($day) {
 
-                return $appointment->date === $day->format('Y-m-d') && $appointment_date_end < Carbon::now()->addHours(4);
-            });
+                    $appointment_date_end = Carbon::parse($appointment->date . 'T' . $appointment->end_time);
 
-            // Create chart data
-            $profits_data[] = $filtered_appointments->sum(function ($appointment) {
+                    return $appointment->date === $day->format('Y-m-d') && $appointment_date_end < Carbon::now();
+                });
 
-                // Sum all services price for this appointment
-                $services_sum = 0;
-                foreach ($appointment->services as $service) {
-                    $services_sum += $service->price;
-                }
+                // Create chart data
+                $profits_data[] = $filtered_appointments->sum(function ($appointment) {
 
-                return $services_sum;
-            });
+                    // Sum all services price for this appointment
+                    $services_sum = 0;
+                    foreach ($appointment->services as $service) {
+                        $services_sum += $service->price;
+                    }
 
+                    return $services_sum;
+                });
+            }
+
+            // Retrieve all days labels
             $profits_labels[] = $day->format('d M');
         }
 
