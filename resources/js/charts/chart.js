@@ -8,9 +8,10 @@ const initChart = (elem, labels, data, showAxis = true) => {
             labels,
             datasets: [{
                 data,
-                borderWidth: 1,
+                borderWidth: 2,
                 pointRadius: 0,
-                tension: 0.1,
+                pointHitRadius: 10,
+                tension: 0.3,
             }]
         },
         options: {
