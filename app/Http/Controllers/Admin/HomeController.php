@@ -62,7 +62,10 @@ class HomeController extends Controller
 
             // Filter appointments by date
             $filtered_appointments = $appointments->filter(function ($appointment) use ($day) {
-                return $appointment->date === $day->format('Y-m-d');
+
+                $appointment_date_end = Carbon::parse($appointment->date . 'T' . $appointment->end_time);
+
+                return $appointment->date === $day->format('Y-m-d') && $appointment_date_end < Carbon::now()->addHours(4);
             });
 
             // Create chart data
