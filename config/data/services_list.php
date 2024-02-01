@@ -1,0 +1,66 @@
+<?php
+return [
+    [
+        'category_id' => 1,
+        'name' => 'Taglio di base',
+        'duration' => '00:30:00',
+        'price' => 25.00,
+        'is_available' => true,
+    ],
+    [
+        'category_id' => 1,
+        'name' => 'Taglio alla moda',
+        'duration' => '01:00:00',
+        'price' => 35.00,
+        'is_available' => true,
+    ],
+    [
+        'category_id' => 1,
+        'name' => 'Taglio di barba',
+        'duration' => '00:30:00',
+        'price' => 15.00,
+        'is_available' => true,
+    ],
+    [
+        'category_id' => 1,
+        'name' => 'Styling con asciugatura',
+        'duration' => '00:30:00',
+        'price' => 20.00,
+        'is_available' => true,
+    ],
+    [
+        'category_id' => 2,
+        'name' => 'Tinta completa',
+        'duration' => '01:30:00',
+        'price' => 40.00,
+        'is_available' => true,
+    ],
+    [
+        'category_id' => 2,
+        'name' => 'Balayage',
+        'duration' => '02:00:00',
+        'price' => 50.00,
+        'is_available' => true,
+    ],
+    [
+        'category_id' => 2,
+        'name' => 'Trattamento idratante',
+        'duration' => '01:00:00',
+        'price' => 30.00,
+        'is_available' => true,
+    ],
+    [
+        'category_id' => 3,
+        'name' => 'Massaggio al cuoio capelluto',
+        'duration' => '00:30:00',
+        'price' => 25.00,
+        'is_available' => true,
+    ],
+    [
+        'category_id' => 3,
+        'name' => 'Trattamento anticaduta',
+        'duration' => '01:00:00',
+        'price' => 35.00,
+        'is_available' => true,
+    ],
+];
