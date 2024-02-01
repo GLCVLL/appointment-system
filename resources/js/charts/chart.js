@@ -1,9 +1,9 @@
 import Chart from 'chart.js/auto';
 
 //*** FUNCTIONS ***//
-const initChart = (elem, labels, data, showAxis = true) => {
+const initChart = (type, elem, labels, data, showAxis = true) => {
     return new Chart(elem, {
-        type: 'line',
+        type,
         data: {
             labels,
             datasets: [{
@@ -40,7 +40,7 @@ const clientsChart = document.getElementById('chart-users');
 const clientsLabels = JSON.parse(clientsChart.dataset.labels);
 const clientsData = JSON.parse(clientsChart.dataset.values);
 
-initChart(clientsChart, clientsLabels, clientsData, false);
+initChart('line', clientsChart, clientsLabels, clientsData, false);
 
 
 // Appointments Chart
@@ -48,11 +48,11 @@ const appointmentsChart = document.getElementById('chart-appointments');
 const appointmentsLabels = JSON.parse(appointmentsChart.dataset.labels);
 const appointmentsData = JSON.parse(appointmentsChart.dataset.values);
 
-initChart(appointmentsChart, appointmentsLabels, appointmentsData, false);
+initChart('bar', appointmentsChart, appointmentsLabels, appointmentsData, false);
 
 // Profits Chart
 const profitsChart = document.getElementById('chart-profits');
 const profitsLabels = JSON.parse(profitsChart.dataset.labels);
 const profitsData = JSON.parse(profitsChart.dataset.values);
 
-initChart(profitsChart, profitsLabels, profitsData, false);
+initChart('line', profitsChart, profitsLabels, profitsData, false);
