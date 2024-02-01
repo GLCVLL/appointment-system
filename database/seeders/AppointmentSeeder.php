@@ -5,7 +5,9 @@ namespace Database\Seeders;
 use App\Models\Appointment;
 use App\Models\OpeningHour;
 use App\Models\Service;
+use App\Models\User;
 use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Faker\Generator;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Arr;
@@ -17,37 +19,94 @@ class AppointmentSeeder extends Seeder
      */
     public function run(Generator $faker): void
     {
-        $services = Service::pluck('id')->toArray();
+        $services = Service::select('id', 'duration')->get();
+        $usersIds = User::pluck('id')->toArray();
 
-        for ($i = 0; $i <= 50; $i++) {
+        for ($i = 0; $i <= 100; $i++) {
 
-            // Get random date
-            $openingHour = null;
-            $date = null;
-            while (!$openingHour) {
-                $date = Carbon::parse($faker->dateTimeBetween('+1 days', '+14 days'));
-                $day_of_week = $date->englishDayOfWeek;
-                $openingHour = OpeningHour::where('day', $day_of_week)->first();
-            }
-
-            // Create appointment
-            $appointment = new Appointment();
-            $appointment->user_id = 1;
-            $appointment->date = $date;
-            $appointment->start_time =  Carbon::parse($openingHour->opening_time)->addHour(rand(0, 8));
-            $appointment->end_time = Carbon::parse($appointment->start_time)->addMinutes(Arr::random([30, 60]));
-            $appointment->save();
-
-            // Add at least 1 service
+            // Choose a random services
             $selectedServices = [];
-
+            $appointment_duration = 0;
             foreach ($services as $service) {
-                if (rand(0, 1)) $selectedServices[] = $service;
+                if (rand(0, 3) > 2) {
+                    $selectedServices[] = $service->id;
+                    $appointment_duration += Carbon::createFromTimeString($service->duration)->secondsSinceMidnight() / 60;
+                }
             }
 
-            if (!count($selectedServices)) $selectedServices[] =  Arr::random($services);
+            // Add a random service if empty
+            if (!count($selectedServices)) {
+                $rand_service = $services->random();
+                $selectedServices[] =  $rand_service->id;
+                $appointment_duration += Carbon::createFromTimeString($rand_service->duration)->secondsSinceMidnight() / 60;
+            }
 
-            $appointment->services()->attach($selectedServices);
+
+            // Get a random date
+            $is_available = false;
+            $date = null;
+            $start_time = '';
+            $end_time = '';
+            $retry = 0;
+            while (!$is_available && $retry < 300) {
+
+                // Get a date
+                $date = Carbon::parse($faker->dateTimeBetween('-30 days', '+30 days'));
+
+                // Check if is a working day
+                $openingHour = OpeningHour::where('day', $date->englishDayOfWeek)->first();
+
+                // Get available slot
+                if ($openingHour) {
+
+                    // Get formatted date
+                    $app_date = $date->format('Y-m-d');
+
+                    // Create slots period
+                    $app_slot_start = Carbon::createFromTimeString($openingHour->opening_time);
+                    $app_slot_end = Carbon::createFromTimeString($openingHour->closing_time)->subMinutes($appointment_duration);
+                    $app_slots = iterator_to_array(new CarbonPeriod($app_slot_start, 'PT30M', $app_slot_end));
+
+                    $slot_retry = 0;
+                    while (count($app_slots) > 0 && !$is_available && $slot_retry < 50) {
+
+                        // Choose a random slot
+                        $rand_slot = Arr::random($app_slots);
+                        $start_time = $rand_slot->copy()->format('H:i:s');
+                        $end_time = $rand_slot->copy()->addMinutes($appointment_duration)->format('H:i:s');
+
+                        //  Get overlapping appointments
+                        $appointments_count = Appointment::where('date', $app_date)
+                            ->where('start_time', '<', $end_time)
+                            ->where('end_time', '>', $start_time)
+                            ->count();
+
+                        // Check if overlapping or out of working hours
+                        if (
+                            !$appointments_count &&
+                            $start_time >= $app_slot_start->format('H:i:s') &&
+                            $end_time <= $app_slot_end->format('H:i:s')
+                        ) {
+                            $is_available = true;
+                        }
+                        $slot_retry++;
+                    }
+                }
+
+                $retry++;
+            }
+
+            // Create appointment if available (retry exceded)
+            if ($is_available) {
+                $appointment = new Appointment();
+                $appointment->user_id = Arr::random($usersIds);
+                $appointment->date = $app_date;
+                $appointment->start_time =  $start_time;
+                $appointment->end_time = $end_time;
+                $appointment->save();
+
+                $appointment->services()->attach($selectedServices);
+            }
         };
     }
 }
