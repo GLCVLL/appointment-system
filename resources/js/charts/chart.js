@@ -18,10 +18,18 @@ const initChart = (type, elem, labels, data, showAxis = true) => {
             scales: {
                 x: {
                     display: showAxis,
+                    grid: {
+                        display: true,
+                        color: '#212a3a',
+                    },
                 },
                 y: {
                     display: showAxis,
-                    beginAtZero: true
+                    beginAtZero: true,
+                    grid: {
+                        display: true,
+                        color: '#212a3a',
+                    },
                 }
             },
             plugins: {
@@ -56,3 +64,11 @@ const profitsLabels = JSON.parse(profitsChart.dataset.labels);
 const profitsData = JSON.parse(profitsChart.dataset.values);
 
 initChart('line', profitsChart, profitsLabels, profitsData, false);
+
+
+// Profits Chart Big
+const profitsChartBig = document.getElementById('chart-profits-big');
+const profitsLabelsBig = JSON.parse(profitsChartBig.dataset.labels);
+const profitsDataBig = JSON.parse(profitsChartBig.dataset.values);
+
+initChart('line', profitsChartBig, profitsLabelsBig, profitsDataBig);

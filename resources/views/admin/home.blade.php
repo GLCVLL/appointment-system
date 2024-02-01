@@ -70,7 +70,10 @@
 
                             <div class="col-6 col-lg-12 col-xl-6">
                                 <div class="stat-card-value mb-2">{{ $clients_chart['tot'] }}</div>
-                                <div class="text-success">+3.3%</div>
+                                <div class="text-{{ $clients_chart['increment'] >= 0 ? 'success' : 'danger' }}">
+                                    {{ $clients_chart['increment'] }}%
+                                    <i class="ms-1 fas fa-arrow-{{ $clients_chart['increment'] >= 0 ? 'up' : 'down' }}"></i>
+                                </div>
                             </div>
 
                             <div class="col-6 col-lg-12 col-xl-6">
@@ -119,7 +122,11 @@
 
                             <div class="col-6 col-lg-12 col-xl-6">
                                 <div class="stat-card-value mb-2">{{ $appointments_chart['tot'] }}</div>
-                                <div class="text-success">+3.3%</div>
+                                <div class="text-{{ $appointments_chart['increment'] >= 0 ? 'success' : 'danger' }}">
+                                    {{ $appointments_chart['increment'] }}%
+                                    <i
+                                        class="ms-1 fas fa-arrow-{{ $appointments_chart['increment'] >= 0 ? 'up' : 'down' }}"></i>
+                                </div>
                             </div>
 
                             <div class="col-6 col-lg-12 col-xl-6">
@@ -168,7 +175,11 @@
 
                             <div class="col-6 col-lg-12 col-xl-6">
                                 <div class="stat-card-value mb-2">€{{ $profits_chart['tot'] }}</div>
-                                <div class="text-success">+3.3%</div>
+                                <div class="text-{{ $profits_chart['increment'] >= 0 ? 'success' : 'danger' }}">
+                                    {{ $profits_chart['increment'] }}%
+                                    <i
+                                        class="ms-1 fas fa-arrow-{{ $profits_chart['increment'] >= 0 ? 'up' : 'down' }}"></i>
+                                </div>
                             </div>
 
                             <div class="col-6 col-lg-12 col-xl-6">
@@ -178,6 +189,17 @@
 
                         </div>
 
+                    </div>
+                </div>
+
+
+                <div class="col-12">
+                    <div class="card stat-card h-100 p-4">
+
+                        <h3 class="mb-3">Profits Details</h4>
+
+                            <canvas id="chart-profits-big" class="w-100" data-values='@json($profits_chart['data'])'
+                                data-labels='@json($profits_chart['labels'])'></canvas>
                     </div>
                 </div>
 
