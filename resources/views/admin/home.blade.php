@@ -25,7 +25,9 @@
                     </div>
 
                     <div class="col-auto">
-                        <button class="btn btn-success"><i class="fas fa-rotate"></i></button>
+                        <a href="{{ route('admin.home') }}" class="btn btn-danger me-1"><i
+                                class="fas fa-close fa-lg fa-fw"></i></a>
+                        <button class="btn btn-success"><i class="fas fa-rotate fa-lg fa-fw"></i></button>
                     </div>
 
                 </form>
