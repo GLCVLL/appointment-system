@@ -34,9 +34,9 @@
 
             <div class="row">
 
+                {{-- New Clients Stats --}}
                 <div class="col-12 col-md-6 col-lg-4 mb-4">
 
-                    {{-- New Clients Stats --}}
                     <div class="card stat-card h-100 p-4">
 
                         {{-- Card Header --}}
@@ -86,9 +86,9 @@
                     </div>
                 </div>
 
+                {{-- Appointments Stats --}}
                 <div class="col-12 col-md-6 col-lg-4 mb-4">
 
-                    {{-- New Appointments Stats --}}
                     <div class="card stat-card h-100 p-4">
 
                         {{-- Card Header --}}
@@ -139,9 +139,9 @@
                     </div>
                 </div>
 
+                {{-- Profits Stats --}}
                 <div class="col-12 col-md-6 col-lg-4 mb-4">
 
-                    {{-- Profits Stats --}}
                     <div class="card stat-card h-100 p-4">
 
                         {{-- Card Header --}}
@@ -193,7 +193,8 @@
                 </div>
 
 
-                <div class="col-12">
+                {{-- Profits Details --}}
+                <div class="col-12 mb-4">
                     <div class="card stat-card h-100 p-4">
 
                         <h3 class="mb-3">Profits Details</h4>

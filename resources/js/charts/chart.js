@@ -66,7 +66,7 @@ const profitsData = JSON.parse(profitsChart.dataset.values);
 initChart('line', profitsChart, profitsLabels, profitsData, false);
 
 
-// Profits Chart Big
+// Profits Chart Details
 const profitsChartBig = document.getElementById('chart-profits-big');
 const profitsLabelsBig = JSON.parse(profitsChartBig.dataset.labels);
 const profitsDataBig = JSON.parse(profitsChartBig.dataset.values);
