@@ -1,0 +1,21 @@
+/* -----------------------------------------
+* STAT CARD
+-------------------------------------------*/
+@use '../vars' as *;
+
+.stat-card {
+    .dropdown-toggle {
+        padding: 0;
+        color: $col-gray-600;
+
+        &::after {
+            display: none;
+        }
+    }
+
+    &-value {
+        font-size: 2rem;
+        font-weight: bold;
+        line-height: 1;
+    }
+}

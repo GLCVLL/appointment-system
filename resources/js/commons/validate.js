@@ -99,6 +99,31 @@ export const initValidation = (form, errorMessages) => {
                             if (!validBooleanValues.includes(elem.value)) formErrors[key] = errorMessages[key][rule];
                             break;
 
+                        case 'decimal':
+
+                            // Set default decimal min and max param
+                            let decimalMinParam = 0;
+                            let decimalMaxParam = 6;
+
+                            // Check if param was submitted
+                            if (param.length) {
+
+                                // Check if max was submitted
+                                const minMaxCharPos = param.indexOf(',');
+
+                                if (minMaxCharPos > 0) {
+                                    decimalMinParam = param.substring(0, minMaxCharPos);
+                                    decimalMaxParam = param.substring(minMaxCharPos + 1);
+                                } else {
+                                    decimalMinParam = param
+                                }
+
+                            }
+
+                            // Validate
+                            if (!isNumeric(elem.value) || !hasDecimalDigitsRange(elem.value, decimalMinParam, decimalMaxParam)) formErrors[key] = errorMessages[key][rule];
+                            break;
+
                         // Format Y-m-d
                         case 'date':
                             if (!(/^\d{4}-\d{2}-\d{2}$/.test(elem.value))) formErrors[key] = errorMessages[key][rule];
@@ -113,7 +138,7 @@ export const initValidation = (form, errorMessages) => {
                                 if (!(/^([01]\d|2[0-3]):[0-5]\d$/.test(elem.value))) formErrors[key] = errorMessages[key][rule];
                             }
                             break;
-                        
+
                         case 'email':
                             if (!isEmail(elem.value)) formErrors[key] = errorMessages[key][rule];
                             break;
@@ -187,5 +212,22 @@ export const initValidation = (form, errorMessages) => {
 
     const isEmail = (value) => {
         return (/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(value))
+    }
+
+
+    const isNumeric = (value) => {
+        return /^-?\d+(\.\d+)?$/.test(value);
+    }
+
+    const hasDecimalDigitsRange = (value, minDigits, maxDigits) => {
+
+        // Get period position
+        const valueString = value.toString();
+        const periodPos = valueString.indexOf('.');
+
+        // Calculate number of digits
+        const numberOfDigits = periodPos >= 0 ? valueString.slice(periodPos + 1).length : 0;
+
+        return numberOfDigits >= minDigits && numberOfDigits <= maxDigits;
     }
 } 

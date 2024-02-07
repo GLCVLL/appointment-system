@@ -13,20 +13,14 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        $names = [
-            'Taglio e styling',
-            'Colorazione capelli',
-            'Trattamenti capelli',
-            'Servizi di estetica',
-            'Manicure e pedicure'
-        ];
+        $categories = config('data.categories_list');
 
-        foreach ($names as $name) {
-            $category = new Category();
+        foreach ($categories as $category) {
+            $new_category = new Category();
 
-            $category->name = $name;
+            $new_category->name = $category;
 
-            $category->save();
+            $new_category->save();
         }
     }
 }
