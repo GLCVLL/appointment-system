@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('category_id')->nullable()->constrained('categories')->onDelete('cascade');
             $table->string('name');
             $table->time('duration');
+            $table->decimal('price');
             $table->boolean('is_available')->default(true);
             $table->timestamps();
         });

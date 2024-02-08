@@ -37,6 +37,7 @@ class ServiceController extends Controller
             [
                 'name' => 'required|string|unique:services',
                 'duration' => 'required|date_format:H:i:s',
+                'price' => 'required|decimal:0,2',
                 'is_available' => 'required|boolean',
             ],
             [
@@ -46,6 +47,9 @@ class ServiceController extends Controller
 
                 'duration.required' => 'The duration is required',
                 'duration.date_format' => 'Please insert a valid time format',
+
+                'price.required' => 'The price is required',
+                'price.decimal' => 'Please insert a valid price',
 
                 'is_available.required' => 'The availability is required',
                 'is_available.boolean' => 'The availability must be a boolean value',
@@ -87,6 +91,7 @@ class ServiceController extends Controller
             [
                 'name' => ['required', 'string', Rule::unique('services')->ignore($service->id)],
                 'duration' => 'required|date_format:H:i:s',
+                'price' => 'required|decimal:0,2',
                 'is_available' => 'required|boolean',
             ],
             [
@@ -96,6 +101,9 @@ class ServiceController extends Controller
 
                 'duration.required' => 'The duration is required',
                 'duration.date_format' => 'Please insert a valid time format',
+
+                'price.required' => 'The price is required',
+                'price.decimal' => 'Please insert a valid price',
 
                 'is_available.required' => 'The availability is required',
                 'is_available.boolean' => 'The availability must be a boolean value',
