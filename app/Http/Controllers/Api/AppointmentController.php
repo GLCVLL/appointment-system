@@ -11,13 +11,16 @@ use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Validator;
 
 class AppointmentController extends Controller
 {
     public function store(Request $request): Response
     {
         // Validation
-        $data = $request->validate(
+        $data = $request->all();
+        $validator = Validator::make(
+            $data,
             [
                 'user_id' => 'required|exists:users,id',
                 'services' => 'required|exists:services,id',
@@ -54,6 +57,10 @@ class AppointmentController extends Controller
                 'notes.string' => 'The notes must be a string',
             ]
         );
+
+        if ($validator->fails()) {
+            return response(['errors' => $validator->errors()], 400);
+        }
 
 
         // Appointment Validation
@@ -120,7 +127,7 @@ class AppointmentController extends Controller
 
         // Return if error occurred
         if ($errorMessage) {
-            return response($errorMessage, 400);
+            return response(['appErrors' => $errorMessage], 400);
         }
 
 
