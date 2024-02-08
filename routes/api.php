@@ -22,15 +22,14 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::delete('/logout', [AuthController::class, 'logout']);
 
-// Appoimtments Routes
-Route::post('/appointments', [AppointmentController::class, 'store'])->middleware('auth:sanctum');
+// protecting routes
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/appointments', [AppointmentController::class, 'store']);
+    Route::get('/booking-hours', [AppointmentController::class, 'getBookingHours']);
+    Route::get('/services', [ServiceController::class, 'index']);
+});
 
-// Opening-Hours Routes
-Route::get('/booking-hours', [AppointmentController::class, 'getBookingHours']);
-
-// Services Routes
-Route::get('/services', [ServiceController::class, 'index']);
-
+// TODO CHECK
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
