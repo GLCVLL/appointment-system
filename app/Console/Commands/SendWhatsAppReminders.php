@@ -77,7 +77,9 @@ class SendWhatsAppReminders extends Command
             try {
                 $message = $this->buildMessage($appointment);
 
-                if ($this->whatsappService->sendMessage($appointment->user->phone_number, $message)) {
+                $result = $this->whatsappService->sendMessage($appointment->user->phone_number, $message);
+
+                if ($result['success']) {
                     // Mark as sent
                     $appointment->whatsapp_sent_at = Carbon::now();
                     $appointment->save();
@@ -86,15 +88,28 @@ class SendWhatsAppReminders extends Command
                     $this->info("✓ Reminder sent to {$appointment->user->name} ({$appointment->user->phone_number})");
                 } else {
                     $failed++;
+                    $errorMessage = $result['error'] ?? 'Unknown error';
+
+                    Log::error('Error sending WhatsApp reminder', [
+                        'appointment_id' => $appointment->id,
+                        'user_id' => $appointment->user->id,
+                        'phone_number' => $appointment->user->phone_number,
+                        'error' => $errorMessage,
+                    ]);
+
                     $this->error("✗ Failed to send reminder to {$appointment->user->name} ({$appointment->user->phone_number})");
+                    $this->error("  Error: {$errorMessage}");
                 }
             } catch (\Exception $e) {
                 $failed++;
-                Log::error('Error sending WhatsApp reminder', [
+                Log::error('Exception sending WhatsApp reminder', [
                     'appointment_id' => $appointment->id,
+                    'user_id' => $appointment->user->id ?? null,
+                    'phone_number' => $appointment->user->phone_number ?? null,
                     'error' => $e->getMessage(),
+                    'trace' => $e->getTraceAsString(),
                 ]);
-                $this->error("✗ Error sending reminder to {$appointment->user->name}: {$e->getMessage()}");
+                $this->error("✗ Exception sending reminder to {$appointment->user->name}: {$e->getMessage()}");
             }
         }
 
