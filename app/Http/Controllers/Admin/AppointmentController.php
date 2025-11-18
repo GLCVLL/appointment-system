@@ -90,7 +90,8 @@ class AppointmentController extends Controller
                 'services' => 'required|exists:services,id',
                 'date' => ['required', 'date', 'after_or_equal:' . date('Y-m-d')],
                 'start_time' => [
-                    'required', 'date_format:H:i',
+                    'required',
+                    'date_format:H:i',
                     function ($attribute, $value, $fail) {
                         $selectedDate = request('date');
                         $currentTime = date('H:i');
@@ -99,7 +100,6 @@ class AppointmentController extends Controller
                         }
                     },
                 ],
-                'end_time' => 'required|date_format:H:i|after:start_time',
                 'notes' => 'nullable|string',
             ],
             [
@@ -112,9 +112,6 @@ class AppointmentController extends Controller
                 'start_time.required' => 'The start Time is required',
                 'start_time.date_format' => 'Insert a valide time',
 
-                'end_time.required' => 'The end Time is required',
-                'end_time.date_format' => 'Insert a valide time',
-
                 'date.date' => 'Insert a valide date',
                 'date.required' => 'The date is required',
 
@@ -122,6 +119,8 @@ class AppointmentController extends Controller
             ]
         );
 
+        // Calculate end time
+        $data['end_time'] = $this->calculateEndTime($data['start_time'], $data['services']);
 
         // Appointment Validation
         $errorMessage = '';
@@ -281,7 +280,8 @@ class AppointmentController extends Controller
                 'services.*' => 'exists:services,id',
                 'date' => ['required', 'date', 'after_or_equal:' . date('Y-m-d')],
                 'start_time' => [
-                    'required', 'date_format:H:i',
+                    'required',
+                    'date_format:H:i',
                     function ($attribute, $value, $fail) {
                         $selectedDate = request('date');
                         $currentTime = date('H:i');
@@ -290,7 +290,6 @@ class AppointmentController extends Controller
                         }
                     },
                 ],
-                'end_time' => 'required|date_format:H:i|after:start_time',
                 'notes' => 'nullable|string',
             ],
             [
@@ -306,15 +305,14 @@ class AppointmentController extends Controller
                 'start_time.required' => 'The start time is required',
                 'start_time.date_format' => 'Please enter a valid start time',
 
-                'end_time.required' => 'The end time is required',
-                'end_time.date_format' => 'Please enter a valid end time',
-                'end_time.after' => 'The end time must be after the start time',
-
                 'notes.string' => 'The notes must be a string',
             ]
         );
 
         $errorMessage = '';
+
+        // Calculate end time
+        $data['end_time'] = $this->calculateEndTime($data['start_time'], $data['services']);
 
         // Check if is a public Holiday
         $appointmentDate = Carbon::parse($data['date']);
@@ -480,5 +478,19 @@ class AppointmentController extends Controller
                     'timestamp' => now()
                 ]
             ]);
+    }
+
+    /**
+     * Calculate the end time based on start time and selected services
+     */
+    private function calculateEndTime(string $startTime, array $serviceIds): string
+    {
+        $serviceDurations = Service::whereIn('id', $serviceIds)->pluck('duration')->toArray();
+        $serviceDurations = array_map(function ($duration) {
+            return Carbon::createFromTimeString($duration)->secondsSinceMidnight() / 60;
+        }, $serviceDurations);
+        $endTime = Carbon::parse($startTime)->addMinutes(array_sum($serviceDurations));
+
+        return $endTime->format('H:i');
     }
 }
