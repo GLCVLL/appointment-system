@@ -83,20 +83,26 @@ export const initValidation = (form, errorMessages) => {
                             break;
 
                         case 'string':
-                            if (typeof elem.value !== 'string') formErrors[key] = errorMessages[key][rule];
+                            // Skip validation if value is empty (nullable fields)
+                            if (elem.value && typeof elem.value !== 'string') formErrors[key] = errorMessages[key][rule];
                             break;
 
                         case 'max':
-                            if (elem.value.length > parseInt(param)) formErrors[key] = errorMessages[key][rule];
+                            // Skip validation if value is empty (nullable fields)
+                            if (elem.value && elem.value.length > parseInt(param)) formErrors[key] = errorMessages[key][rule];
                             break;
 
                         case 'min':
-                            if (elem.value.length < parseInt(param)) formErrors[key] = errorMessages[key][rule];
+                            // Skip validation if value is empty (nullable fields)
+                            if (elem.value && elem.value.length < parseInt(param)) formErrors[key] = errorMessages[key][rule];
                             break;
 
                         case 'boolean':
-                            const validBooleanValues = [true, false, 1, 0, "1", "0"];
-                            if (!validBooleanValues.includes(elem.value)) formErrors[key] = errorMessages[key][rule];
+                            // Skip validation if value is empty (nullable fields)
+                            if (elem.value) {
+                                const validBooleanValues = [true, false, 1, 0, "1", "0"];
+                                if (!validBooleanValues.includes(elem.value)) formErrors[key] = errorMessages[key][rule];
+                            }
                             break;
 
                         case 'decimal':
@@ -120,41 +126,52 @@ export const initValidation = (form, errorMessages) => {
 
                             }
 
-                            // Validate
-                            if (!isNumeric(elem.value) || !hasDecimalDigitsRange(elem.value, decimalMinParam, decimalMaxParam)) formErrors[key] = errorMessages[key][rule];
+                            // Validate - Skip validation if value is empty (nullable fields)
+                            if (elem.value && (!isNumeric(elem.value) || !hasDecimalDigitsRange(elem.value, decimalMinParam, decimalMaxParam))) formErrors[key] = errorMessages[key][rule];
                             break;
 
                         // Format Y-m-d
                         case 'date':
-                            if (!(/^\d{4}-\d{2}-\d{2}$/.test(elem.value))) formErrors[key] = errorMessages[key][rule];
+                            // Skip validation if value is empty (nullable fields)
+                            if (elem.value && !(/^\d{4}-\d{2}-\d{2}$/.test(elem.value))) formErrors[key] = errorMessages[key][rule];
                             break;
 
                         // Format H:i:s
                         case 'time':
-
-                            if (param === 'H:i:s') {
-                                if (!(/^(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d$/.test(elem.value))) formErrors[key] = errorMessages[key][rule];
-                            } else {
-                                if (!(/^([01]\d|2[0-3]):[0-5]\d$/.test(elem.value))) formErrors[key] = errorMessages[key][rule];
+                            // Skip validation if value is empty (nullable fields)
+                            if (elem.value) {
+                                if (param === 'H:i:s') {
+                                    if (!(/^(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d$/.test(elem.value))) formErrors[key] = errorMessages[key][rule];
+                                } else {
+                                    if (!(/^([01]\d|2[0-3]):[0-5]\d$/.test(elem.value))) formErrors[key] = errorMessages[key][rule];
+                                }
                             }
                             break;
 
                         case 'email':
-                            if (!isEmail(elem.value)) formErrors[key] = errorMessages[key][rule];
+                            // Skip validation if value is empty (nullable fields)
+                            if (elem.value && !isEmail(elem.value)) formErrors[key] = errorMessages[key][rule];
                             break;
 
                         case 'after':
-                            const otherElem = document.getElementById(param);
-                            if (otherElem.value >= elem.value) formErrors[key] = errorMessages[key][rule];
+                            // Skip validation if value is empty (nullable fields)
+                            if (elem.value) {
+                                const otherElem = document.getElementById(param);
+                                if (otherElem && otherElem.value && otherElem.value >= elem.value) formErrors[key] = errorMessages[key][rule];
+                            }
                             break;
 
                         case 'after_or_equal':
-                            if (!isAfterOrEqual(elem.value)) formErrors[key] = errorMessages[key][rule];
+                            // Skip validation if value is empty (nullable fields)
+                            if (elem.value && !isAfterOrEqual(elem.value)) formErrors[key] = errorMessages[key][rule];
                             break;
 
                         case 'after_date_time':
-                            const dateElem = document.getElementById(param);
-                            if (!isAfterDateTime(elem.value, new Date(dateElem.value))) formErrors[key] = errorMessages[key][rule];
+                            // Skip validation if value is empty (nullable fields)
+                            if (elem.value) {
+                                const dateElem = document.getElementById(param);
+                                if (dateElem && dateElem.value && !isAfterDateTime(elem.value, new Date(dateElem.value))) formErrors[key] = errorMessages[key][rule];
+                            }
                             break;
 
                         default:
