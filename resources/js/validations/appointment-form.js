@@ -6,7 +6,6 @@ const form = {
     'services': ['required'],
     'date': ['required', 'date', 'after_or_equal'],
     'start_time': ['required', 'time', 'after_date_time:date'],
-    'end_time': ['required', 'time', 'after:start_time'],
     'notes': ['nullable', 'string'],
 };
 
@@ -21,11 +20,6 @@ const errorMessages = {
         'required': 'The start Time is required',
         'time': 'Insert a valide time',
         'after_date_time': 'Start Time must be after current time'
-    },
-    'end_time': {
-        'required': 'The end Time is required',
-        'time': 'Insert a valide time',
-        'after': 'The end time must be greater than start time'
     },
     'date': {
         'required': 'The date is required',
