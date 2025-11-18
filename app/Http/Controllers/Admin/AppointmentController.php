@@ -32,7 +32,7 @@ class AppointmentController extends Controller
             $query->where('date', '<=', $request->to_date);
         }
 
-        $appointments = $query->orderBy('date')->orderBy('start_time')->paginate(10);
+        $appointments = $query->orderBy('date', 'desc')->orderBy('start_time')->paginate(10);
 
         $appointments->appends(['from_date' => $request->from_date, 'to_date' => $request->to_date]);
 
