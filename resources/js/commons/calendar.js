@@ -90,13 +90,12 @@ const createAppointment = info => {
 
         if (startTimeIndex < 0) {
             startTimeInput.selectedIndex = 0;
-            endTimeInput.selectedIndex = 0;
         } else {
             startTimeInput.selectedIndex = startTimeIndex;
-            endTimeInput.selectedIndex = endTimeInput.selectedIndex = startTimeInput.selectedIndex + 1 === endTimeInput.options.length ?
-                startTimeInput.selectedIndex :
-                startTimeInput.selectedIndex + 1;
-        };
+        }
+        
+        // Calculate end time based on services
+        calculateEndTime();
 
         // Set form action
         formElem.action = baseFormAction;
@@ -137,7 +136,9 @@ const editAppointment = info => {
         // Set form business hours selects options and other inputs
         setBusinessHoursOptions(currentAppointment.id);
         startTimeInput.value = formatDate(new Date(info.event.start), 'H:i');
-        endTimeInput.value = formatDate(new Date(info.event.end), 'H:i');
+        
+        // Calculate end time based on services (end_time is calculated dynamically)
+        calculateEndTime();
 
         // Set form action
         formElem.action = `${baseFormAction}/${currentAppointment.id}`;
@@ -180,7 +181,7 @@ const setBusinessHoursOptions = (currentAppointmentId = null) => {
 
     // Reset time selects
     startTimeInput.innerHTML = '<option value="" > -- -- </option>';
-    endTimeInput.innerHTML = '<option value="" > -- -- </option>';
+    endTimeInput.innerHTML = '<option value="">----</option>';
 
 
     // Get data
@@ -190,17 +191,26 @@ const setBusinessHoursOptions = (currentAppointmentId = null) => {
 
 
     // Check holidays
-    if (holidays.some(({ start }) => start.split('T')[0] === dateInput.value)) return;
+    if (holidays.some(({ start }) => start.split('T')[0] === dateInput.value)) {
+        calculateEndTime();
+        return;
+    }
 
 
     // Check passed day
-    if (formatDate(selectedDate, 'Y-m-d') < formatDate(currentDate, 'Y-m-d')) return;
+    if (formatDate(selectedDate, 'Y-m-d') < formatDate(currentDate, 'Y-m-d')) {
+        calculateEndTime();
+        return;
+    }
 
 
     // Check Business Hours
     const selectedDayOfWeek = selectedDate.getDay();
     const selectedBusinessHours = businessHours.find(businessDay => businessDay.daysOfWeek.includes(selectedDayOfWeek));
-    if (!selectedBusinessHours) return;
+    if (!selectedBusinessHours) {
+        calculateEndTime();
+        return;
+    }
 
 
     // Correct today business start time
@@ -226,7 +236,6 @@ const setBusinessHoursOptions = (currentAppointmentId = null) => {
     // Remove taken slots
     const selectedDateAppointments = appointments.filter(({ data }) => data.date === dateInput.value);
     let startTimeArray = [...timeArray];
-    let endTimeArray = [...timeArray];
     selectedDateAppointments.forEach(({ data }) => {
 
         if (!currentAppointmentId || data.id != currentAppointmentId) {
@@ -236,24 +245,68 @@ const setBusinessHoursOptions = (currentAppointmentId = null) => {
                 const selectedTimeFormatted = value + ':00';
                 return selectedTimeFormatted < data.start_time || selectedTimeFormatted >= data.end_time;
             });
-
-            // Include start time
-            endTimeArray = endTimeArray.filter(({ value }) => {
-                const selectedTimeFormatted = value + ':00';
-                return selectedTimeFormatted <= data.start_time || selectedTimeFormatted > data.end_time;
-            });
         }
 
     });
 
     // Create options
     const startOptions = setTimeOptions(startTimeArray);
-    const endOptions = setTimeOptions(endTimeArray);
 
 
-    // Populate selects
+    // Populate start time select
     startTimeInput.innerHTML += startOptions;
-    endTimeInput.innerHTML += endOptions;
+    
+    // End time is calculated dynamically, keep it disabled
+    endTimeInput.disabled = true;
+    calculateEndTime();
+}
+
+/**
+ * Calculate end time based on selected services and start time
+ */
+const calculateEndTime = () => {
+    // Reset end time
+    endTimeInput.innerHTML = '<option value="">----</option>';
+    endTimeInput.value = '';
+
+    // Check if start time and services are selected
+    if (!startTimeInput.value) {
+        return;
+    }
+
+    const selectedServices = Array.from(document.querySelectorAll('[id^="service-"]:checked'))
+        .map(checkbox => parseInt(checkbox.value));
+
+    if (selectedServices.length === 0) {
+        return;
+    }
+
+    // Calculate total duration in minutes
+    let totalMinutes = 0;
+    selectedServices.forEach(serviceId => {
+        const service = servicesData.find(s => s.id === serviceId);
+        if (service && service.duration) {
+            // Convert duration from "HH:MM:SS" to minutes
+            const [hours, minutes, seconds] = service.duration.split(':').map(Number);
+            totalMinutes += hours * 60 + minutes;
+        }
+    });
+
+    if (totalMinutes === 0) {
+        return;
+    }
+
+    // Calculate end time
+    const [startHours, startMinutes] = startTimeInput.value.split(':').map(Number);
+    const startDate = new Date();
+    startDate.setHours(startHours, startMinutes, 0, 0);
+    
+    const endDate = new Date(startDate.getTime() + totalMinutes * 60000);
+    const endTimeString = `${String(endDate.getHours()).padStart(2, '0')}:${String(endDate.getMinutes()).padStart(2, '0')}`;
+
+    // Add option to select and set value (for display only, field is disabled)
+    endTimeInput.innerHTML = `<option value="${endTimeString}" selected>${endTimeString}</option>`;
+    endTimeInput.value = endTimeString;
 }
 
 
@@ -349,7 +402,9 @@ const resetForm = () => {
     servicesInputs.forEach(serviceInput => { serviceInput.checked = false });
     dateInput.value = '';
     startTimeInput.selectedIndex = 0;
-    endTimeInput.selectedIndex = 0;
+    endTimeInput.innerHTML = '<option value="">----</option>';
+    endTimeInput.value = '';
+    endTimeInput.disabled = true;
     notesInput.value = '';
 }
 
@@ -415,7 +470,7 @@ const servicesCheckboxes = document.querySelectorAll('[id^="filter_service-"]');
 // Vars
 const baseFormAction = formElem.action;
 let resourceId = formElem.dataset.resourceId;
-let appointments, businessHours, holidays;
+let appointments, businessHours, holidays, servicesData;
 
 
 /*** LOGIC ***/
@@ -432,12 +487,28 @@ if (calendarEl) {
     holidays = formatHolidaysEvents(holidaysData);
 
 
+    // Get services data
+    if (calendarEl.dataset.services) {
+        servicesData = JSON.parse(calendarEl.dataset.services);
+    }
+
+    // Ensure endTimeInput is always disabled
+    if (endTimeInput) {
+        endTimeInput.disabled = true;
+    }
+
     // Add Events
     document.addEventListener('DOMContentLoaded', initCalendar);
     dateInput.addEventListener('change', setBusinessHoursOptions);
+    startTimeInput.addEventListener('change', calculateEndTime);
     deleteBtn.addEventListener('click', deleteAppointment);
     servicesCheckboxes.forEach(serviceCheckbox => {
         serviceCheckbox.addEventListener('change', applyServicesFilter);
+    });
+    
+    // Listen to service checkboxes changes in modal
+    servicesInputs.forEach(checkbox => {
+        checkbox.addEventListener('change', calculateEndTime);
     });
 
 
@@ -448,7 +519,6 @@ if (calendarEl) {
 
         // Get old values
         const oldStartTime = startTimeInput.value;
-        const oldEndTime = endTimeInput.value;
 
         // Create
         if (!resourceId) {
@@ -456,7 +526,9 @@ if (calendarEl) {
             // Set form business hours selects options and values
             setBusinessHoursOptions();
             startTimeInput.value = oldStartTime;
-            endTimeInput.value = oldEndTime;
+            
+            // Calculate end time (end_time is calculated dynamically)
+            calculateEndTime();
 
             // Hide delete btn
             deleteBtn.classList.add('d-none');
@@ -468,7 +540,9 @@ if (calendarEl) {
             // Set form business hours selects options and other inputs
             setBusinessHoursOptions(resourceId);
             startTimeInput.value = oldStartTime;
-            endTimeInput.value = oldEndTime;
+            
+            // Calculate end time (end_time is calculated dynamically)
+            calculateEndTime();
 
             // Set form action
             formElem.action = `${baseFormAction}/${resourceId}`;
