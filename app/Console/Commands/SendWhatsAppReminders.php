@@ -39,9 +39,19 @@ class SendWhatsAppReminders extends Command
     {
         $this->info('Checking for appointments to send WhatsApp reminders...');
 
+        // Show configuration status in debug mode
+        if ($this->option('verbose') || config('app.debug')) {
+            $config = $this->whatsappService->getConfigStatus();
+            $this->line('WhatsApp Configuration:');
+            foreach ($config as $key => $value) {
+                $this->line("  {$key}: {$value}");
+            }
+            $this->line('');
+        }
+
         // Calculate the target time range (24 hours from now, with a 2-hour window)
         $now = Carbon::now();
-        $targetStart = $now->copy()->addHours(23);
+        $targetStart = $now->copy()->addHours(20);
         $targetEnd = $now->copy()->addHours(25);
 
         // Find appointments that:
@@ -80,12 +90,26 @@ class SendWhatsAppReminders extends Command
                 $result = $this->whatsappService->sendMessage($appointment->user->phone_number, $message);
 
                 if ($result['success']) {
+                    $messageId = $result['message_id'] ?? 'N/A';
+
                     // Mark as sent
                     $appointment->whatsapp_sent_at = Carbon::now();
                     $appointment->save();
 
                     $sent++;
-                    $this->info("✓ Reminder sent to {$appointment->user->name} ({$appointment->user->phone_number})");
+                    $this->info("✓ Reminder accepted by WhatsApp API for {$appointment->user->name} ({$appointment->user->phone_number})");
+                    $this->line("  Message ID: {$messageId}");
+
+                    // Important note for test numbers
+                    $this->warn("  ⚠️  NOTE: With test numbers, messages are only delivered to verified phone numbers.");
+                    $this->warn("     Make sure {$appointment->user->phone_number} is added as a test number in Facebook Developers.");
+
+                    Log::info('WhatsApp reminder marked as sent', [
+                        'appointment_id' => $appointment->id,
+                        'user_id' => $appointment->user->id,
+                        'phone_number' => $appointment->user->phone_number,
+                        'message_id' => $messageId,
+                    ]);
                 } else {
                     $failed++;
                     $errorMessage = $result['error'] ?? 'Unknown error';

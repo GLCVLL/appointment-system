@@ -87,11 +87,22 @@ class WhatsAppService
                 ]);
 
             if ($response->successful()) {
-                Log::info('WhatsApp message sent successfully', [
+                $responseData = $response->json();
+                $messageId = $responseData['messages'][0]['id'] ?? null;
+
+                Log::info('WhatsApp message accepted by API', [
                     'to' => $phoneNumber,
-                    'response' => $response->json(),
+                    'message_id' => $messageId,
+                    'response' => $responseData,
                 ]);
-                return ['success' => true, 'error' => null];
+
+                // Return success with message ID for tracking
+                return [
+                    'success' => true,
+                    'error' => null,
+                    'message_id' => $messageId,
+                    'response' => $responseData,
+                ];
             } else {
                 $errorResponse = $response->json();
                 $errorMessage = $errorResponse['error']['message'] ?? 'Unknown API error';
@@ -193,5 +204,20 @@ class WhatsAppService
         }
 
         return $cleaned;
+    }
+
+    /**
+     * Get configuration status for debugging
+     *
+     * @return array
+     */
+    public function getConfigStatus(): array
+    {
+        return [
+            'api_url' => $this->apiUrl,
+            'phone_number_id' => $this->phoneNumberId ? 'Set (' . strlen($this->phoneNumberId) . ' chars)' : 'Not set',
+            'access_token' => $this->accessToken ? 'Set (' . strlen($this->accessToken) . ' chars)' : 'Not set',
+            'version' => $this->version,
+        ];
     }
 }
