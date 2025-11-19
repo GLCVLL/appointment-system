@@ -20,7 +20,7 @@
 
                     <div class="dropdown-menu" aria-labelledby="login-menu">
                         <a class="dropdown-item" href="{{ route('login') }}">Login</a>
-                        <a class="dropdown-item" href="{{ route('register') }}">Register</a>
+                        {{-- <a class="dropdown-item" href="{{ route('register') }}">Register</a> --}}
                     </div>
                 </li>
             @else
