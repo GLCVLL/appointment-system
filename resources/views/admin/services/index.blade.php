@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', ' - Services')
+@section('title', ' - ' . __('services.title'))
 
 @section('content')
     <section class="py-4 px-md-4">
@@ -10,7 +10,7 @@
             {{-- Header --}}
             <header class="d-flex justify-content-between align-items-center mb-4">
                 {{-- Title --}}
-                <h2 class="mb-0">Services</h2>
+                <h2 class="mb-0">{{ __('services.title') }}</h2>
                 {{-- Add Service --}}
                 <a href="{{ route('admin.services.create') }}" class="btn btn-success btn-circle">
                     <i class="fas fa-plus fa-lg"></i>
@@ -22,10 +22,10 @@
                 <table class="table table-hover align-middle">
                     <thead>
                         <tr>
-                            <th scope="col">Name</th>
-                            <th scope="col" class="text-center">Duration</th>
-                            <th scope="col" class="text-center">Price</th>
-                            <th scope="col" class="text-center d-none d-sm-table-cell">Availability</th>
+                            <th scope="col">{{ __('services.name') }}</th>
+                            <th scope="col" class="text-center">{{ __('services.duration') }}</th>
+                            <th scope="col" class="text-center">{{ __('services.price') }}</th>
+                            <th scope="col" class="text-center d-none d-sm-table-cell">{{ __('services.availability') }}</th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
@@ -35,7 +35,7 @@
                                 <td>{{ $service->name }}</td>
                                 <td class="text-center">{{ $service->getDate('duration', 'H:i') }}</td>
                                 <td class="text-center">€{{ $service->price }}</td>
-                                <td class="text-center d-none d-sm-table-cell">{{ $service->is_available ? 'Yes' : 'No' }}
+                                <td class="text-center d-none d-sm-table-cell">{{ $service->is_available ? __('services.available') : __('services.unavailable') }}
                                 </td>
                                 <td class="text-end">
                                     {{-- Actions --}}
@@ -58,7 +58,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="text-center p-3">No Services Found</td>
+                                <td colspan="5" class="text-center p-3">{{ __('services.no_services') }}</td>
                             </tr>
                         @endforelse
                     </tbody>

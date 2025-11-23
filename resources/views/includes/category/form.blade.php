@@ -12,9 +12,9 @@
 
     {{-- Category Name --}}
     <div class="col-12 mb-4">
-        <label for="name" class="form-label fs-5">Category Name</label>
+        <label for="name" class="form-label fs-5">{{ __('categories.name_label') }}</label>
         <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name"
-            value="{{ old('name', $category->name) }}" placeholder="Enter category name" required>
+            value="{{ old('name', $category->name) }}" placeholder="{{ __('categories.name_placeholder') }}" required>
 
         @error('name')
             <span class="invalid-feedback error-message" role="alert">{{ $message }}</span>
@@ -24,7 +24,7 @@
 
     {{-- # Submit --}}
     <div class="col-12">
-        <button class="btn btn-primary">Confirm</button>
+        <button class="btn btn-primary">{{ __('common.confirm') }}</button>
     </div>
 
 </div>

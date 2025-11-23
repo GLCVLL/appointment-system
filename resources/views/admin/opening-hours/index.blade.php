@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', ' - Opening Hours')
+@section('title', ' - ' . __('opening_hours.title'))
 
 
 @section('content')
@@ -12,7 +12,7 @@
             <header class="d-flex justify-content-between align-items-center mb-4">
 
                 {{-- Title --}}
-                <h2 class="mb-0">Opening Hours</h2>
+                <h2 class="mb-0">{{ __('opening_hours.title') }}</h2>
 
                 {{-- Add Business Hours --}}
                 <a href="{{ route('admin.opening-hours.create') }}" class="btn btn-success btn-circle">
@@ -25,11 +25,11 @@
                 <table class="table table-hover align-middle">
                     <thead>
                         <tr>
-                            <th scope="col">Day</th>
-                            <th scope="col" class="text-center">Opening Time</th>
-                            <th scope="col" class="text-center">Closing Time</th>
-                            <th scope="col" class="text-center">Break Start</th>
-                            <th scope="col" class="text-center">Break End</th>
+                            <th scope="col">{{ __('opening_hours.day') }}</th>
+                            <th scope="col" class="text-center">{{ __('opening_hours.work_start') }}</th>
+                            <th scope="col" class="text-center">{{ __('opening_hours.work_end') }}</th>
+                            <th scope="col" class="text-center">{{ __('opening_hours.break_start') }}</th>
+                            <th scope="col" class="text-center">{{ __('opening_hours.break_end') }}</th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
@@ -73,7 +73,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="text-center p-3">No results</td>
+                                <td colspan="6" class="text-center p-3">{{ __('opening_hours.no_hours') }}</td>
                             </tr>
                         @endforelse
                     </tbody>

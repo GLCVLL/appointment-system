@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', ' - Appointments Trashed')
+@section('title', ' - ' . __('appointments.trash'))
 
 @section('content')
     <section class="py-4 px-md-4">
@@ -11,7 +11,7 @@
             <header class="d-flex justify-content-between align-items-center mb-4">
 
                 {{-- Title --}}
-                <h2 class="mb-0">Appointments Trashed</h2>
+                <h2 class="mb-0">{{ __('appointments.trash') }}</h2>
 
                 {{-- Back --}}
                 <a href="{{ route('admin.appointments.index') }}" class="btn btn-outline-light">
@@ -24,14 +24,14 @@
                 <table class="table table-hover align-middle">
                     <thead>
                         <tr>
-                            <th scope="col">Client</th>
-                            <th scope="col">Service</th>
-                            <th scope="col">Date</th>
-                            <th scope="col">Start Time</th>
-                            <th scope="col">End Time</th>
-                            <th scope="col">Notes</th>
+                            <th scope="col">{{ __('appointments.client') }}</th>
+                            <th scope="col">{{ __('appointments.service') }}</th>
+                            <th scope="col">{{ __('appointments.date') }}</th>
+                            <th scope="col">{{ __('appointments.start_time') }}</th>
+                            <th scope="col">{{ __('appointments.end_time') }}</th>
+                            <th scope="col">{{ __('appointments.notes') }}</th>
 
-                            <th scope="col" class="text-center">Actions</th>
+                            <th scope="col" class="text-center">{{ __('appointments.actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -70,7 +70,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="7" class="text-center p-3">No Appointments trashed Found</td>
+                                <td colspan="7" class="text-center p-3">{{ __('appointments.no_appointments') }}</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -82,7 +82,7 @@
                         @csrf
                         @method('DELETE')
                         <button class="btn btn-danger">
-                            Empty Trash
+                            {{ __('common.delete') }}
                         </button>
                     </form>
                 </div>

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', ' - Edit Opening Hours')
+@section('title', ' - ' . __('opening_hours.edit'))
 
 @section('content')
     <section class="p-4">
@@ -19,7 +19,7 @@
                     </a>
 
                     {{-- Title --}}
-                    <h2 class="mb-0">Edit Opening Hours</h2>
+                    <h2 class="mb-0">{{ __('opening_hours.edit') }}</h2>
 
                 </div>
 

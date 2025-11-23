@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', ' - Appointments')
+@section('title', ' - ' . __('common.calendar'))
 
 @section('content')
 <section class="py-4 px-md-4">
@@ -11,7 +11,7 @@
         <header class="mb-4">
 
             {{-- Title --}}
-            <h2 class="mb-0">Calendar</h2>
+            <h2 class="mb-0">{{ __('common.calendar') }}</h2>
         </header>
 
         {{-- Filters --}}
@@ -23,7 +23,7 @@
 
                 <button class="btn btn-outline-primary dropdown-toggle" type="button" id="filter_services_toggler"
                     data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
-                    Services
+                    {{ __('common.services') }}
                 </button>
 
                 <ul class="dropdown-menu text-light" aria-labelledby="filter_services_toggler">

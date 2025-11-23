@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', ' - Edit Service')
+@section('title', ' - ' . __('services.edit'))
 
 @section('content')
     <section class="p-4">
@@ -15,7 +15,7 @@
                         <i class="fa-solid fa-chevron-left fa-xl"></i>
                     </a>
                     {{-- Title --}}
-                    <h2 class="mb-0">Edit Service</h2>
+                    <h2 class="mb-0">{{ __('services.edit') }}</h2>
                 </div>
             </header>
 

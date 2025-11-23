@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', ' - Users')
+@section('title', ' - ' . __('users.clients'))
 
 @section('content')
     <section class="py-4 px-md-4">
@@ -10,7 +10,7 @@
             {{-- Header --}}
             <header class="d-flex justify-content-between align-items-center mb-4">
                 {{-- Title --}}
-                <h2 class="mb-0">Users</h2>
+                <h2 class="mb-0">{{ __('users.clients') }}</h2>
                 {{-- Add User --}}
                 <a href="{{ route('admin.users.create') }}" class="btn btn-success btn-circle">
                     <i class="fas fa-plus fa-lg"></i>
@@ -22,10 +22,10 @@
                 <table class="table table-hover align-middle">
                     <thead>
                         <tr>
-                            <th scope="col">Name</th>
-                            <th scope="col" class="d-none d-sm-table-cell">Email</th>
-                            <th scope="col" class="text-center">Phone Number</th>
-                            <th scope="col" class="d-none d-sm-table-cell">Role</th>
+                            <th scope="col">{{ __('users.name') }}</th>
+                            <th scope="col" class="d-none d-sm-table-cell">{{ __('users.email') }}</th>
+                            <th scope="col" class="text-center">{{ __('users.phone') }}</th>
+                            <th scope="col" class="d-none d-sm-table-cell">{{ __('users.role') }}</th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
@@ -57,7 +57,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="text-center p-3">No Users Found</td>
+                                <td colspan="4" class="text-center p-3">{{ __('users.no_users') }}</td>
                             </tr>
                         @endforelse
                     </tbody>

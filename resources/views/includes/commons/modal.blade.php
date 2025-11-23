@@ -12,8 +12,8 @@
         </div>
 
         <div class="app-modal-footer">
-            <button class="btn btn-secondary me-2" data-close>Cancel</button>
-            <button class="btn btn-primary app-modal-submit" data-close>Ok</button>
+            <button class="btn btn-secondary me-2" data-close>{{ __('common.cancel') }}</button>
+            <button class="btn btn-primary app-modal-submit" data-close>{{ __('common.ok') }}</button>
         </div>
 
     </div>

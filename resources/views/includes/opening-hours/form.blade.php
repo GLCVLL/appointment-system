@@ -13,10 +13,10 @@
     {{-- Day --}}
     <div class="col-12 col-md-7 mb-4">
 
-        <label for="day" class="form-label fs-5">Day</label>
+        <label for="day" class="form-label fs-5">{{ __('opening_hours.day') }}</label>
 
         <select id="day" class="form-select @error('day') is-invalid @enderror" name="day">
-            <option value="">-- Choose a Day --</option>
+            <option value="">{{ __('opening_hours.choose_day') }}</option>
             @foreach (config('data.day_of_week') as $day)
                 <option @if (old('day', $openingHour->day) == $day) selected @endif>
                     {{ $day }}</option>
@@ -32,11 +32,11 @@
     {{-- Working Time --}}
     <div class="col-12 mb-4">
 
-        <p class="fs-5">Working Time</p>
+        <p class="fs-5">{{ __('opening_hours.working_time') }}</p>
 
         <div class="row">
             <div class="col-6">
-                <label for="opening_time" class="form-label">Start</label>
+                <label for="opening_time" class="form-label">{{ __('opening_hours.start') }}</label>
 
                 <select id="opening_time" class="form-select @error('opening_time') is-invalid @enderror"
                     name="opening_time">
@@ -53,7 +53,7 @@
             </div>
 
             <div class="col-6">
-                <label for="closing_time" class="form-label">End</label>
+                <label for="closing_time" class="form-label">{{ __('opening_hours.end') }}</label>
 
                 <select id="closing_time" class="form-select @error('closing_time') is-invalid @enderror"
                     name="closing_time">
@@ -76,15 +76,15 @@
     {{-- Break Time --}}
     <div class="col-12 mb-4">
 
-        <p class="fs-5">Break Time</p>
+        <p class="fs-5">{{ __('opening_hours.break_time') }}</p>
 
         <div class="row">
             <div class="col-6">
-                <label for="break_start" class="form-label">Start</label>
+                <label for="break_start" class="form-label">{{ __('opening_hours.start') }}</label>
 
                 <select id="break_start" class="form-select @error('break_start') is-invalid @enderror"
                     name="break_start">
-                    <option value="">none</option>
+                    <option value="">{{ __('opening_hours.none') }}</option>
                     @foreach ($time_array as $time)
                         <option @if (old('break_start', $openingHour->break_start) == $time['value']) selected @endif value="{{ $time['value'] }}">
                             {{ $time['text'] }}</option>
@@ -97,10 +97,10 @@
             </div>
 
             <div class="col-6">
-                <label for="break_end" class="form-label">End</label>
+                <label for="break_end" class="form-label">{{ __('opening_hours.end') }}</label>
 
                 <select id="break_end" class="form-select @error('break_end') is-invalid @enderror" name="break_end">
-                    <option value="">none</option>
+                    <option value="">{{ __('opening_hours.none') }}</option>
                     @foreach ($time_array as $time)
                         <option @if (old('break_end', $openingHour->break_end) == $time['value']) selected @endif value="{{ $time['value'] }}">
                             {{ $time['text'] }}</option>
@@ -118,7 +118,7 @@
 
     {{-- # Submit --}}
     <div class="col-12">
-        <button class="btn btn-primary">Confirm</button>
+        <button class="btn btn-primary">{{ __('common.confirm') }}</button>
     </div>
 
 </div>

@@ -19,8 +19,8 @@
                     </a>
 
                     <div class="dropdown-menu" aria-labelledby="login-menu">
-                        <a class="dropdown-item" href="{{ route('login') }}">Login</a>
-                        {{-- <a class="dropdown-item" href="{{ route('register') }}">Register</a> --}}
+                        <a class="dropdown-item" href="{{ route('login') }}">{{ __('auth.login') }}</a>
+                        {{-- <a class="dropdown-item" href="{{ route('register') }}">{{ __('auth.register') }}</a> --}}
                     </div>
                 </li>
             @else
@@ -44,11 +44,11 @@
                     </a>
 
                     <div class="dropdown-menu" aria-labelledby="profile-menu">
-                        <a class="dropdown-item" href="{{ url('profile') }}">{{ __('Profile') }}</a>
+                        <a class="dropdown-item" href="{{ url('profile') }}">{{ __('auth.profile') }}</a>
                         <a class="dropdown-item" href="{{ route('logout') }}"
                             onclick="event.preventDefault();
                                      document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
+                            {{ __('auth.logout') }}
                         </a>
 
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

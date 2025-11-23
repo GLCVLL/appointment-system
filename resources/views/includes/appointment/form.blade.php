@@ -13,10 +13,10 @@
             {{-- User --}}
             <div class="col-12 col-md-5 mb-4">
 
-                <label for="user_id" class="form-label fs-5">Client</label>
+                <label for="user_id" class="form-label fs-5">{{ __('appointments.client') }}</label>
 
                 <select id="user_id" class="form-select @error('user_id') is-invalid @enderror" name="user_id">
-                    <option value="">-- Choose a Client --</option>
+                    <option value="">{{ __('appointments.choose_client') }}</option>
                     @foreach ($users as $user)
                     <option @if (old('user_id', $appointment->user_id) == $user->id) selected @endif value="{{ $user->id }}">
                         {{ $user->name }}
@@ -32,7 +32,7 @@
 
             {{-- Services --}}
             <div class="col-12 mb-4">
-                <p class="fs-5 mb-2">Services</p>
+                <p class="fs-5 mb-2">{{ __('appointments.service') }}</p>
 
                 <div id="services"
                     class="d-flex flex-wrap gap-3 rounded p-1 @error('services') border border-danger @enderror">
@@ -54,7 +54,7 @@
 
             {{-- Appointment Date --}}
             <div class="col-12 mb-4">
-                <label for="date" class="form-label fs-5">Appointment Date</label>
+                <label for="date" class="form-label fs-5">{{ __('appointments.date') }}</label>
                 <input type="date" class="form-control @error('date') is-invalid @enderror" id="date" name="date"
                     value="{{ old('date', $appointment->date ?? '') }}" required>
 
@@ -68,7 +68,7 @@
             {{-- Appointment Start Time --}}
             <div class="col-6 mb-4">
 
-                <label for="start_time" class="form-label fs-5">Start Time</label>
+                <label for="start_time" class="form-label fs-5">{{ __('appointments.start_time_label') }}</label>
 
                 <select id="start_time" class="form-select @error('start_time') is-invalid @enderror" name="start_time">
                     <option value="">----</option>
@@ -89,7 +89,7 @@
 
             {{-- Appointment End Time --}}
             <div class="col-6 mb-4">
-                <label for="end_time" class="form-label fs-5">End Time</label>
+                <label for="end_time" class="form-label fs-5">{{ __('appointments.end_time_label') }}</label>
                 <select id="end_time" class="form-select @error('end_time') is-invalid @enderror" disabled>
                     <option value="">----</option>
                 </select>
@@ -104,9 +104,9 @@
 
             {{-- Additional Notes --}}
             <div class="col-12 mb-4">
-                <label for="notes" class="form-label fs-5">Notes</label>
+                <label for="notes" class="form-label fs-5">{{ __('appointments.notes') }}</label>
                 <textarea class="form-control @error('notes') is-invalid @enderror" id="notes" name="notes"
-                    placeholder="Enter additional notes">{{ old('notes', $appointment->notes ?? '') }}</textarea>
+                    placeholder="{{ __('appointments.notes_placeholder') }}">{{ old('notes', $appointment->notes ?? '') }}</textarea>
 
                 @error('notes')
                 <span class="invalid-feedback error-message" role="alert">{{ $message }}</span>
@@ -117,7 +117,7 @@
 
             {{-- Submit --}}
             <div class="col-12">
-                <button class="btn btn-primary">Confirm</button>
+                <button class="btn btn-primary">{{ __('common.confirm') }}</button>
             </div>
 
         </div>

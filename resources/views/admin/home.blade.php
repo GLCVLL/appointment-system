@@ -8,7 +8,7 @@
 
                 {{-- Title --}}
                 <h2 class="mb-0">
-                    {{ __('Dashboard') }}
+                    {{ __('common.dashboard') }}
                 </h2>
 
                 {{-- Filters --}}
@@ -45,7 +45,7 @@
                         <div class="d-flex justify-content-between align-items-center pb-2">
 
                             {{-- Title --}}
-                            <h6>NEW CLIENTS</h6>
+                            <h6>{{ __('common.new_clients') }}</h6>
 
                             {{-- Dropdown Menu --}}
                             <div class="dropdown">
@@ -59,7 +59,7 @@
                                     <li>
                                         <a class="dropdown-item" href="{{ route('admin.users.index') }}">
                                             <i class="fas fa-eye me-2"></i>
-                                            View
+                                            {{ __('common.view') }}
                                         </a>
                                     </li>
                                 </ul>
@@ -97,7 +97,7 @@
                         <div class="d-flex justify-content-between align-items-center pb-2">
 
                             {{-- Title --}}
-                            <h6>APPOINTMENTS</h6>
+                            <h6>{{ __('common.appointments') }}</h6>
 
                             {{-- Dropdown Menu --}}
                             <div class="dropdown">
@@ -111,7 +111,7 @@
                                     <li>
                                         <a class="dropdown-item" href="{{ route('admin.appointments.index') }}">
                                             <i class="fas fa-eye me-2"></i>
-                                            View
+                                            {{ __('common.view') }}
                                         </a>
                                     </li>
                                 </ul>
@@ -150,7 +150,7 @@
                         <div class="d-flex justify-content-between align-items-center pb-2">
 
                             {{-- Title --}}
-                            <h6>PROFITS</h6>
+                            <h6>{{ __('common.profits') }}</h6>
 
                             {{-- Dropdown Menu --}}
                             <div class="dropdown">
@@ -164,7 +164,7 @@
                                     <li>
                                         <a class="dropdown-item" href="{{ route('admin.services.index') }}">
                                             <i class="fas fa-eye me-2"></i>
-                                            View
+                                            {{ __('common.view') }}
                                         </a>
                                     </li>
                                 </ul>
@@ -199,7 +199,7 @@
                 <div class="col-12 mb-4">
                     <div class="card stat-card h-100 p-4">
 
-                        <h3 class="mb-3">Profits Details</h4>
+                        <h3 class="mb-3">{{ __('common.profits_details') }}</h3>
 
                             <canvas id="chart-profits-big" class="w-100" data-values='@json($profits_chart['data'])'
                                 data-labels='@json($profits_chart['labels'])'></canvas>

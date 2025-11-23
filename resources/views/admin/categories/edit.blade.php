@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', ' - Edit Category')
+@section('title', ' - ' . __('categories.edit'))
 
 @section('content')
     <section class="p-4">
@@ -19,7 +19,7 @@
                     </a>
 
                     {{-- Title --}}
-                    <h2 class="mb-0">Edit Category</h2>
+                    <h2 class="mb-0">{{ __('categories.edit') }}</h2>
 
                 </div>
 

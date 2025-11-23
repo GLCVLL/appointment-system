@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', ' - Add Closed Days')
+@section('title', ' - ' . __('closed_days.add'))
 
 @section('content')
     <section class="p-4">
@@ -19,7 +19,7 @@
                     </a>
 
                     {{-- Title --}}
-                    <h2 class="mb-0">Add Closed Days</h2>
+                    <h2 class="mb-0">{{ __('closed_days.add') }}</h2>
 
                 </div>
 

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', ' - Edit User')
+@section('title', ' - ' . __('users.edit'))
 
 @section('content')
     <section class="p-4">
@@ -15,7 +15,7 @@
                         <i class="fa-solid fa-chevron-left fa-xl"></i>
                     </a>
                     {{-- Title --}}
-                    <h2 class="mb-0">Edit User</h2>
+                    <h2 class="mb-0">{{ __('users.edit') }}</h2>
                 </div>
             </header>
 

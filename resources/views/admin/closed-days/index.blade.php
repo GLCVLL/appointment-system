@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', ' - Closed Days')
+@section('title', ' - ' . __('closed_days.title'))
 
 
 @section('content')
@@ -12,7 +12,7 @@
             <header class="d-flex justify-content-between align-items-center mb-4">
 
                 {{-- Title --}}
-                <h2 class="mb-0">Closed Days</h2>
+                <h2 class="mb-0">{{ __('closed_days.title') }}</h2>
 
                 {{-- Add Business Hours --}}
                 <a href="{{ route('admin.closed-days.create') }}" class="btn btn-success btn-circle">
@@ -25,7 +25,7 @@
                 <table class="table table-hover align-middle">
                     <thead>
                         <tr>
-                            <th scope="col">Date</th>
+                            <th scope="col">{{ __('closed_days.date') }}</th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
@@ -60,7 +60,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="2" class="text-center p-3">No results</td>
+                                <td colspan="2" class="text-center p-3">{{ __('closed_days.no_closed_days') }}</td>
                             </tr>
                         @endforelse
                     </tbody>

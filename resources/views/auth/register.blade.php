@@ -7,7 +7,7 @@
                 <div class="col-md-8">
                     <div class="card">
                         <div class="card-header">
-                            <h2>{{ __('Register') }}</h2>
+                            <h2>{{ __('auth.register') }}</h2>
                         </div>
 
                         <div class="card-body">
@@ -16,7 +16,7 @@
 
                                 <div class="mb-4 row">
                                     <label for="name"
-                                        class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                                        class="col-md-4 col-form-label text-md-right">{{ __('auth.name') }}</label>
 
                                     <div class="col-md-6">
                                         <input id="name" type="text"
@@ -33,7 +33,7 @@
 
                                 <div class="mb-4 row">
                                     <label for="email"
-                                        class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                                        class="col-md-4 col-form-label text-md-right">{{ __('auth.email') }}</label>
 
                                     <div class="col-md-6">
                                         <input id="email" type="email"
@@ -50,7 +50,7 @@
 
                                 <div class="mb-4 row">
                                     <label for="password"
-                                        class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                                        class="col-md-4 col-form-label text-md-right">{{ __('auth.password') }}</label>
 
                                     <div class="col-md-6">
                                         <input id="password" type="password"
@@ -67,7 +67,7 @@
 
                                 <div class="mb-4 row">
                                     <label for="password-confirm"
-                                        class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+                                        class="col-md-4 col-form-label text-md-right">{{ __('auth.confirm_password') }}</label>
 
                                     <div class="col-md-6">
                                         <input id="password-confirm" type="password" class="form-control"
@@ -78,7 +78,7 @@
                                 <div class="mb-4 row mb-0">
                                     <div class="col-md-6 offset-md-4">
                                         <button type="submit" class="btn btn-primary">
-                                            {{ __('Register') }}
+                                            {{ __('auth.register') }}
                                         </button>
                                     </div>
                                 </div>

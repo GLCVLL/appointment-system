@@ -13,7 +13,7 @@
     {{-- Date --}}
     <div class="col-12 col-md-7 mb-4">
 
-        <label for="date" class="form-label fs-5">Date</label>
+        <label for="date" class="form-label fs-5">{{ __('closed_days.date') }}</label>
 
         <input id="date" type="date" class="form-control @error('date') is-invalid @enderror"
             value="{{ old('opening_time', $closedDay->date) }}" name="date">
@@ -26,7 +26,7 @@
 
     {{-- # Submit --}}
     <div class="col-12">
-        <button class="btn btn-primary">Confirm</button>
+        <button class="btn btn-primary">{{ __('common.confirm') }}</button>
     </div>
 
 </div>

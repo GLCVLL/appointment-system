@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', ' - Categories')
+@section('title', ' - ' . __('categories.title'))
 
 @section('content')
     <section class="py-4 px-md-4">
@@ -11,7 +11,7 @@
             <header class="d-flex justify-content-between align-items-center mb-4">
 
                 {{-- Title --}}
-                <h2 class="mb-0">Categories</h2>
+                <h2 class="mb-0">{{ __('categories.title') }}</h2>
 
                 {{-- Add Category --}}
                 <a href="{{ route('admin.categories.create') }}" class="btn btn-success btn-circle">
@@ -24,7 +24,7 @@
                 <table class="table table-hover align-middle">
                     <thead>
                         <tr>
-                            <th scope="col">Name</th>
+                            <th scope="col">{{ __('categories.name') }}</th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
@@ -57,7 +57,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="2" class="text-center p-3">No Categories Found</td>
+                                <td colspan="2" class="text-center p-3">{{ __('categories.no_categories') }}</td>
                             </tr>
                         @endforelse
                     </tbody>
