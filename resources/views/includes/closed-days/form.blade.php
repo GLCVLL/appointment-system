@@ -26,7 +26,7 @@
 
         <input id="date" type="date" class="form-control @error('date') is-invalid @enderror"
             value="{{ old('date', $closedDay->date) }}" name="date">
-        <small>Note: The year will be ignored. This date will be considered closed every year.</small>
+        <small>{{ __('closed_days.date_note') }}</small>
         @error('date')
             <span class="invalid-feedback error-message" role="alert">{{ $message }}</span>
         @enderror

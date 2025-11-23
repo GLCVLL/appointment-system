@@ -1,6 +1,7 @@
 @php
 $validationMessages = [
     'name' => ['required' => __('services.validation.name_required'), 'string' => __('services.validation.name_string')],
+    'category_id' => ['required' => __('services.validation.category_required')],
     'duration' => ['required' => __('services.validation.duration_required'), 'time' => __('services.validation.duration_format')],
     'price' => ['required' => __('services.validation.price_required'), 'decimal' => __('services.validation.price_decimal')],
     'is_available' => ['required' => __('services.validation.availability_required'), 'boolean' => __('services.validation.availability_boolean')]
@@ -35,9 +36,9 @@ $validationMessages = [
 
     {{-- Category --}}
     <div class="col-12 mb-4">
-        <label for="category_id" class="form-label fs-5">Category</label>
+        <label for="category_id" class="form-label fs-5">{{ __('services.category_label') }}</label>
         <select class="form-select @error('category_id') is-invalid @enderror" id="category_id" name="category_id" required>
-            <option value="">Select a category</option>
+            <option value="">{{ __('services.choose_category') }}</option>
             @foreach ($categories as $category)
                 <option value="{{ $category->id }}" 
                     {{ old('category_id', $service->category_id) == $category->id ? 'selected' : '' }}>
