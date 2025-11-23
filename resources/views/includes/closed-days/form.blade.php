@@ -1,18 +1,19 @@
 @php
-$validationMessages = [
-    'date' => ['required' => __('closed_days.validation.date_required'), 'date' => __('closed_days.validation.date_format')]
-];
+    $validationMessages = [
+        'date' => [
+            'required' => __('closed_days.validation.date_required'),
+            'date' => __('closed_days.validation.date_format'),
+        ],
+    ];
 @endphp
 
 @if ($closedDay->exists)
     <form id="validation-form" class="card p-3" method="POST" action="{{ route('admin.closed-days.update', $closedDay) }}"
-        enctype="multipart/form-data" novalidate
-        data-validation-messages='@json($validationMessages)'>
+        enctype="multipart/form-data" novalidate data-validation-messages='@json($validationMessages)'>
         @method('PUT')
     @else
         <form id="validation-form" class="card p-3" method="POST" action="{{ route('admin.closed-days.store') }}"
-            enctype="multipart/form-data" novalidate
-            data-validation-messages='@json($validationMessages)'>
+            enctype="multipart/form-data" novalidate data-validation-messages='@json($validationMessages)'>
 @endif
 @csrf
 
@@ -24,7 +25,8 @@ $validationMessages = [
         <label for="date" class="form-label fs-5">{{ __('closed_days.date') }}</label>
 
         <input id="date" type="date" class="form-control @error('date') is-invalid @enderror"
-            value="{{ old('opening_time', $closedDay->date) }}" name="date">
+            value="{{ old('date', $closedDay->date) }}" name="date">
+        <small>Note: The year will be ignored. This date will be considered closed every year.</small>
         @error('date')
             <span class="invalid-feedback error-message" role="alert">{{ $message }}</span>
         @enderror

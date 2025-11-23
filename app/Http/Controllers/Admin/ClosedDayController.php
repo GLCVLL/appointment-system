@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\ClosedDay;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -38,19 +39,31 @@ class ClosedDayController extends Controller
         // Validation
         $data = $request->validate(
             [
-                'date' => 'required|date|unique:closed_days',
+                'date' => 'required|date',
             ],
             [
                 'date.required' => __('closed_days.validation.date_required'),
                 'date.date' => __('closed_days.validation.date_format'),
-                'date.unique' => __('closed_days.validation.date_unique'),
             ]
         );
 
+        // Normalize date to year 2000 (year is ignored in validation)
+        $parsedDate = Carbon::parse($data['date']);
+        $normalizedDate = Carbon::create(2000, $parsedDate->month, $parsedDate->day)->format('Y-m-d');
 
-        // Insert Closed Day
+        // Check if a closed day with same month/day already exists
+        $existingClosedDay = ClosedDay::whereMonth('date', $parsedDate->month)
+            ->whereDay('date', $parsedDate->day)
+            ->first();
+
+        if ($existingClosedDay) {
+            return back()->withInput($request->input())
+                ->withErrors(['date' => 'A closed day for this date already exists (year is ignored).']);
+        }
+
+        // Insert Closed Day with normalized date
         $closedDay = new ClosedDay();
-        $closedDay->fill($data);
+        $closedDay->date = $normalizedDate;
         $closedDay->save();
 
 
@@ -88,18 +101,32 @@ class ClosedDayController extends Controller
         // Validation
         $data = $request->validate(
             [
-                'date' => ['required', 'date', Rule::unique('closed_days')->ignore($closedDay->id)],
+                'date' => 'required|date',
             ],
             [
                 'date.required' => __('closed_days.validation.date_required'),
                 'date.date' => __('closed_days.validation.date_format'),
-                'date.unique' => __('closed_days.validation.date_unique'),
             ]
         );
 
+        // Normalize date to year 2000 (year is ignored in validation)
+        $parsedDate = Carbon::parse($data['date']);
+        $normalizedDate = Carbon::create(2000, $parsedDate->month, $parsedDate->day)->format('Y-m-d');
 
-        // Update Closed DAy
-        $closedDay->update($data);
+        // Check if a closed day with same month/day already exists (excluding current)
+        $existingClosedDay = ClosedDay::whereMonth('date', $parsedDate->month)
+            ->whereDay('date', $parsedDate->day)
+            ->where('id', '!=', $closedDay->id)
+            ->first();
+
+        if ($existingClosedDay) {
+            return back()->withInput($request->input())
+                ->withErrors(['date' => 'A closed day for this date already exists (year is ignored).']);
+        }
+
+        // Update Closed Day with normalized date
+        $closedDay->date = $normalizedDate;
+        $closedDay->save();
 
 
         return to_route('admin.closed-days.index')
