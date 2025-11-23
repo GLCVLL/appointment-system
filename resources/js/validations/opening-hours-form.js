@@ -9,26 +9,5 @@ const form = {
     'break_end': ['time:H:i:s'],
 };
 
-const errorMessages = {
-    'day': {
-        'required': 'The day is required',
-        'string': 'The day must be a string'
-    },
-    'opening_time': {
-        'required': 'The opening time is required',
-        'time': 'Insert a valide time'
-    },
-    'closing_time': {
-        'required': 'The closing time is required',
-        'time': 'Insert a valide time'
-    },
-    'break_start': {
-        'time': 'Insert a valide time'
-    },
-    'break_end': {
-        'time': 'Insert a valide time'
-    },
-
-};
-
-initValidation(form, errorMessages);
+// Error messages are loaded from form data-validation-messages attribute
+initValidation(form);

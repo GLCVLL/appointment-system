@@ -9,26 +9,5 @@ const form = {
     'notes': ['nullable', 'string'],
 };
 
-const errorMessages = {
-    'user_id': {
-        'required': 'The client is required'
-    },
-    'services': {
-        'required': 'The service is required'
-    },
-    'start_time': {
-        'required': 'The start Time is required',
-        'time': 'Insert a valide time',
-        'after_date_time': 'Start Time must be after current time'
-    },
-    'date': {
-        'required': 'The date is required',
-        'date': 'Insert a valide date',
-        'after_or_equal': 'Date must be after or equal current date'
-    },
-    'notes': {
-        'string': 'The notes must be a string'
-    },
-};
-
-initValidation(form, errorMessages);
+// Error messages are loaded from form data-validation-messages attribute
+initValidation(form);

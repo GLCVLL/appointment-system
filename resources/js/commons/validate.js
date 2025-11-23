@@ -1,11 +1,24 @@
 
-export const initValidation = (form, errorMessages) => {
+export const initValidation = (form, errorMessages = null) => {
     // Get Form elements
     const formElem = document.getElementById('validation-form');
     let validationElements = [];
     for (const key in form) {
         validationElements.push(...Array.from(document.querySelectorAll(`[name^="${key}"]`)));
     }
+
+    // Try to get error messages from form data attribute if not provided
+    if (!errorMessages && formElem?.dataset.validationMessages) {
+        try {
+            errorMessages = JSON.parse(formElem.dataset.validationMessages);
+        } catch (e) {
+            console.error('Failed to parse validation messages:', e);
+            errorMessages = {};
+        }
+    }
+
+    // Fallback to empty object
+    if (!errorMessages) errorMessages = {};
 
     let formErrors = {};
 
