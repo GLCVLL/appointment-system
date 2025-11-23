@@ -62,19 +62,19 @@ class OpeningHourController extends Controller
                 'break_end' => 'nullable|date_format:H:i',
             ],
             [
-                'day.required' => 'The day is required',
-                'day.string' => 'The day must be a string',
-                'day.unique' => 'This day already exists',
+                'day.required' => __('opening_hours.validation.day_required'),
+                'day.string' => __('opening_hours.validation.day_string'),
+                'day.unique' => __('opening_hours.validation.day_unique'),
 
-                'opening_time.required' => 'The opening Time is required',
-                'opening_time.date_format' => 'Insert a valide time',
+                'opening_time.required' => __('opening_hours.validation.opening_time_required'),
+                'opening_time.date_format' => __('opening_hours.validation.opening_time_format'),
 
-                'closing_time.required' => 'The closing Time is required',
-                'closing_time.date_format' => 'Insert a valide time',
+                'closing_time.required' => __('opening_hours.validation.closing_time_required'),
+                'closing_time.date_format' => __('opening_hours.validation.closing_time_format'),
 
-                'break_start.date_format' => 'Insert a valide time',
+                'break_start.date_format' => __('opening_hours.validation.break_start_format'),
 
-                'break_end.date_format' => 'Insert a valide time',
+                'break_end.date_format' => __('opening_hours.validation.break_end_format'),
             ]
         );
 
@@ -89,7 +89,7 @@ class OpeningHourController extends Controller
             ->with('messages', [
                 [
                     'sender' => 'System',
-                    'content' => 'Opening Hour added successfully.',
+                    'content' => __('opening_hours.created'),
                     'timestamp' => now()
                 ]
             ]);
@@ -140,19 +140,19 @@ class OpeningHourController extends Controller
                 'break_end' => 'nullable|date_format:H:i:s',
             ],
             [
-                'day.required' => 'The day is required',
-                'day.string' => 'The day must be a string',
-                'day.unique' => 'This day already exists',
+                'day.required' => __('opening_hours.validation.day_required'),
+                'day.string' => __('opening_hours.validation.day_string'),
+                'day.unique' => __('opening_hours.validation.day_unique'),
 
-                'opening_time.required' => 'The opening Time is required',
-                'opening_time.date_format' => 'Insert a valide time',
+                'opening_time.required' => __('opening_hours.validation.opening_time_required'),
+                'opening_time.date_format' => __('opening_hours.validation.opening_time_format'),
 
-                'closing_time.required' => 'The closing Time is required',
-                'closing_time.date_format' => 'Insert a valide time',
+                'closing_time.required' => __('opening_hours.validation.closing_time_required'),
+                'closing_time.date_format' => __('opening_hours.validation.closing_time_format'),
 
-                'break_start.date_format' => 'Insert a valide time',
+                'break_start.date_format' => __('opening_hours.validation.break_start_format'),
 
-                'break_end.date_format' => 'Insert a valide time',
+                'break_end.date_format' => __('opening_hours.validation.break_end_format'),
             ]
         );
 
@@ -165,7 +165,7 @@ class OpeningHourController extends Controller
             ->with('messages', [
                 [
                     'sender' => 'System',
-                    'content' => 'Opening Hour updated successfully.',
+                    'content' => __('opening_hours.updated'),
                     'timestamp' => now()
                 ]
             ]);
@@ -183,7 +183,7 @@ class OpeningHourController extends Controller
             ->with('messages', [
                 [
                     'sender' => 'System',
-                    'content' => 'Opening Hour deleted.',
+                    'content' => __('opening_hours.deleted'),
                     'timestamp' => now()
                 ]
             ]);

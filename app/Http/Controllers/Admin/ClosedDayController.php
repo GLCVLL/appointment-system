@@ -41,9 +41,9 @@ class ClosedDayController extends Controller
                 'date' => 'required|date|unique:closed_days',
             ],
             [
-                'date.required' => 'The date is required',
-                'date.date' => 'Insert a valide date',
-                'date.unique' => 'This date already exists',
+                'date.required' => __('closed_days.validation.date_required'),
+                'date.date' => __('closed_days.validation.date_format'),
+                'date.unique' => __('closed_days.validation.date_unique'),
             ]
         );
 
@@ -58,7 +58,7 @@ class ClosedDayController extends Controller
             ->with('messages', [
                 [
                     'sender' => 'System',
-                    'content' => 'Closed Day added successfully.',
+                    'content' => __('closed_days.created'),
                     'timestamp' => now()
                 ]
             ]);
@@ -91,9 +91,9 @@ class ClosedDayController extends Controller
                 'date' => ['required', 'date', Rule::unique('closed_days')->ignore($closedDay->id)],
             ],
             [
-                'date.required' => 'The date is required',
-                'date.date' => 'Insert a valide date',
-                'date.unique' => 'This date already exists',
+                'date.required' => __('closed_days.validation.date_required'),
+                'date.date' => __('closed_days.validation.date_format'),
+                'date.unique' => __('closed_days.validation.date_unique'),
             ]
         );
 
@@ -106,7 +106,7 @@ class ClosedDayController extends Controller
             ->with('messages', [
                 [
                     'sender' => 'System',
-                    'content' => 'Closed Day updated successfully.',
+                    'content' => __('closed_days.updated'),
                     'timestamp' => now()
                 ]
             ]);
@@ -124,7 +124,7 @@ class ClosedDayController extends Controller
             ->with('messages', [
                 [
                     'sender' => 'System',
-                    'content' => 'Closed Day deleted.',
+                    'content' => __('closed_days.deleted'),
                     'timestamp' => now()
                 ]
             ]);

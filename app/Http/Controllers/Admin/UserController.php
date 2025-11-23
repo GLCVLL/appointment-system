@@ -41,11 +41,11 @@ class UserController extends Controller
                 'phone_number' => 'nullable|string',
             ],
             [
-                'name.required' => 'The name is required',
-                'email.required' => 'The email is required',
-                'email.email' => 'Please insert a valid email',
-                'email.unique' => 'This email already exists',
-                'password.required' => 'The password is required',
+                'name.required' => __('users.validation.name_required'),
+                'email.required' => __('users.validation.email_required'),
+                'email.email' => __('users.validation.email_email'),
+                'email.unique' => __('users.validation.email_unique'),
+                'password.required' => __('users.validation.password_required'),
 
             ]
         );
@@ -56,7 +56,13 @@ class UserController extends Controller
         $user->save();
 
         return redirect()->route('admin.users.index')
-            ->with('success', 'User added successfully.');
+            ->with('messages', [
+                [
+                    'sender' => 'System',
+                    'content' => __('users.created'),
+                    'timestamp' => now()
+                ]
+            ]);
     }
 
     /**
@@ -90,10 +96,10 @@ class UserController extends Controller
                 'phone_number' => 'nullable|string',
             ],
             [
-                'name.required' => 'The name is required',
-                'email.required' => 'The email is required',
-                'email.email' => 'Please insert a valid email',
-                'password.required' => 'The password is required',
+                'name.required' => __('users.validation.name_required'),
+                'email.required' => __('users.validation.email_required'),
+                'email.email' => __('users.validation.email_email'),
+                'password.required' => __('users.validation.password_required'),
             ]
         );
 
@@ -104,7 +110,7 @@ class UserController extends Controller
             ->with('messages', [
                 [
                     'sender' => 'System',
-                    'content' => 'User updated successfully.',
+                    'content' => __('users.updated'),
                     'timestamp' => now()
                 ]
             ]);
@@ -116,6 +122,13 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-        return redirect()->route('admin.users.index')->with('success', 'User deleted successfully.');
+        return redirect()->route('admin.users.index')
+            ->with('messages', [
+                [
+                    'sender' => 'System',
+                    'content' => __('users.deleted'),
+                    'timestamp' => now()
+                ]
+            ]);
     }
 }
