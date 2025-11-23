@@ -42,8 +42,10 @@ return [
         'service_exists' => 'This service already exists',
         'start_time_required' => 'The start Time is required',
         'start_time_format' => 'Insert a valid time',
+        'start_time_after' => 'Start time must be after current time',
         'date_required' => 'The date is required',
         'date_format' => 'Insert a valid date',
+        'date_after' => 'Date must be after or equal current date',
         'notes_string' => 'The notes must be a string',
     ],
 

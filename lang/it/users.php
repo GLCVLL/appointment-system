@@ -41,9 +41,15 @@ return [
     // Validazione
     'validation' => [
         'name_required' => 'Il nome è obbligatorio',
+        'name_string' => 'Il nome deve essere una stringa',
+        'name_max' => 'Il nome non può superare i 255 caratteri',
         'email_required' => 'L\'email è obbligatoria',
         'email_email' => 'Inserisci un\'email valida',
+        'email_max' => 'L\'email non può superare i 255 caratteri',
         'email_unique' => 'Questa email esiste già',
         'password_required' => 'La password è obbligatoria',
+        'password_string' => 'La password deve essere una stringa',
+        'password_min' => 'La password deve essere di almeno 8 caratteri',
+        'phone_string' => 'Il numero di telefono deve essere valido',
     ],
 ];

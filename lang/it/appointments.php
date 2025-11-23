@@ -42,8 +42,10 @@ return [
         'service_exists' => 'Questo servizio esiste già',
         'start_time_required' => 'L\'ora di inizio è obbligatoria',
         'start_time_format' => 'Inserisci un orario valido',
+        'start_time_after' => 'L\'ora di inizio deve essere successiva all\'ora attuale',
         'date_required' => 'La data è obbligatoria',
         'date_format' => 'Inserisci una data valida',
+        'date_after' => 'La data deve essere uguale o successiva alla data odierna',
         'notes_string' => 'Le note devono essere una stringa',
     ],
 
