@@ -48,11 +48,11 @@ class ServiceController extends Controller
                 'name.string' => __('services.validation.name_string'),
                 'name.unique' => __('services.validation.name_unique'),
 
+                'category_id.required' => __('services.validation.category_required'),
+                'category_id.exists' => __('services.validation.category_exists'),
+
                 'duration.required' => __('services.validation.duration_required'),
                 'duration.date_format' => __('services.validation.duration_format'),
-
-                'category_id.required' => 'The category is required',
-                'category_id.exists' => 'The selected category is invalid',
 
                 'price.required' => __('services.validation.price_required'),
                 'price.decimal' => __('services.validation.price_decimal'),
@@ -107,11 +107,11 @@ class ServiceController extends Controller
                 'name.string' => __('services.validation.name_string'),
                 'name.unique' => __('services.validation.name_unique'),
 
+                'category_id.required' => __('services.validation.category_required'),
+                'category_id.exists' => __('services.validation.category_exists'),
+
                 'duration.required' => __('services.validation.duration_required'),
                 'duration.date_format' => __('services.validation.duration_format'),
-
-                'category_id.required' => 'The category is required',
-                'category_id.exists' => 'The selected category is invalid',
 
                 'price.required' => __('services.validation.price_required'),
                 'price.decimal' => __('services.validation.price_decimal'),
