@@ -1,10 +1,21 @@
+@php
+$validationMessages = [
+    'name' => ['required' => __('users.validation.name_required'), 'string' => __('users.validation.name_string'), 'max' => __('users.validation.name_max')],
+    'email' => ['required' => __('users.validation.email_required'), 'email' => __('users.validation.email_email'), 'max' => __('users.validation.email_max')],
+    'password' => ['required' => __('users.validation.password_required'), 'string' => __('users.validation.password_string'), 'min' => __('users.validation.password_min')],
+    'phone_number' => ['string' => __('users.validation.phone_string')]
+];
+@endphp
+
 @if ($user->exists)
     <form id="validation-form" class="card p-3" method="POST" action="{{ route('admin.users.update', $user) }}"
-        enctype="multipart/form-data" novalidate>
+        enctype="multipart/form-data" novalidate
+        data-validation-messages='@json($validationMessages)'>
         @method('PUT')
     @else
         <form id="validation-form" class="card p-3" method="POST" action="{{ route('admin.users.store') }}"
-            enctype="multipart/form-data" novalidate>
+            enctype="multipart/form-data" novalidate
+            data-validation-messages='@json($validationMessages)'>
 @endif
 @csrf
 

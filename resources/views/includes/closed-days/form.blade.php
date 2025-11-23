@@ -1,10 +1,18 @@
+@php
+$validationMessages = [
+    'date' => ['required' => __('closed_days.validation.date_required'), 'date' => __('closed_days.validation.date_format')]
+];
+@endphp
+
 @if ($closedDay->exists)
     <form id="validation-form" class="card p-3" method="POST" action="{{ route('admin.closed-days.update', $closedDay) }}"
-        enctype="multipart/form-data" novalidate>
+        enctype="multipart/form-data" novalidate
+        data-validation-messages='@json($validationMessages)'>
         @method('PUT')
     @else
         <form id="validation-form" class="card p-3" method="POST" action="{{ route('admin.closed-days.store') }}"
-            enctype="multipart/form-data" novalidate>
+            enctype="multipart/form-data" novalidate
+            data-validation-messages='@json($validationMessages)'>
 @endif
 @csrf
 

@@ -1,10 +1,18 @@
+@php
+$validationMessages = [
+    'name' => ['required' => __('categories.validation.name_required'), 'max' => __('categories.validation.name_max')]
+];
+@endphp
+
 @if ($category->exists)
     <form id="validation-form" class="card p-3" method="POST" action="{{ route('admin.categories.update', $category) }}"
-        enctype="multipart/form-data" novalidate>
+        enctype="multipart/form-data" novalidate
+        data-validation-messages='@json($validationMessages)'>
         @method('PUT')
     @else
         <form id="validation-form" class="card p-3" method="POST" action="{{ route('admin.categories.store') }}"
-            enctype="multipart/form-data" novalidate>
+            enctype="multipart/form-data" novalidate
+            data-validation-messages='@json($validationMessages)'>
 @endif
 @csrf
 

@@ -1,10 +1,21 @@
+@php
+$validationMessages = [
+    'name' => ['required' => __('services.validation.name_required'), 'string' => __('services.validation.name_string')],
+    'duration' => ['required' => __('services.validation.duration_required'), 'time' => __('services.validation.duration_format')],
+    'price' => ['required' => __('services.validation.price_required'), 'decimal' => __('services.validation.price_decimal')],
+    'is_available' => ['required' => __('services.validation.availability_required'), 'boolean' => __('services.validation.availability_boolean')]
+];
+@endphp
+
 @if ($service->exists)
     <form id="validation-form" class="card p-3" method="POST" action="{{ route('admin.services.update', $service) }}"
-        enctype="multipart/form-data" novalidate>
+        enctype="multipart/form-data" novalidate
+        data-validation-messages='@json($validationMessages)'>
         @method('PUT')
     @else
         <form id="validation-form" class="card p-3" method="POST" action="{{ route('admin.services.store') }}"
-            enctype="multipart/form-data" novalidate>
+            enctype="multipart/form-data" novalidate
+            data-validation-messages='@json($validationMessages)'>
 @endif
 @csrf
 

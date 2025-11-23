@@ -1,10 +1,22 @@
+@php
+$validationMessages = [
+    'day' => ['required' => __('opening_hours.validation.day_required'), 'string' => __('opening_hours.validation.day_string')],
+    'opening_time' => ['required' => __('opening_hours.validation.opening_time_required'), 'time' => __('opening_hours.validation.opening_time_format')],
+    'closing_time' => ['required' => __('opening_hours.validation.closing_time_required'), 'time' => __('opening_hours.validation.closing_time_format')],
+    'break_start' => ['time' => __('opening_hours.validation.break_start_format')],
+    'break_end' => ['time' => __('opening_hours.validation.break_end_format')]
+];
+@endphp
+
 @if ($openingHour->exists)
     <form id="validation-form" class="card p-3" method="POST"
-        action="{{ route('admin.opening-hours.update', $openingHour) }}" enctype="multipart/form-data" novalidate>
+        action="{{ route('admin.opening-hours.update', $openingHour) }}" enctype="multipart/form-data" novalidate
+        data-validation-messages='@json($validationMessages)'>
         @method('PUT')
     @else
         <form id="validation-form" class="card p-3" method="POST" action="{{ route('admin.opening-hours.store') }}"
-            enctype="multipart/form-data" novalidate>
+            enctype="multipart/form-data" novalidate
+            data-validation-messages='@json($validationMessages)'>
 @endif
 @csrf
 

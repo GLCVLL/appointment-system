@@ -1,3 +1,13 @@
+@php
+$validationMessages = [
+    'user_id' => ['required' => __('appointments.validation.client_required')],
+    'services' => ['required' => __('appointments.validation.service_required')],
+    'start_time' => ['required' => __('appointments.validation.start_time_required'), 'time' => __('appointments.validation.start_time_format'), 'after_date_time' => __('appointments.validation.start_time_after')],
+    'date' => ['required' => __('appointments.validation.date_required'), 'date' => __('appointments.validation.date_format'), 'after_or_equal' => __('appointments.validation.date_after')],
+    'notes' => ['string' => __('appointments.validation.notes_string')]
+];
+@endphp
+
 <div id="modal-form" class="app-modal modal-full @if (session('modal-error')) has-error @endif">
     <div class="app-modal-content">
         <div class="app-modal-title">
@@ -13,7 +23,8 @@
 
                 <form id="validation-form" class="card p-3" method="POST"
                     data-resource-id="{{ session('resource-id') ?? '' }}"
-                    action="{{ route('admin.appointments.store') }}" enctype="multipart/form-data" novalidate>
+                    action="{{ route('admin.appointments.store') }}" enctype="multipart/form-data" novalidate
+                    data-validation-messages='@json($validationMessages)'>
                     @csrf
 
                     {{-- Edit method input (disconnected) --}}
