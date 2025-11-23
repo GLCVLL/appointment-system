@@ -7,6 +7,10 @@ const modalTitleElem = modalElem?.querySelector('.app-modal-title');
 const modalBodyElem = modalElem?.querySelector('.app-modal-body');
 const modalSubmitBtn = modalElem?.querySelector('.app-modal-submit');
 
+// Get translations from data attributes
+const deleteTitle = modalElem?.dataset.deleteTitle || 'Delete';
+const deleteConfirmTemplate = modalElem?.dataset.deleteConfirm || 'Are you sure you want to delete ":name"?';
+
 // Logic
 deleteForms.forEach(form => {
 
@@ -17,9 +21,9 @@ deleteForms.forEach(form => {
         e.preventDefault();
 
         if (modalElem) {
-            // Set modal data
-            modalTitleElem.innerText = 'Delete';
-            modalBodyElem.innerText = `Are you sure you want to delete "${modalName}"?`;
+            // Set modal data with translations
+            modalTitleElem.innerText = deleteTitle;
+            modalBodyElem.innerText = deleteConfirmTemplate.replace(':name', modalName);
 
             // Show modal
             modalElem.classList.add('is-open');

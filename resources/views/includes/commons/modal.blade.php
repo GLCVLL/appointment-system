@@ -1,4 +1,4 @@
-<div class="app-modal">
+<div class="app-modal" data-delete-title="{{ __('common.delete_title') }}" data-delete-confirm="{{ __('common.delete_confirm') }}">
     <div class="app-modal-content">
         <div class="app-modal-title">
             Title
