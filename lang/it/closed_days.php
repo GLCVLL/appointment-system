@@ -13,6 +13,7 @@ return [
 
     // Form
     'date_label' => 'Data',
+    'date_note' => 'Nota: L\'anno verrà ignorato. Questa data sarà considerata chiusa ogni anno.',
     'reason_label' => 'Motivo',
     'reason_placeholder' => 'es. Festività, Ferie...',
 

@@ -13,6 +13,7 @@ return [
 
     // Form
     'date_label' => 'Date',
+    'date_note' => 'Note: The year will be ignored. This date will be considered closed every year.',
     'reason_label' => 'Reason',
     'reason_placeholder' => 'e.g. Holiday, Vacation...',
 

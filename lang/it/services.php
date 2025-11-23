@@ -40,6 +40,8 @@ return [
         'name_required' => 'Il nome del servizio è obbligatorio',
         'name_string' => 'Il nome del servizio deve essere una stringa',
         'name_unique' => 'Questo nome del servizio esiste già',
+        'category_required' => 'La categoria è obbligatoria',
+        'category_exists' => 'La categoria selezionata non è valida',
         'duration_required' => 'La durata è obbligatoria',
         'duration_format' => 'Inserisci un formato orario valido',
         'price_required' => 'Il prezzo è obbligatorio',

@@ -40,6 +40,8 @@ return [
         'name_required' => 'The service name is required',
         'name_string' => 'The service name must be a string',
         'name_unique' => 'This service name already exists',
+        'category_required' => 'The category is required',
+        'category_exists' => 'The selected category is invalid',
         'duration_required' => 'The duration is required',
         'duration_format' => 'Please insert a valid time format',
         'price_required' => 'The price is required',
