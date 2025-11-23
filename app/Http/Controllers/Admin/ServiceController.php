@@ -41,18 +41,18 @@ class ServiceController extends Controller
                 'is_available' => 'required|boolean',
             ],
             [
-                'name.required' => 'The service name is required',
-                'name.string' => 'The service name must be a string',
-                'name.unique' => 'This service name already exists',
+                'name.required' => __('services.validation.name_required'),
+                'name.string' => __('services.validation.name_string'),
+                'name.unique' => __('services.validation.name_unique'),
 
-                'duration.required' => 'The duration is required',
-                'duration.date_format' => 'Please insert a valid time format',
+                'duration.required' => __('services.validation.duration_required'),
+                'duration.date_format' => __('services.validation.duration_format'),
 
-                'price.required' => 'The price is required',
-                'price.decimal' => 'Please insert a valid price',
+                'price.required' => __('services.validation.price_required'),
+                'price.decimal' => __('services.validation.price_decimal'),
 
-                'is_available.required' => 'The availability is required',
-                'is_available.boolean' => 'The availability must be a boolean value',
+                'is_available.required' => __('services.validation.availability_required'),
+                'is_available.boolean' => __('services.validation.availability_boolean'),
             ]
         );
 
@@ -62,7 +62,7 @@ class ServiceController extends Controller
         $service->save();
 
         return redirect()->route('admin.services.index')
-            ->with('success', 'Service added successfully.');
+            ->with('success', __('services.created'));
     }
 
     /**
@@ -95,18 +95,18 @@ class ServiceController extends Controller
                 'is_available' => 'required|boolean',
             ],
             [
-                'name.required' => 'The service name is required',
-                'name.string' => 'The service name must be a string',
-                'name.unique' => 'This service name already exists',
+                'name.required' => __('services.validation.name_required'),
+                'name.string' => __('services.validation.name_string'),
+                'name.unique' => __('services.validation.name_unique'),
 
-                'duration.required' => 'The duration is required',
-                'duration.date_format' => 'Please insert a valid time format',
+                'duration.required' => __('services.validation.duration_required'),
+                'duration.date_format' => __('services.validation.duration_format'),
 
-                'price.required' => 'The price is required',
-                'price.decimal' => 'Please insert a valid price',
+                'price.required' => __('services.validation.price_required'),
+                'price.decimal' => __('services.validation.price_decimal'),
 
-                'is_available.required' => 'The availability is required',
-                'is_available.boolean' => 'The availability must be a boolean value',
+                'is_available.required' => __('services.validation.availability_required'),
+                'is_available.boolean' => __('services.validation.availability_boolean'),
             ]
         );
 
@@ -117,7 +117,7 @@ class ServiceController extends Controller
             ->with('messages', [
                 [
                     'sender' => 'System',
-                    'content' => 'Service updated successfully.',
+                    'content' => __('services.updated'),
                     'timestamp' => now()
                 ]
             ]);
@@ -130,6 +130,6 @@ class ServiceController extends Controller
     {
         $service->delete();
 
-        return redirect()->route('admin.services.index')->with('success', 'Service deleted successfully.');
+        return redirect()->route('admin.services.index')->with('success', __('services.deleted'));
     }
 }

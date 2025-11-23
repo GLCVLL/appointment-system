@@ -35,9 +35,9 @@ class CategoryController extends Controller
         $data = $request->validate(
             ['name' => 'required|unique:categories|max:255',],
             [
-                'name.required' => 'The category name is required',
-                'name.unique' => 'This category name already exists',
-                'name.max' => 'The category name may not be greater than 255 characters',
+                'name.required' => __('categories.validation.name_required'),
+                'name.unique' => __('categories.validation.name_unique'),
+                'name.max' => __('categories.validation.name_max'),
             ]
 
         );
@@ -76,9 +76,9 @@ class CategoryController extends Controller
             ],
 
             [
-                'name.required' => 'The category name is required',
-                'name.unique' => 'This category name already exists',
-                'name.max' => 'The category name may not be greater than 255 characters',
+                'name.required' => __('categories.validation.name_required'),
+                'name.unique' => __('categories.validation.name_unique'),
+                'name.max' => __('categories.validation.name_max'),
             ]
         );
 

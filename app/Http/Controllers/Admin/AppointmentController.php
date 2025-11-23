@@ -103,19 +103,19 @@ class AppointmentController extends Controller
                 'notes' => 'nullable|string',
             ],
             [
-                'user_id.required' => 'The client is required',
-                'user_id.exists' => 'This client already exists',
+                'user_id.required' => __('appointments.validation.client_required'),
+                'user_id.exists' => __('appointments.validation.client_exists'),
 
-                'services.required' => 'The service is required',
-                'services.exists' => 'This service already exists',
+                'services.required' => __('appointments.validation.service_required'),
+                'services.exists' => __('appointments.validation.service_exists'),
 
-                'start_time.required' => 'The start Time is required',
-                'start_time.date_format' => 'Insert a valide time',
+                'start_time.required' => __('appointments.validation.start_time_required'),
+                'start_time.date_format' => __('appointments.validation.start_time_format'),
 
-                'date.date' => 'Insert a valide date',
-                'date.required' => 'The date is required',
+                'date.date' => __('appointments.validation.date_format'),
+                'date.required' => __('appointments.validation.date_required'),
 
-                'notes.string' => 'The notes must be a string',
+                'notes.string' => __('appointments.validation.notes_string'),
             ]
         );
 
@@ -131,7 +131,7 @@ class AppointmentController extends Controller
 
         $isPublicHolidays = ClosedDay::whereMonth('date', $appointmentDate->month)->whereDay('date', $appointmentDate->day)->first();
 
-        if ($isPublicHolidays) $errorMessage = "Hi there, {$appointmentDate->format('d F')} is a public Holiday!";
+        if ($isPublicHolidays) $errorMessage = __('appointments.public_holiday', ['date' => $appointmentDate->format('d F')]);
 
 
         // Check opening hours
@@ -148,7 +148,7 @@ class AppointmentController extends Controller
 
             // if is a closing day or not
             if (!$openingHour) {
-                $errorMessage = "I'm sorry but $dayOfWeek is a closing day!";
+                $errorMessage = __('appointments.closing_day', ['day' => $dayOfWeek]);
             }
             // if we are in working hours
             elseif (
@@ -158,7 +158,7 @@ class AppointmentController extends Controller
             ) {
                 $work_start = date('H:i', strtotime($openingHour->opening_time));
                 $work_end = date('H:i', strtotime($openingHour->closing_time));
-                $errorMessage = "Hi there, this appointment is outside of our working hours from $work_start to $work_end!";
+                $errorMessage = __('appointments.outside_hours', ['start' => $work_start, 'end' => $work_end]);
             }
             // if we overllapping break time
             elseif (
@@ -167,7 +167,7 @@ class AppointmentController extends Controller
             ) {
                 $break_start = date('H:i', strtotime($openingHour->break_start));
                 $break_end = date('H:i', strtotime($openingHour->break_end));
-                $errorMessage = "Hi there, this appointment overlaps our breaking time from $break_start to $break_end!";
+                $errorMessage = __('appointments.break_time', ['start' => $break_start, 'end' => $break_end]);
             }
         }
 
@@ -180,8 +180,8 @@ class AppointmentController extends Controller
                 ->where('end_time', '>', $startTime)
                 ->count();
 
-            // Set Error Message   
-            if ($overlappingAppointments) $errorMessage = 'This appointment already exists';
+            // Set Error Message
+            if ($overlappingAppointments) $errorMessage = __('appointments.already_exists');
         }
 
 
@@ -217,7 +217,7 @@ class AppointmentController extends Controller
             ->with('messages', [
                 [
                     'sender' => 'System',
-                    'content' => 'Appointment added successfully.',
+                    'content' => __('appointments.created'),
                     'timestamp' => now()
                 ]
             ]);
@@ -293,19 +293,19 @@ class AppointmentController extends Controller
                 'notes' => 'nullable|string',
             ],
             [
-                'user_id.required' => 'The client is required',
-                'user_id.exists' => 'This client does not exist',
+                'user_id.required' => __('appointments.validation.client_required'),
+                'user_id.exists' => __('appointments.validation.client_exists'),
 
-                'services.required' => 'At least one service is required',
-                'services.*.exists' => 'This service does not exist',
+                'services.required' => __('appointments.validation.service_required'),
+                'services.*.exists' => __('appointments.validation.service_exists'),
 
-                'date.required' => 'The date is required',
-                'date.date' => 'Please enter a valid date',
+                'date.required' => __('appointments.validation.date_required'),
+                'date.date' => __('appointments.validation.date_format'),
 
-                'start_time.required' => 'The start time is required',
-                'start_time.date_format' => 'Please enter a valid start time',
+                'start_time.required' => __('appointments.validation.start_time_required'),
+                'start_time.date_format' => __('appointments.validation.start_time_format'),
 
-                'notes.string' => 'The notes must be a string',
+                'notes.string' => __('appointments.validation.notes_string'),
             ]
         );
 
@@ -321,7 +321,7 @@ class AppointmentController extends Controller
 
         if ($isPublicHolidays) {
 
-            $errorMessage = "Hi there, {$appointmentDate->format('d F')} is a public Holiday!";
+            $errorMessage = __('appointments.public_holiday', ['date' => $appointmentDate->format('d F')]);
         }
 
         if (!$errorMessage) {
@@ -342,7 +342,7 @@ class AppointmentController extends Controller
             // if is a closing day or not
 
             if (!$openingHour) {
-                $errorMessage = "I'm sorry but $dayOfWeek is a closing day!";
+                $errorMessage = __('appointments.closing_day', ['day' => $dayOfWeek]);
             }
             // if we are in working hours
             elseif (
@@ -352,7 +352,7 @@ class AppointmentController extends Controller
             ) {
                 $work_start = date('H:i', strtotime($openingHour->opening_time));
                 $work_end = date('H:i', strtotime($openingHour->closing_time));
-                $errorMessage = "Hi there, this appointment is outside of our working hours from $work_start to $work_end!";
+                $errorMessage = __('appointments.outside_hours', ['start' => $work_start, 'end' => $work_end]);
             }
             // if we overllapping break time
             elseif (
@@ -361,7 +361,7 @@ class AppointmentController extends Controller
             ) {
                 $break_start = date('H:i', strtotime($openingHour->break_start));
                 $break_end = date('H:i', strtotime($openingHour->break_end));
-                $errorMessage = "Hi there, this appointment overlaps our breaking time from $break_start to $break_end!";
+                $errorMessage = __('appointments.break_time', ['start' => $break_start, 'end' => $break_end]);
             }
         }
 
@@ -373,10 +373,10 @@ class AppointmentController extends Controller
                 ->where('start_time', '<', $endTime)
                 ->where('end_time', '>', $startTime)
                 ->count();
-            // Throw Exception Overlapping appointments    
+            // Throw Exception Overlapping appointments
             if ($overlappingAppointments) {
 
-                $errorMessage = 'This appointment already exists';
+                $errorMessage = __('appointments.already_exists');
             }
         }
 
@@ -408,7 +408,7 @@ class AppointmentController extends Controller
                 [
                     'sender' => 'System',
                     'color' => 'success',
-                    'content' => 'Appointment updated successfully.',
+                    'content' => __('appointments.updated'),
                     'timestamp' => now()
                 ]
             ]);
@@ -426,7 +426,7 @@ class AppointmentController extends Controller
             ->with('messages', [
                 [
                     'sender' => 'System',
-                    'content' => 'Appointment deleted.',
+                    'content' => __('appointments.deleted'),
                     'timestamp' => now()
                 ]
             ]);
@@ -455,7 +455,7 @@ class AppointmentController extends Controller
             ->with('messages', [
                 [
                     'sender' => 'System',
-                    'content' => 'Appointment deleted.',
+                    'content' => __('appointments.permanent_delete'),
                     'timestamp' => now()
                 ]
             ]);
