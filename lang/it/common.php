@@ -93,4 +93,8 @@ return [
     'profits' => 'PROFITTI',
     'profits_details' => 'Dettaglio Profitti',
     'ok' => 'Ok',
+
+    // Modale di eliminazione
+    'delete_title' => 'Elimina',
+    'delete_confirm' => 'Sei sicuro di voler eliminare ":name"?',
 ];

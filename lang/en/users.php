@@ -37,4 +37,13 @@ return [
     'created' => 'User created successfully.',
     'updated' => 'User updated successfully.',
     'deleted' => 'User deleted.',
+
+    // Validation
+    'validation' => [
+        'name_required' => 'The name is required',
+        'email_required' => 'The email is required',
+        'email_email' => 'Please insert a valid email',
+        'email_unique' => 'This email already exists',
+        'password_required' => 'The password is required',
+    ],
 ];

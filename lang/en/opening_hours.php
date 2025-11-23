@@ -40,4 +40,17 @@ return [
     'end' => 'End',
     'break_time' => 'Break Time',
     'none' => 'none',
+
+    // Validation
+    'validation' => [
+        'day_required' => 'The day is required',
+        'day_string' => 'The day must be a string',
+        'day_unique' => 'This day already exists',
+        'opening_time_required' => 'The opening time is required',
+        'opening_time_format' => 'Insert a valid time',
+        'closing_time_required' => 'The closing time is required',
+        'closing_time_format' => 'Insert a valid time',
+        'break_start_format' => 'Insert a valid time',
+        'break_end_format' => 'Insert a valid time',
+    ],
 ];

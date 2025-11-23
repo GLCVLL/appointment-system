@@ -93,4 +93,8 @@ return [
     'profits' => 'PROFITS',
     'profits_details' => 'Profits Details',
     'ok' => 'Ok',
+
+    // Delete modal
+    'delete_title' => 'Delete',
+    'delete_confirm' => 'Are you sure you want to delete ":name"?',
 ];

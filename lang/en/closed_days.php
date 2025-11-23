@@ -21,4 +21,11 @@ return [
     'created' => 'Closed day added successfully.',
     'updated' => 'Closed day updated successfully.',
     'deleted' => 'Closed day deleted.',
+
+    // Validation
+    'validation' => [
+        'date_required' => 'The date is required',
+        'date_format' => 'Insert a valid date',
+        'date_unique' => 'This date already exists',
+    ],
 ];

@@ -40,4 +40,17 @@ return [
     'end' => 'Fine',
     'break_time' => 'Pausa',
     'none' => 'nessuna',
+
+    // Validazione
+    'validation' => [
+        'day_required' => 'Il giorno è obbligatorio',
+        'day_string' => 'Il giorno deve essere una stringa',
+        'day_unique' => 'Questo giorno esiste già',
+        'opening_time_required' => 'L\'orario di apertura è obbligatorio',
+        'opening_time_format' => 'Inserisci un orario valido',
+        'closing_time_required' => 'L\'orario di chiusura è obbligatorio',
+        'closing_time_format' => 'Inserisci un orario valido',
+        'break_start_format' => 'Inserisci un orario valido',
+        'break_end_format' => 'Inserisci un orario valido',
+    ],
 ];

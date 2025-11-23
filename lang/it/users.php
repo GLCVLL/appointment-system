@@ -37,4 +37,13 @@ return [
     'created' => 'Utente creato con successo.',
     'updated' => 'Utente aggiornato con successo.',
     'deleted' => 'Utente eliminato.',
+
+    // Validazione
+    'validation' => [
+        'name_required' => 'Il nome è obbligatorio',
+        'email_required' => 'L\'email è obbligatoria',
+        'email_email' => 'Inserisci un\'email valida',
+        'email_unique' => 'Questa email esiste già',
+        'password_required' => 'La password è obbligatoria',
+    ],
 ];
