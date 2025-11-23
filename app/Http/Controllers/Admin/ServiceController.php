@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -25,7 +26,8 @@ class ServiceController extends Controller
     {
         // Create empty resource
         $service = new Service();
-        return view('admin.services.create', compact('service'));
+        $categories = Category::all();
+        return view('admin.services.create', compact('service', 'categories'));
     }
 
     /**
@@ -36,6 +38,7 @@ class ServiceController extends Controller
         $data = $request->validate(
             [
                 'name' => 'required|string|unique:services',
+                'category_id' => 'required|exists:categories,id',
                 'duration' => 'required|date_format:H:i:s',
                 'price' => 'required|decimal:0,2',
                 'is_available' => 'required|boolean',
@@ -44,6 +47,9 @@ class ServiceController extends Controller
                 'name.required' => 'The service name is required',
                 'name.string' => 'The service name must be a string',
                 'name.unique' => 'This service name already exists',
+
+                'category_id.required' => 'The category is required',
+                'category_id.exists' => 'The selected category is invalid',
 
                 'duration.required' => 'The duration is required',
                 'duration.date_format' => 'Please insert a valid time format',
@@ -78,7 +84,8 @@ class ServiceController extends Controller
      */
     public function edit(Service $service)
     {
-        return view('admin.services.edit', compact('service'));
+        $categories = Category::all();
+        return view('admin.services.edit', compact('service', 'categories'));
     }
 
     /**
@@ -90,6 +97,7 @@ class ServiceController extends Controller
         $data = $request->validate(
             [
                 'name' => ['required', 'string', Rule::unique('services')->ignore($service->id)],
+                'category_id' => 'required|exists:categories,id',
                 'duration' => 'required|date_format:H:i:s',
                 'price' => 'required|decimal:0,2',
                 'is_available' => 'required|boolean',
@@ -98,6 +106,9 @@ class ServiceController extends Controller
                 'name.required' => 'The service name is required',
                 'name.string' => 'The service name must be a string',
                 'name.unique' => 'This service name already exists',
+
+                'category_id.required' => 'The category is required',
+                'category_id.exists' => 'The selected category is invalid',
 
                 'duration.required' => 'The duration is required',
                 'duration.date_format' => 'Please insert a valid time format',

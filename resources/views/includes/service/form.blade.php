@@ -22,6 +22,25 @@
         <span id="name-error" class="invalid-feedback"></span>
     </div>
 
+    {{-- Category --}}
+    <div class="col-12 mb-4">
+        <label for="category_id" class="form-label fs-5">Category</label>
+        <select class="form-select @error('category_id') is-invalid @enderror" id="category_id" name="category_id" required>
+            <option value="">Select a category</option>
+            @foreach ($categories as $category)
+                <option value="{{ $category->id }}" 
+                    {{ old('category_id', $service->category_id) == $category->id ? 'selected' : '' }}>
+                    {{ $category->name }}
+                </option>
+            @endforeach
+        </select>
+
+        @error('category_id')
+            <span class="invalid-feedback error-message" role="alert">{{ $message }}</span>
+        @enderror
+        <span id="category_id-error" class="invalid-feedback"></span>
+    </div>
+
     {{-- Service Duration --}}
     <div class="col-12 mb-4">
         <label for="duration" class="form-label fs-5">Duration</label>
