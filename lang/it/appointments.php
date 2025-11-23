@@ -1,0 +1,60 @@
+<?php
+
+return [
+    // Titoli e navigazione
+    'title' => 'Appuntamenti',
+    'add' => 'Aggiungi Appuntamento',
+    'edit' => 'Modifica Appuntamento',
+    'trash' => 'Cestino Appuntamenti',
+    'calendar' => 'Calendario',
+
+    // Tabella
+    'client' => 'Cliente',
+    'service' => 'Servizio',
+    'date' => 'Data',
+    'start_time' => 'Ora Inizio',
+    'end_time' => 'Ora Fine',
+    'notes' => 'Note',
+    'actions' => 'Azioni',
+
+    // Form
+    'choose_client' => '-- Seleziona un Cliente --',
+    'choose_service' => '-- Seleziona un Servizio --',
+    'choose_date' => 'Seleziona una data',
+    'start_time_label' => 'Ora Inizio',
+    'end_time_label' => 'Ora Fine',
+    'notes_placeholder' => 'Inserisci le note dell\'appuntamento...',
+
+    // Messaggi
+    'no_appointments' => 'Nessun Appuntamento Trovato',
+    'created' => 'Appuntamento aggiunto con successo.',
+    'updated' => 'Appuntamento aggiornato con successo.',
+    'deleted' => 'Appuntamento eliminato.',
+    'restored' => 'Appuntamento ripristinato con successo.',
+    'permanent_delete' => 'Appuntamento eliminato definitivamente.',
+
+    // Validazione
+    'validation' => [
+        'client_required' => 'Il cliente è obbligatorio',
+        'client_exists' => 'Questo cliente esiste già',
+        'service_required' => 'Il servizio è obbligatorio',
+        'service_exists' => 'Questo servizio esiste già',
+        'start_time_required' => 'L\'ora di inizio è obbligatoria',
+        'start_time_format' => 'Inserisci un orario valido',
+        'date_required' => 'La data è obbligatoria',
+        'date_format' => 'Inserisci una data valida',
+        'notes_string' => 'Le note devono essere una stringa',
+    ],
+
+    // Business logic
+    'public_holiday' => 'Ciao, il :date è un giorno festivo!',
+    'closing_day' => 'Ci dispiace ma :day è un giorno di chiusura!',
+    'outside_hours' => 'Ciao, questo appuntamento è fuori dal nostro orario di lavoro dalle :start alle :end!',
+    'break_time' => 'Ciao, questo appuntamento si sovrappone alla nostra pausa dalle :start alle :end!',
+    'already_exists' => 'Questo appuntamento esiste già',
+
+    // Conferme
+    'confirm_delete' => 'Sei sicuro di voler eliminare questo appuntamento?',
+    'confirm_restore' => 'Vuoi ripristinare questo appuntamento?',
+    'confirm_permanent_delete' => 'Sei sicuro? Questa azione è irreversibile!',
+];
