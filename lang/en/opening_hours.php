@@ -33,4 +33,11 @@ return [
     'created' => 'Opening hours created successfully.',
     'updated' => 'Opening hours updated successfully.',
     'deleted' => 'Opening hours deleted.',
+
+    // Additional form
+    'working_time' => 'Working Time',
+    'start' => 'Start',
+    'end' => 'End',
+    'break_time' => 'Break Time',
+    'none' => 'none',
 ];

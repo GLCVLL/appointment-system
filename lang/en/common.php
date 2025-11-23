@@ -87,4 +87,10 @@ return [
     'loading' => 'Loading...',
     'no_data' => 'No data available',
     'not_found' => 'Not found',
+
+    // Dashboard
+    'new_clients' => 'NEW CLIENTS',
+    'profits' => 'PROFITS',
+    'profits_details' => 'Profits Details',
+    'ok' => 'Ok',
 ];

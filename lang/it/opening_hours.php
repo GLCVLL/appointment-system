@@ -33,4 +33,11 @@ return [
     'created' => 'Orario creato con successo.',
     'updated' => 'Orario aggiornato con successo.',
     'deleted' => 'Orario eliminato.',
+
+    // Form aggiuntivi
+    'working_time' => 'Orario di Lavoro',
+    'start' => 'Inizio',
+    'end' => 'Fine',
+    'break_time' => 'Pausa',
+    'none' => 'nessuna',
 ];

@@ -38,4 +38,8 @@ return [
     'failed' => 'Credenziali non valide.',
     'password' => 'La password fornita non è corretta.',
     'throttle' => 'Troppi tentativi di accesso. Riprova tra :seconds secondi.',
+
+    // Form placeholders
+    'password_placeholder' => 'Inserisci la password',
+    'confirm_password_placeholder' => 'Conferma la password',
 ];

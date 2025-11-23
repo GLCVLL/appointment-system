@@ -38,4 +38,8 @@ return [
     'failed' => 'These credentials do not match our records.',
     'password' => 'The provided password is incorrect.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+
+    // Form placeholders
+    'password_placeholder' => 'Enter password',
+    'confirm_password_placeholder' => 'Confirm password',
 ];

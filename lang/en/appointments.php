@@ -11,6 +11,7 @@ return [
     // Table
     'client' => 'Client',
     'service' => 'Service',
+    'services' => 'Services',
     'date' => 'Date',
     'start_time' => 'Start Time',
     'end_time' => 'End Time',

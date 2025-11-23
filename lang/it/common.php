@@ -87,4 +87,10 @@ return [
     'loading' => 'Caricamento...',
     'no_data' => 'Nessun dato disponibile',
     'not_found' => 'Non trovato',
+
+    // Dashboard
+    'new_clients' => 'NUOVI CLIENTI',
+    'profits' => 'PROFITTI',
+    'profits_details' => 'Dettaglio Profitti',
+    'ok' => 'Ok',
 ];
