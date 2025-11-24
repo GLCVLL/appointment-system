@@ -43,10 +43,10 @@
                                         <form action="{{ route('admin.users.toggle', $user) }}" method="POST">
                                             @csrf
                                             @method('PATCH')
-                                            <button class="btn {{ $user->blocked ? 'btn-success' : 'btn-danger' }}" 
+                                            <button class="btn {{ $user->blocked ? 'btn-success' : 'btn-dark' }}" 
                                                     type="submit" 
                                                     title="{{ $user->blocked ? __('blacklist.unblock') : __('blacklist.block') }}">
-                                                <i class="fas {{ $user->blocked ? 'fa-unlock' : 'fa-ban' }}"></i>
+                                                <i class="fas {{ $user->blocked ? 'fa-unlock' : 'fa-skull' }}"></i>
                                             </button>
                                         </form>
                                         {{-- Edit --}}
