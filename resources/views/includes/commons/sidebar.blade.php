@@ -72,6 +72,14 @@
                     </a>
                 </li>
 
+                {{-- Blacklist --}}
+                <li>
+                    <a href="{{ route('admin.blacklist.index') }}" class="@if (Route::is('admin.blacklist*')) active @endif">
+                        <i class="fas fa-ban fa-xl fa-fw"></i>
+                        <span class="d-none d-md-inline">{{ __('common.blacklist') }}</span>
+                    </a>
+                </li>
+
                 {{-- categories --}}
                 <li>
                     <a href="{{ route('admin.categories.index') }}"

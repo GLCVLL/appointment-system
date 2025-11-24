@@ -27,6 +27,7 @@ return [
     'categories' => 'Categories',
     'clients' => 'Clients',
     'users' => 'Users',
+    'blacklist' => 'Blacklist',
     'opening_hours' => 'Opening Hours',
     'closed_days' => 'Closed Days',
     'settings' => 'Settings',

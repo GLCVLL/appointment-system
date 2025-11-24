@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AppointmentController;
+use App\Http\Controllers\Admin\BlacklistController;
 use App\Http\Controllers\Admin\CalendarController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ClosedDayController;
@@ -64,7 +65,9 @@ Route::prefix('/admin')->name('admin')->middleware(['auth', 'verified', 'checkro
     // Users Routes
     Route::resource('users', UserController::class); // CRUD
 
-
+    // Blacklist Routes
+    Route::get('blacklist', [BlacklistController::class, 'index'])->name('blacklist.index');
+    Route::patch('blacklist/{user}/toggle', [BlacklistController::class, 'toggle'])->name('blacklist.toggle');
 });
 
 

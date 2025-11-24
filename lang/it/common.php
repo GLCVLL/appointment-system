@@ -27,6 +27,7 @@ return [
     'categories' => 'Categorie',
     'clients' => 'Clienti',
     'users' => 'Utenti',
+    'blacklist' => 'Lista Nera',
     'opening_hours' => 'Orari Apertura',
     'closed_days' => 'Giorni di Chiusura',
     'settings' => 'Impostazioni',
