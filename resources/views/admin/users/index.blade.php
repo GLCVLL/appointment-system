@@ -39,6 +39,16 @@
                                 <td>
                                     {{-- Actions --}}
                                     <div class="d-flex justify-content-end gap-2">
+                                        {{-- Block/Unblock --}}
+                                        <form action="{{ route('admin.users.toggle', $user) }}" method="POST">
+                                            @csrf
+                                            @method('PATCH')
+                                            <button class="btn {{ $user->blocked ? 'btn-success' : 'btn-danger' }}" 
+                                                    type="submit" 
+                                                    title="{{ $user->blocked ? __('blacklist.unblock') : __('blacklist.block') }}">
+                                                <i class="fas {{ $user->blocked ? 'fa-unlock' : 'fa-ban' }}"></i>
+                                            </button>
+                                        </form>
                                         {{-- Edit --}}
                                         <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-warning">
                                             <i class="fas fa-pencil-alt"></i>

@@ -131,4 +131,26 @@ class UserController extends Controller
                 ]
             ]);
     }
+
+    /**
+     * Toggle blocked status for a user.
+     */
+    public function toggle(User $user)
+    {
+        $user->blocked = !$user->blocked;
+        $user->save();
+
+        $message = $user->blocked 
+            ? __('blacklist.blocked') 
+            : __('blacklist.unblocked');
+
+        return redirect()->route('admin.users.index')
+            ->with('messages', [
+                [
+                    'sender' => 'System',
+                    'content' => $message,
+                    'timestamp' => now()
+                ]
+            ]);
+    }
 }

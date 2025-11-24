@@ -10,6 +10,7 @@ return [
     'unblocked' => 'Utente sbloccato con successo.',
     
     // Azioni
+    'block' => 'Blocca',
     'unblock' => 'Sblocca',
 ];
 

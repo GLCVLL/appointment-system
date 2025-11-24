@@ -10,6 +10,7 @@ return [
     'unblocked' => 'User unblocked successfully.',
     
     // Actions
+    'block' => 'Block',
     'unblock' => 'Unblock',
 ];
 

@@ -64,6 +64,7 @@ Route::prefix('/admin')->name('admin')->middleware(['auth', 'verified', 'checkro
 
     // Users Routes
     Route::resource('users', UserController::class); // CRUD
+    Route::patch('users/{user}/toggle', [UserController::class, 'toggle'])->name('users.toggle');
 
     // Blacklist Routes
     Route::get('blacklist', [BlacklistController::class, 'index'])->name('blacklist.index');
