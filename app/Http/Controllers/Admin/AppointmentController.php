@@ -192,7 +192,6 @@ class AppointmentController extends Controller
                 ->with('messages', [
                     [
                         'sender' => 'System',
-                        'color' => 'danger',
                         'content' => $errorMessage,
                         'timestamp' => now()
                     ]
@@ -386,7 +385,6 @@ class AppointmentController extends Controller
             return back()->withInput($request->input())->with('messages', [
                 [
                     'sender' => 'System',
-                    'color' => 'danger',
                     'content' => $errorMessage,
                     'timestamp' => now()
                 ]
@@ -409,7 +407,6 @@ class AppointmentController extends Controller
             ->with('messages', [
                 [
                     'sender' => 'System',
-                    'color' => 'success',
                     'content' => __('appointments.updated'),
                     'timestamp' => now()
                 ]
@@ -490,6 +487,24 @@ class AppointmentController extends Controller
         $wasBlocked = $appointment->user->blocked;
 
         if ($appointment->missed) {
+            // Check for overlapping appointments before unmarking as missed
+            $overlappingAppointments = Appointment::where('date', $appointment->date)
+                ->where('id', '!=', $appointment->id)
+                ->where('missed', false)
+                ->where('start_time', '<', $appointment->end_time)
+                ->where('end_time', '>', $appointment->start_time)
+                ->count();
+
+            if ($overlappingAppointments > 0) {
+                return back()->with('messages', [
+                    [
+                        'sender' => 'System',
+                        'content' => __('appointments.cannot_unmark_overlapping'),
+                        'timestamp' => now()
+                    ]
+                ]);
+            }
+
             // Unmark as missed
             $appointment->missed = false;
             $appointment->save();
