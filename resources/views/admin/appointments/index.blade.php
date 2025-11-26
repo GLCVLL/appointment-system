@@ -80,16 +80,16 @@
                             <div class="d-flex justify-content-end gap-2">
 
                                 {{-- Toggle Missed Status --}}
-                                <form action="{{ route('admin.appointments.mark-missed', $appointment) }}" 
-                                      method="POST" 
-                                      class="toggle-missed-form"
-                                      data-modal-name="appointment of {{ $appointment->getDate('date', 'd/m/Y') }} {{ $appointment->getDate('start_time', 'H:i') }}"
-                                      data-is-missed="{{ $appointment->missed ? 'true' : 'false' }}">
+                                <form action="{{ route('admin.appointments.mark-missed', $appointment) }}"
+                                    method="POST"
+                                    class="toggle-missed-form"
+                                    data-modal-name="appointment of {{ $appointment->getDate('date', 'd/m/Y') }} {{ $appointment->getDate('start_time', 'H:i') }}"
+                                    data-is-missed="{{ $appointment->missed ? 'true' : 'false' }}">
                                     @csrf
                                     @method('PATCH')
-                                    <button class="btn {{ $appointment->missed ? 'btn-success' : 'btn-dark' }}" 
-                                            type="submit" 
-                                            title="{{ $appointment->missed ? __('appointments.unmark_as_missed') : __('appointments.mark_as_missed') }}">
+                                    <button class="btn {{ $appointment->missed ? 'btn-success' : 'btn-dark' }}"
+                                        type="submit"
+                                        title="{{ $appointment->missed ? __('appointments.unmark_as_missed') : __('appointments.mark_as_missed') }}">
                                         <i class="fas {{ $appointment->missed ? 'fa-check-circle' : 'fa-times-circle' }}"></i>
                                     </button>
                                 </form>
