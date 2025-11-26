@@ -11,7 +11,7 @@ class Appointment extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['user_id', 'date', 'start_time', 'end_time', 'notes'];
+    protected $fillable = ['user_id', 'date', 'start_time', 'end_time', 'notes', 'missed'];
 
     // One to Many with User
     public function user()

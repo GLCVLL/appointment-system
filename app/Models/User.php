@@ -24,6 +24,8 @@ class User extends Authenticatable
         'phone_number',
         'role',
         'blocked',
+        'missed_appointments_count',
+        'missed_appointments_cycle',
     ];
 
     /**
@@ -50,5 +52,22 @@ class User extends Authenticatable
     public function appointments()
     {
         return $this->hasMany(Appointment::class);
+    }
+
+    /**
+     * Increment missed appointments counters
+     */
+    public function incrementMissedAppointment(): void
+    {
+        $this->missed_appointments_count++;
+        $this->missed_appointments_cycle++;
+        
+        // Reset cycle when it reaches 3 and block the user
+        if ($this->missed_appointments_cycle >= 3) {
+            $this->missed_appointments_cycle = 0;
+            $this->blocked = true; // Block the user
+        }
+        
+        $this->save();
     }
 }
