@@ -138,6 +138,7 @@ class UserController extends Controller
     public function toggle(User $user)
     {
         $user->blocked = !$user->blocked;
+        $user->blocked_at = $user->blocked ? now() : null;
         $user->save();
 
         $message = $user->blocked 
