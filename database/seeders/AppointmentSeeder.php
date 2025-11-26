@@ -77,6 +77,7 @@ class AppointmentSeeder extends Seeder
 
                         //  Get overlapping appointments
                         $appointments_count = Appointment::where('date', $app_date)
+                            ->where('missed', false)
                             ->where('start_time', '<', $end_time)
                             ->where('end_time', '>', $start_time)
                             ->count();

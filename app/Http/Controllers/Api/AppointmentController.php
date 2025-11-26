@@ -26,7 +26,8 @@ class AppointmentController extends Controller
                 'services' => 'required|exists:services,id',
                 'date' => ['required', 'date', 'after_or_equal:' . date('Y-m-d')],
                 'start_time' => [
-                    'required', 'date_format:H:i',
+                    'required',
+                    'date_format:H:i',
                     function ($attribute, $value, $fail) {
                         $selectedDate = request('date');
                         $currentTime = date('H:i');
@@ -116,6 +117,7 @@ class AppointmentController extends Controller
         if (!$errorMessage) {
 
             $overlappingAppointments = Appointment::where('date', $data['date'])
+                ->where('missed', false)
                 ->where('start_time', '<', $endTime)
                 ->where('end_time', '>', $startTime)
                 ->count();
@@ -189,6 +191,7 @@ class AppointmentController extends Controller
                     if ($formatHour <= $breakStartStr || ($formatHour >= $breakEndStr && $formatHour <= $closingTimeStr)) {
                         // Count overlapping appointments for the slot
                         $overlappingAppointmentsCount = Appointment::where('date', $dayStr)
+                            ->where('missed', false)
                             ->where('start_time', '<=', $hour)
                             ->where('end_time', '>', $hour)
                             ->count();

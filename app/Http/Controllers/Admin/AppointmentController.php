@@ -176,6 +176,7 @@ class AppointmentController extends Controller
         if (!$errorMessage) {
 
             $overlappingAppointments = Appointment::where('date', $data['date'])
+                ->where('missed', false)
                 ->where('start_time', '<', $endTime)
                 ->where('end_time', '>', $startTime)
                 ->count();
@@ -370,6 +371,7 @@ class AppointmentController extends Controller
             // Overlapping appointments checking
             $overlappingAppointments = Appointment::where('date', $data['date'])
                 ->where('id', '!=', $appointment->id)
+                ->where('missed', false)
                 ->where('start_time', '<', $endTime)
                 ->where('end_time', '>', $startTime)
                 ->count();
