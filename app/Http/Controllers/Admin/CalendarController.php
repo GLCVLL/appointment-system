@@ -44,8 +44,9 @@ class CalendarController extends Controller
         // Get closed days
         $closedDays = ClosedDay::pluck('date')->toArray();
 
-        // Get all appointments
+        // Get all appointments (exclude missed ones)
         $appointments = Appointment::with(['user', 'services'])
+            ->where('missed', false)
             ->orderBy('date')
             ->orderBy('start_time')
             ->get();
