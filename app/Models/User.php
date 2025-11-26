@@ -24,6 +24,7 @@ class User extends Authenticatable
         'phone_number',
         'role',
         'blocked',
+        'blocked_at',
         'missed_appointments_count',
         'missed_appointments_cycle',
     ];
@@ -46,6 +47,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'blocked_at' => 'datetime',
     ];
 
     // One to Many with Appointment
@@ -65,7 +67,8 @@ class User extends Authenticatable
         // Reset cycle when it reaches 3 and block the user
         if ($this->missed_appointments_cycle >= 3) {
             $this->missed_appointments_cycle = 0;
-            $this->blocked = true; // Block the user
+            $this->blocked = true;
+            $this->blocked_at = now();
         }
         
         $this->save();
