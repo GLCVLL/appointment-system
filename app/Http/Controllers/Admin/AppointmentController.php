@@ -481,6 +481,50 @@ class AppointmentController extends Controller
     }
 
     /**
+     * Mark appointment as missed
+     */
+    public function markAsMissed(Appointment $appointment)
+    {
+        // Check if appointment date/time has passed
+        $appointmentDateTime = Carbon::parse($appointment->date . ' ' . $appointment->start_time);
+        
+        if ($appointmentDateTime->isPast() && !$appointment->missed) {
+            $wasBlocked = $appointment->user->blocked;
+            
+            $appointment->missed = true;
+            $appointment->save();
+            
+            // Increment user's missed appointments counters
+            $appointment->user->incrementMissedAppointment();
+            
+            // Refresh to get updated blocked status
+            $appointment->user->refresh();
+            
+            $message = __('appointments.marked_as_missed');
+            if (!$wasBlocked && $appointment->user->blocked) {
+                $message .= ' ' . __('appointments.user_blocked_due_to_misses');
+            }
+            
+            return back()->with('messages', [
+                [
+                    'sender' => 'System',
+                    'content' => $message,
+                    'timestamp' => now()
+                ]
+            ]);
+        }
+        
+        return back()->with('messages', [
+            [
+                'sender' => 'System',
+                'color' => 'warning',
+                'content' => __('appointments.cannot_mark_missed'),
+                'timestamp' => now()
+            ]
+        ]);
+    }
+
+    /**
      * Calculate the end time based on start time and selected services
      */
     private function calculateEndTime(string $startTime, array $serviceIds): string

@@ -33,6 +33,9 @@ return [
     'deleted' => 'Appuntamento eliminato.',
     'restored' => 'Appuntamento ripristinato con successo.',
     'permanent_delete' => 'Appuntamento eliminato definitivamente.',
+    'marked_as_missed' => 'Appuntamento segnato come mancato.',
+    'cannot_mark_missed' => 'Impossibile segnare questo appuntamento come mancato.',
+    'user_blocked_due_to_misses' => 'L\'utente è stato bloccato per aver mancato 3 appuntamenti.',
 
     // Validazione
     'validation' => [

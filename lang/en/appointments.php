@@ -33,6 +33,9 @@ return [
     'deleted' => 'Appointment deleted.',
     'restored' => 'Appointment restored successfully.',
     'permanent_delete' => 'Appointment permanently deleted.',
+    'marked_as_missed' => 'Appointment marked as missed.',
+    'cannot_mark_missed' => 'Cannot mark this appointment as missed.',
+    'user_blocked_due_to_misses' => 'User has been blocked due to 3 missed appointments.',
 
     // Validation
     'validation' => [

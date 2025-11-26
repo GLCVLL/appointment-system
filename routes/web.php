@@ -56,6 +56,9 @@ Route::prefix('/admin')->name('admin')->middleware(['auth', 'verified', 'checkro
     // Trash Appointments Routes delete
     Route::delete('appointments/{appointment}/drop', [AppointmentController::class, 'drop'])->name('appointments.drop');
 
+    // Mark appointment as missed
+    Route::patch('appointments/{appointment}/mark-missed', [AppointmentController::class, 'markAsMissed'])->name('appointments.mark-missed');
+
     // Opening Hours Routes
     Route::resource('opening-hours', OpeningHourController::class); // CRUD
 
