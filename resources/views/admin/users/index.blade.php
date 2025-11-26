@@ -26,6 +26,7 @@
                             <th scope="col" class="d-none d-sm-table-cell">{{ __('users.email') }}</th>
                             <th scope="col" class="text-center">{{ __('users.phone') }}</th>
                             <th scope="col" class="d-none d-sm-table-cell">{{ __('users.role') }}</th>
+                            <th scope="col" class="d-none d-sm-table-cell">{{ __('users.missed_count') }}</th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
@@ -36,6 +37,7 @@
                                 <td class="d-none d-sm-table-cell">{{ $user->email }}</td>
                                 <td class="text-center">{{ $user->phone_number ?? '-' }}</td>
                                 <td class="d-none d-sm-table-cell">{{ ucfirst($user->role) }}</td>
+                                <td class="d-none d-sm-table-cell">{{ $user->missed_appointments_count }}</td>
                                 <td>
                                     {{-- Actions --}}
                                     <div class="d-flex justify-content-end gap-2">
@@ -67,7 +69,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="text-center p-3">{{ __('users.no_users') }}</td>
+                                <td colspan="6" class="text-center p-3">{{ __('users.no_users') }}</td>
                             </tr>
                         @endforelse
                     </tbody>

@@ -13,6 +13,7 @@ return [
     'phone' => 'Telefono',
     'role' => 'Ruolo',
     'registered' => 'Registrato',
+    'missed_count' => 'Appuntamenti Mancati',
     'actions' => 'Azioni',
 
     // Ruoli
