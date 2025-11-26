@@ -70,4 +70,20 @@ class User extends Authenticatable
         
         $this->save();
     }
+
+    /**
+     * Decrement missed appointments counters
+     */
+    public function decrementMissedAppointment(): void
+    {
+        if ($this->missed_appointments_count > 0) {
+            $this->missed_appointments_count--;
+        }
+        
+        if ($this->missed_appointments_cycle > 0) {
+            $this->missed_appointments_cycle--;
+        }
+        
+        $this->save();
+    }
 }
