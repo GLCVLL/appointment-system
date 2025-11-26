@@ -1,4 +1,10 @@
-<div class="app-modal" data-delete-title="{{ __('common.delete_title') }}" data-delete-confirm="{{ __('common.delete_confirm') }}">
+<div class="app-modal" 
+     data-delete-title="{{ __('common.delete_title') }}" 
+     data-delete-confirm="{{ __('common.delete_confirm') }}"
+     data-mark-missed-title="{{ __('appointments.mark_as_missed') }}"
+     data-unmark-missed-title="{{ __('appointments.unmark_as_missed') }}"
+     data-mark-missed-confirm="{{ __('appointments.mark_missed_confirm') }}"
+     data-unmark-missed-confirm="{{ __('appointments.unmark_missed_confirm') }}">
     <div class="app-modal-content">
         <div class="app-modal-title">
             Title

@@ -41,6 +41,8 @@ return [
     // Actions
     'mark_as_missed' => 'Mark as Missed',
     'unmark_as_missed' => 'Unmark as Missed',
+    'mark_missed_confirm' => 'Are you sure you want to mark ":name" as missed?',
+    'unmark_missed_confirm' => 'Are you sure you want to unmark ":name" as missed?',
 
     // Validation
     'validation' => [

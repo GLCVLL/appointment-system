@@ -41,6 +41,8 @@ return [
     // Azioni
     'mark_as_missed' => 'Segna come Mancato',
     'unmark_as_missed' => 'Rimuovi Segno Mancato',
+    'mark_missed_confirm' => 'Sei sicuro di voler segnare ":name" come mancato?',
+    'unmark_missed_confirm' => 'Sei sicuro di voler rimuovere il segno di mancato da ":name"?',
 
     // Validazione
     'validation' => [

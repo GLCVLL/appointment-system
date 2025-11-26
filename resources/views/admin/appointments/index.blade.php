@@ -80,7 +80,11 @@
                             <div class="d-flex justify-content-end gap-2">
 
                                 {{-- Toggle Missed Status --}}
-                                <form action="{{ route('admin.appointments.mark-missed', $appointment) }}" method="POST">
+                                <form action="{{ route('admin.appointments.mark-missed', $appointment) }}" 
+                                      method="POST" 
+                                      class="toggle-missed-form"
+                                      data-modal-name="appointment of {{ $appointment->getDate('date', 'd/m/Y') }} {{ $appointment->getDate('start_time', 'H:i') }}"
+                                      data-is-missed="{{ $appointment->missed ? 'true' : 'false' }}">
                                     @csrf
                                     @method('PATCH')
                                     <button class="btn {{ $appointment->missed ? 'btn-success' : 'btn-dark' }}" 
@@ -127,5 +131,5 @@
 @endsection
 
 @section('scripts')
-@vite(['resources/js/commons/modal-delete'])
+@vite(['resources/js/commons/modal-delete', 'resources/js/commons/modal-toggle-missed.js'])
 @endsection
