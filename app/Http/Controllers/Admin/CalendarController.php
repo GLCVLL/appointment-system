@@ -20,9 +20,9 @@ class CalendarController extends Controller
     public function index()
     {
 
-        // Get all services and users
+        // Get all services and users (exclude blocked users)
         $services = Service::all();
-        $users = User::all();
+        $users = User::where('blocked', false)->get();
 
         // Create time array
         $start = Carbon::createFromTimeString('00:00');

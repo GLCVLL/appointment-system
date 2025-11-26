@@ -47,8 +47,8 @@ class AppointmentController extends Controller
         // Get Empty Appointment
         $appointment = new Appointment();
 
-        // Get user and services
-        $users = User::all();
+        // Get user and services (exclude blocked users)
+        $users = User::where('blocked', false)->get();
         $services = Service::all();
 
         // Create time array
@@ -236,7 +236,11 @@ class AppointmentController extends Controller
      */
     public function edit(Appointment $appointment)
     {
-        $users = User::all();
+        // Get users (exclude blocked users, but include the current appointment's user if blocked)
+        $users = User::where(function ($query) use ($appointment) {
+            $query->where('blocked', false)
+                ->orWhere('id', $appointment->user_id);
+        })->get();
         $services = Service::all();
 
         $selectedServices = $appointment->services->pluck('id')->toArray();
