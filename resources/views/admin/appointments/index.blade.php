@@ -32,6 +32,9 @@
                     <div class="col-12 col-lg-3 col-sm-4 mb-2">
                         <input type="date" name="to_date" class="form-control" value="{{ request('to_date') }}">
                     </div>
+                    <div class="col-12 col-lg-3 col-sm-4 mb-2">
+                        <input type="text" name="name" class="form-control" placeholder="{{ __('appointments.client') }}" value="{{ request('name') }}">
+                    </div>
                     <div class="col-12 col-sm-4 col-lg-3">
                         <button type="submit" class="btn btn-success me-1">
                             <i class="fas fa-rotate"></i>

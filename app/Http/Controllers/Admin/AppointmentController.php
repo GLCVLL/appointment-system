@@ -32,9 +32,15 @@ class AppointmentController extends Controller
             $query->where('date', '<=', $request->to_date);
         }
 
+        if ($request->has('name') && $request->name) {
+            $query->whereHas('user', function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->name . '%');
+            });
+        }
+
         $appointments = $query->orderBy('date', 'desc')->orderBy('start_time')->paginate(10);
 
-        $appointments->appends(['from_date' => $request->from_date, 'to_date' => $request->to_date]);
+        $appointments->appends(['from_date' => $request->from_date, 'to_date' => $request->to_date, 'name' => $request->name]);
 
         return view('admin.appointments.index', compact('appointments'));
     }
