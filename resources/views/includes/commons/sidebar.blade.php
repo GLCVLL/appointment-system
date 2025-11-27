@@ -39,7 +39,7 @@
 
                 {{-- Appointments --}}
                 <li>
-                    <a href="{{ route('admin.appointments.index') }}"
+                    <a href="{{ route('admin.appointments.index', ['from_date' => date('Y-m-d')]) }}"
                         class="@if (Route::is('admin.appointments*')) active @endif">
                         <i class="fas fa-calendar-check fa-xl fa-fw"></i>
                         <span class="d-none d-md-inline">{{ __('common.appointments') }}</span>
