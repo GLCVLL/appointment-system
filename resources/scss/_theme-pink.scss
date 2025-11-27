@@ -76,6 +76,7 @@
         &:hover {
             background-color: $col-pink-accent;
             border-color: $col-pink-accent;
+            color: $col-light;
         }
     }
 
@@ -83,10 +84,25 @@
         color: $col-pink-primary;
         border-color: $col-pink-primary;
 
+        &.show {
+            background-color: transparent;
+        }
+
         &:hover {
             color: $col-light;
             background-color: $col-pink-primary;
             border-color: $col-pink-primary;
+        }
+    }
+
+    &.btn-outline-light {
+        color: $col-pink-900;
+        border-color: $col-pink-900;
+
+        &:hover {
+            color: $col-light;
+            background-color: $col-pink-900;
+            border-color: $col-pink-900;
         }
     }
 
@@ -98,6 +114,49 @@
         &:hover {
             background-color: $col-pink-400;
             border-color: $col-pink-400;
+            color: $col-light;
+        }
+    }
+
+    &.btn-success {
+        background-color: $col-success;
+        border-color: $col-success;
+        color: $col-light;
+
+        &:hover {
+            filter: brightness(0.9);
+        }
+    }
+
+    &.btn-info {
+        background-color: $col-info;
+        border-color: $col-info;
+        color: $col-light;
+
+        &:hover {
+            filter: brightness(0.9);
+        }
+    }
+
+    &.btn-warning {
+        background-color: $col-warning;
+        border-color: $col-warning;
+        color: $col-dark;
+
+        &:hover {
+            filter: brightness(0.9);
+            color: $col-dark;
+        }
+    }
+
+    &.btn-danger {
+        background-color: $col-danger;
+        border-color: $col-danger;
+        color: $col-light;
+
+        &:hover {
+            filter: brightness(0.9);
+            color: $col-light;
         }
     }
 }
@@ -192,31 +251,35 @@ small {
    COMPONENTS - TABLES
    =========================================== */
 .table {
-    color: $col-pink-900;
+    border-color: $col-pink-200;
 
-    thead {
-        background-color: $col-pink-50;
+    th {
+        padding: 1rem;
         color: $col-pink-primary;
-        border-color: $col-pink-200;
+        background-color: $col-pink-50;
     }
 
-    tbody {
-        tr {
-            border-color: $col-pink-200;
+    td {
+        padding: 1rem;
+        color: $col-pink-900;
+        background-color: $col-light;
+    }
 
-            &:hover {
+    tbody tr {
+        border-color: $col-pink-200;
+
+        &:hover {
+            background-color: $col-pink-50;
+
+            td {
                 background-color: $col-pink-50;
             }
         }
     }
-
-    td, th {
-        border-color: $col-pink-200;
-    }
 }
 
 /* ===========================================
-   COMPONENTS - MODALS
+   COMPONENTS - MODALS (Bootstrap)
    =========================================== */
 .modal-content {
     background-color: $col-light;
@@ -242,6 +305,40 @@ small {
 
 .modal-footer {
     border-color: $col-pink-200;
+}
+
+/* ===========================================
+   COMPONENTS - APP MODAL (Custom)
+   =========================================== */
+.app-modal {
+    background-color: rgba($col-pink-900, 0.5);
+
+    &-content {
+        color: $col-pink-900;
+        background-color: $col-light;
+        border: 1px solid $col-pink-200;
+    }
+
+    &-title {
+        color: $col-pink-primary;
+        border-bottom-color: $col-pink-200;
+    }
+
+    &-body {
+        border-top-color: $col-pink-200;
+    }
+
+    &-footer {
+        border-top-color: $col-pink-200;
+    }
+
+    &-close {
+        color: $col-pink-primary;
+
+        &:hover {
+            color: $col-pink-accent;
+        }
+    }
 }
 
 /* ===========================================
@@ -372,6 +469,76 @@ small {
     }
 }
 
+/* FullCalendar Styles */
+#calendar {
+    // Buttons
+    .fc-button {
+        color: $col-pink-primary;
+        background-color: $col-light;
+        border-color: $col-pink-primary;
+
+        &:hover,
+        &.fc-button-active {
+            color: $col-light;
+            background-color: $col-pink-primary;
+            border-color: $col-pink-primary;
+        }
+
+        &:focus {
+            box-shadow: 0 0 0 0.25rem rgba($col-pink-primary, 0.15);
+        }
+
+        &:disabled {
+            color: $col-pink-300;
+            background-color: $col-pink-50;
+            border-color: $col-pink-200;
+        }
+    }
+
+    // Table
+    table,
+    table th,
+    table td,
+    .fc-list {
+        border-color: $col-pink-200;
+    }
+
+    .fc-col-header-cell {
+        background-color: $col-pink-50;
+        color: $col-pink-primary;
+    }
+
+    .fc-daygrid-day-number,
+    .fc-timegrid-slot-label {
+        color: $col-pink-900;
+    }
+
+    .fc-list-day-cushion {
+        background-color: $col-pink-50;
+        color: $col-pink-primary;
+    }
+
+    .fc-list-event:hover td {
+        background-color: $col-pink-50;
+    }
+
+    .fc-day-today {
+        background-color: $col-pink-100 !important;
+    }
+
+    // Events highlighted style
+    .fc-event-main-frame.highlighted {
+        background-color: $col-success;
+    }
+
+    // Event colors
+    .fc-event {
+        background-color: $col-pink-primary;
+        border-color: $col-pink-primary;
+        color: $col-light;
+    }
+}
+
 /* ===========================================
    COMPONENTS - INDICATORS
    =========================================== */
@@ -427,6 +594,44 @@ small {
         background-color: lighten($col-info, 40%);
         border-color: lighten($col-info, 30%);
         color: darken($col-info, 20%);
+    }
+}
+
+/* Toast Messages */
+.toast {
+    color: $col-pink-900;
+    background-color: $col-light;
+    border: 1px solid $col-pink-200;
+
+    &-header {
+        background-color: $col-pink-50;
+        color: $col-pink-primary !important;
+
+        .text-light {
+            color: $col-pink-primary !important;
+        }
+
+        .btn-close {
+            filter: invert(0.7) sepia(1) saturate(3) hue-rotate(310deg);
+        }
+
+        button {
+            color: $col-pink-primary !important;
+
+            &:hover {
+                color: $col-pink-accent !important;
+            }
+        }
+    }
+
+    &-body {
+        color: $col-pink-900;
+    }
+}
+
+.toast-container {
+    .toast {
+        box-shadow: 0 0.5rem 1rem rgba($col-pink-900, 0.15);
     }
 }
 
