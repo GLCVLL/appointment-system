@@ -25,13 +25,13 @@
                 </li>
             @else
                 {{-- Notifications --}}
-                <li>
+                {{-- <li>
                     <a href="#" class="position-relative">
                         <i class="far fa-bell fa-xl">
                             <span class="indicator"></span>
                         </i>
                     </a>
-                </li>
+                </li> --}}
 
                 {{-- Profile --}}
                 <li class="dropdown">
