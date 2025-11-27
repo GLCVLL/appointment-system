@@ -32,6 +32,10 @@
 @use '~resources/scss/components/table';
 
 
+// THEME - Pink/White (GC Logo inspired)
+// Uncomment the line below to activate the pink theme
+@use '~resources/scss/theme-pink';
+
 
 // Style Loader
 body {

@@ -1,0 +1,480 @@
+/* -----------------------------------------
+* PINK/WHITE THEME - GC Logo Inspired
+*
+* To activate this theme:
+* - Import this file in app.scss after all other imports
+* - Comment out if you want to use the default dark theme
+-------------------------------------------*/
+@use './vars' as *;
+
+/* ===========================================
+   LAYOUT - SIDEBAR
+   =========================================== */
+.app-sidebar {
+    background-color: $col-light;
+    box-shadow: 0 0 8px rgba($col-pink-500, 0.15);
+
+    &-logo {
+        border-color: $col-pink-200;
+    }
+
+    &-menu {
+        border-color: $col-pink-200;
+
+        a {
+            color: $col-pink-700;
+
+            &:hover,
+            &.active {
+                background-color: $col-pink-100;
+                color: $col-pink-primary;
+            }
+
+            svg,
+            i {
+                color: $col-pink-500;
+            }
+        }
+    }
+}
+
+/* ===========================================
+   LAYOUT - HEADER
+   =========================================== */
+.app-header {
+    background-color: $col-light;
+    border-color: $col-pink-200;
+
+    &-toggler {
+        color: $col-pink-primary;
+
+        &:hover {
+            color: $col-pink-accent;
+        }
+    }
+
+    &-menu {
+        > li > a {
+            color: $col-pink-700;
+
+            &:hover {
+                color: $col-pink-primary;
+            }
+        }
+    }
+}
+
+/* ===========================================
+   COMPONENTS - BUTTONS
+   =========================================== */
+.btn {
+    &.btn-primary {
+        background-color: $col-pink-primary;
+        border-color: $col-pink-primary;
+        color: $col-light;
+
+        &:hover {
+            background-color: $col-pink-accent;
+            border-color: $col-pink-accent;
+        }
+    }
+
+    &.btn-outline-primary {
+        color: $col-pink-primary;
+        border-color: $col-pink-primary;
+
+        &:hover {
+            color: $col-light;
+            background-color: $col-pink-primary;
+            border-color: $col-pink-primary;
+        }
+    }
+
+    &.btn-secondary {
+        background-color: $col-pink-secondary;
+        border-color: $col-pink-secondary;
+        color: $col-light;
+
+        &:hover {
+            background-color: $col-pink-400;
+            border-color: $col-pink-400;
+        }
+    }
+}
+
+/* ===========================================
+   COMPONENTS - CARDS
+   =========================================== */
+.card {
+    color: $col-pink-900;
+    background-color: $col-light;
+    border-color: $col-pink-200;
+
+    &-header {
+        background-color: $col-pink-50;
+        border-color: $col-pink-200;
+        color: $col-pink-primary;
+    }
+
+    &-title {
+        color: $col-pink-primary;
+    }
+}
+
+/* ===========================================
+   COMPONENTS - FORMS
+   =========================================== */
+.form-control {
+    color: $col-pink-900;
+    background-color: $col-light;
+    border-color: $col-pink-300;
+
+    &:focus {
+        color: $col-pink-900;
+        background-color: $col-light;
+        border-color: $col-pink-primary;
+        box-shadow: 0 0 0 0.25rem rgba($col-pink-primary, 0.15);
+    }
+
+    &::placeholder {
+        color: $col-pink-400;
+    }
+
+    &:disabled {
+        background-color: $col-pink-50;
+        border-color: $col-pink-200;
+    }
+}
+
+.form-select {
+    color: $col-pink-900;
+    background-color: $col-light;
+    border-color: $col-pink-300;
+
+    &:focus {
+        border-color: $col-pink-primary;
+        box-shadow: 0 0 0 0.25rem rgba($col-pink-primary, 0.15);
+    }
+
+    &:disabled {
+        background-color: $col-pink-50;
+    }
+
+    * {
+        background-color: $col-light;
+    }
+}
+
+.form-check-input {
+    background-color: $col-light;
+    border-color: $col-pink-300;
+
+    &:checked {
+        background-color: $col-pink-primary;
+        border-color: $col-pink-primary;
+    }
+
+    &:focus {
+        border-color: $col-pink-primary;
+        box-shadow: 0 0 0 0.25rem rgba($col-pink-primary, 0.15);
+    }
+}
+
+.form-label {
+    color: $col-pink-800;
+}
+
+small {
+    color: $col-pink-600;
+}
+
+/* ===========================================
+   COMPONENTS - TABLES
+   =========================================== */
+.table {
+    color: $col-pink-900;
+
+    thead {
+        background-color: $col-pink-50;
+        color: $col-pink-primary;
+        border-color: $col-pink-200;
+    }
+
+    tbody {
+        tr {
+            border-color: $col-pink-200;
+
+            &:hover {
+                background-color: $col-pink-50;
+            }
+        }
+    }
+
+    td, th {
+        border-color: $col-pink-200;
+    }
+}
+
+/* ===========================================
+   COMPONENTS - MODALS
+   =========================================== */
+.modal-content {
+    background-color: $col-light;
+    border-color: $col-pink-200;
+}
+
+.modal-header {
+    background-color: $col-pink-50;
+    border-color: $col-pink-200;
+
+    .modal-title {
+        color: $col-pink-primary;
+    }
+
+    .btn-close {
+        filter: invert(0.7) sepia(1) saturate(3) hue-rotate(310deg);
+    }
+}
+
+.modal-body {
+    color: $col-pink-900;
+}
+
+.modal-footer {
+    border-color: $col-pink-200;
+}
+
+/* ===========================================
+   COMPONENTS - DROPDOWNS
+   =========================================== */
+.dropdown-menu {
+    background-color: $col-light;
+    border-color: $col-pink-200;
+
+    .dropdown-item {
+        color: $col-pink-700;
+
+        &:hover,
+        &:focus {
+            background-color: $col-pink-50;
+            color: $col-pink-primary;
+        }
+
+        &.active {
+            background-color: $col-pink-primary;
+            color: $col-light;
+        }
+    }
+
+    .dropdown-divider {
+        border-color: $col-pink-200;
+    }
+}
+
+/* ===========================================
+   COMPONENTS - PAGINATION
+   =========================================== */
+.pagination {
+    .page-link {
+        color: $col-pink-primary;
+        background-color: $col-light;
+        border-color: $col-pink-200;
+
+        &:hover {
+            background-color: $col-pink-50;
+            border-color: $col-pink-300;
+            color: $col-pink-accent;
+        }
+    }
+
+    .page-item.active .page-link {
+        background-color: $col-pink-primary;
+        border-color: $col-pink-primary;
+        color: $col-light;
+    }
+
+    .page-item.disabled .page-link {
+        color: $col-pink-300;
+        background-color: $col-pink-50;
+        border-color: $col-pink-200;
+    }
+}
+
+/* ===========================================
+   COMPONENTS - PROFILE ICON
+   =========================================== */
+.profile-icon {
+    background-color: $col-pink-primary;
+    color: $col-light;
+    border: 2px solid $col-pink-200;
+
+    &:hover {
+        background-color: $col-pink-accent;
+    }
+}
+
+/* ===========================================
+   COMPONENTS - STAT CARDS
+   =========================================== */
+.stat-card {
+    background-color: $col-light;
+    border-color: $col-pink-200;
+
+    &-title {
+        color: $col-pink-600;
+    }
+
+    &-value {
+        color: $col-pink-primary;
+    }
+
+    &-icon {
+        color: $col-pink-primary;
+        background-color: $col-pink-50;
+    }
+}
+
+/* ===========================================
+   COMPONENTS - CALENDAR
+   =========================================== */
+.calendar {
+    background-color: $col-light;
+    border-color: $col-pink-200;
+
+    &-header {
+        background-color: $col-pink-50;
+        color: $col-pink-primary;
+        border-color: $col-pink-200;
+    }
+
+    &-day {
+        border-color: $col-pink-200;
+        color: $col-pink-900;
+
+        &:hover {
+            background-color: $col-pink-50;
+        }
+
+        &.today {
+            background-color: $col-pink-100;
+            color: $col-pink-primary;
+            font-weight: bold;
+        }
+
+        &.has-event {
+            background-color: $col-pink-primary;
+            color: $col-light;
+        }
+
+        &.other-month {
+            color: $col-pink-300;
+        }
+    }
+}
+
+/* ===========================================
+   COMPONENTS - INDICATORS
+   =========================================== */
+.indicator {
+    &.indicator-success {
+        background-color: $col-success;
+    }
+
+    &.indicator-danger {
+        background-color: $col-danger;
+    }
+
+    &.indicator-warning {
+        background-color: $col-warning;
+    }
+
+    &.indicator-primary {
+        background-color: $col-pink-primary;
+    }
+}
+
+/* ===========================================
+   COMMON - MAIN CONTENT
+   =========================================== */
+.app-main {
+    background-color: $col-pink-50;
+    color: $col-pink-900;
+}
+
+/* ===========================================
+   COMMON - MESSAGES/ALERTS
+   =========================================== */
+.alert {
+    &.alert-success {
+        background-color: lighten($col-success, 45%);
+        border-color: lighten($col-success, 35%);
+        color: darken($col-success, 10%);
+    }
+
+    &.alert-danger {
+        background-color: lighten($col-danger, 40%);
+        border-color: lighten($col-danger, 30%);
+        color: darken($col-danger, 10%);
+    }
+
+    &.alert-warning {
+        background-color: lighten($col-warning, 40%);
+        border-color: lighten($col-warning, 30%);
+        color: darken($col-warning, 20%);
+    }
+
+    &.alert-info {
+        background-color: lighten($col-info, 40%);
+        border-color: lighten($col-info, 30%);
+        color: darken($col-info, 20%);
+    }
+}
+
+/* ===========================================
+   BASE - TYPOGRAPHY
+   =========================================== */
+body {
+    color: $col-pink-900;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: $col-pink-primary;
+}
+
+a {
+    color: $col-pink-primary;
+
+    &:hover {
+        color: $col-pink-accent;
+    }
+}
+
+/* ===========================================
+   UTILITIES - TEXT COLORS
+   =========================================== */
+.text-primary {
+    color: $col-pink-primary !important;
+}
+
+.text-secondary {
+    color: $col-pink-secondary !important;
+}
+
+.text-muted {
+    color: $col-pink-400 !important;
+}
+
+/* ===========================================
+   UTILITIES - BACKGROUND COLORS
+   =========================================== */
+.bg-primary {
+    background-color: $col-pink-primary !important;
+}
+
+.bg-secondary {
+    background-color: $col-pink-secondary !important;
+}
+
+.bg-light {
+    background-color: $col-pink-50 !important;
+}
