@@ -3,8 +3,8 @@
 
         {{-- Logo --}}
         <a href="{{ route('admin.home') }}" class="app-sidebar-logo">
-            <img src="{{ asset('img/logoSmartphone.webp') }}" alt="logo-smartPhone" class="d-md-none img-fluid">
-            <img src="{{ asset('img/logoDesktop.webp') }}" alt="logo-desktop" class="d-none d-md-inline img-fluid">
+            <img src="{{ asset('img/gc_logo_mobile.jpg') }}" alt="logo-smartPhone" class="d-md-none img-fluid">
+            <img src="{{ asset('img/gc_logo_desktop.jpg') }}" alt="logo-desktop" class="d-none d-md-inline img-fluid">
 
         </a>
 
