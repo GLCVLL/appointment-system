@@ -9,6 +9,12 @@ class HomeController extends Controller
 {
     public function index()
     {
-        return view('guest.home');
+        // Se l'utente è già autenticato, reindirizza alla dashboard admin
+        if (auth()->check()) {
+            return redirect()->route('admin.home');
+        }
+
+        // Altrimenti reindirizza alla pagina di login
+        return redirect()->route('login');
     }
 }
