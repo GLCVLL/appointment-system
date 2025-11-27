@@ -203,6 +203,37 @@
         background-color: $col-pink-50;
         border-color: $col-pink-200;
     }
+
+    // Fix calendar icon visibility in date inputs
+    &[type="date"],
+    &[type="datetime-local"],
+    &[type="month"],
+    &[type="week"],
+    &[type="time"] {
+        color-scheme: light;
+
+        // Webkit browsers (Chrome, Safari, Edge)
+        &::-webkit-calendar-picker-indicator {
+            filter: invert(0.5) sepia(1) saturate(5) hue-rotate(310deg);
+            cursor: pointer;
+            opacity: 0.8;
+
+            &:hover {
+                opacity: 1;
+            }
+        }
+
+        // Firefox
+        &::-moz-calendar-picker-indicator {
+            filter: invert(0.5) sepia(1) saturate(5) hue-rotate(310deg);
+            cursor: pointer;
+            opacity: 0.8;
+
+            &:hover {
+                opacity: 1;
+            }
+        }
+    }
 }
 
 .form-select {
