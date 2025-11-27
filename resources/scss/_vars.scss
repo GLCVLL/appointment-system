@@ -26,6 +26,25 @@ $col-info: #66d1d1;
 $col-warning: #fbbc06;
 $col-danger: #ff3366;
 
+// Pink/White Theme Colors (Alternative Theme - GC Logo inspired)
+$col-pink-50: #faf7f8;
+$col-pink-100: #f5eef0;
+$col-pink-200: #e8d5d9;
+$col-pink-300: #d9b8bd;
+$col-pink-400: #c9999e;
+$col-pink-500: #b8898e;  // Main pink from logo
+$col-pink-600: #a67278;
+$col-pink-700: #8b5d62;
+$col-pink-800: #6d474b;
+$col-pink-900: #4a3032;
+
+// Pink Theme Semantic Colors
+$col-pink-primary: $col-pink-500;
+$col-pink-secondary: $col-pink-400;
+$col-pink-accent: $col-pink-600;
+$col-pink-light: $col-pink-100;
+$col-pink-dark: $col-pink-800;
+
 
 // Layout
 $sidebar-width-sm: 60px;
