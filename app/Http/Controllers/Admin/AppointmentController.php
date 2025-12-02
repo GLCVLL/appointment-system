@@ -319,6 +319,18 @@ class AppointmentController extends Controller
             ]
         );
 
+        // Check if appointment is in the past (cannot edit past appointments)
+        $appointmentDateTime = Carbon::parse($appointment->date . ' ' . $appointment->end_time);
+        if ($appointmentDateTime->isPast()) {
+            return back()->with('messages', [
+                [
+                    'sender' => 'System',
+                    'content' => __('appointments.cannot_edit_past'),
+                    'timestamp' => now()
+                ]
+            ]);
+        }
+
         $errorMessage = '';
 
         // Calculate end time

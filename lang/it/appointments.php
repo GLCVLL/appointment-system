@@ -38,7 +38,8 @@ return [
     'cannot_mark_missed' => 'Impossibile segnare questo appuntamento come mancato.',
     'cannot_unmark_overlapping' => 'Impossibile riabilitare questo appuntamento perché si sovrappone con altri appuntamenti.',
     'user_blocked_due_to_misses' => 'L\'utente è stato bloccato per aver mancato 3 appuntamenti.',
-    
+    'cannot_edit_past' => 'Impossibile modificare un appuntamento già passato.',
+
     // Azioni
     'mark_as_missed' => 'Segna come Mancato',
     'unmark_as_missed' => 'Rimuovi Segno Mancato',

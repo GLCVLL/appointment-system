@@ -38,7 +38,8 @@ return [
     'cannot_mark_missed' => 'Cannot mark this appointment as missed.',
     'cannot_unmark_overlapping' => 'Cannot unmark this appointment as missed because it overlaps with other appointments.',
     'user_blocked_due_to_misses' => 'User has been blocked due to 3 missed appointments.',
-    
+    'cannot_edit_past' => 'Cannot edit an appointment that has already passed.',
+
     // Actions
     'mark_as_missed' => 'Mark as Missed',
     'unmark_as_missed' => 'Unmark as Missed',
