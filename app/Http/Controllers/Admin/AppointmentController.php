@@ -242,6 +242,18 @@ class AppointmentController extends Controller
      */
     public function edit(Appointment $appointment)
     {
+        // Check if appointment is in the past (cannot edit past appointments)
+        $appointmentDateTime = Carbon::parse($appointment->date . ' ' . $appointment->end_time);
+        if ($appointmentDateTime->isPast()) {
+            return redirect()->route('admin.appointments.index')->with('messages', [
+                [
+                    'sender' => 'System',
+                    'content' => __('appointments.cannot_edit_past'),
+                    'timestamp' => now()
+                ]
+            ]);
+        }
+
         // Get users (exclude blocked users, but include the current appointment's user if blocked)
         $users = User::where(function ($query) use ($appointment) {
             $query->where('blocked', false)
