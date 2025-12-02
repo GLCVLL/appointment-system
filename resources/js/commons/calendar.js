@@ -121,6 +121,12 @@ const editAppointment = info => {
 
         // Data
         const currentAppointment = info.event._def.extendedProps.data;
+
+        // Check if appointment is in the past (cannot edit past appointments)
+        const appointmentEndDateTime = new Date(currentAppointment.date + ' ' + currentAppointment.end_time);
+        if (appointmentEndDateTime.getTime() < new Date().getTime()) {
+            return;
+        }
         const servicesIds = currentAppointment.services.map(({ id }) => id);
         resourceId = currentAppointment.id;
 
