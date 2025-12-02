@@ -98,10 +98,15 @@
                                 </form>
 
                                 {{-- Edit --}}
+                                @php
+                                    $appointmentDateTime = \Carbon\Carbon::parse($appointment->date . ' ' . $appointment->end_time);
+                                @endphp
+                                @if (!$appointmentDateTime->isPast())
                                 <a href="{{ route('admin.appointments.edit', $appointment) }}"
                                     class="btn btn-warning">
                                     <i class="fas fa-pencil"></i>
                                 </a>
+                                @endif
 
                                 {{-- Delete --}}
                                 <form action="{{ route('admin.appointments.destroy', $appointment) }}"
