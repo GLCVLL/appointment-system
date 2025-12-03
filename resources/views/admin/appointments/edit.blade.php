@@ -33,7 +33,7 @@
 @endsection
 
 @section('scripts')
-@vite(['resources/js/validations/appointment-form'])
+@vite(['resources/js/validations/appointment-form.js'])
 
 <script>
     // FUNCTIONS

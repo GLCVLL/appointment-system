@@ -27,5 +27,5 @@
 @endsection
 
 @section('scripts')
-    @vite(['resources/js/validations/services-form'])
+    @vite(['resources/js/validations/services-form.js'])
 @endsection

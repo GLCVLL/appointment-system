@@ -139,5 +139,5 @@
 @endsection
 
 @section('scripts')
-@vite(['resources/js/commons/modal-delete', 'resources/js/commons/modal-toggle-missed.js'])
+@vite(['resources/js/commons/modal-delete.js', 'resources/js/commons/modal-toggle-missed.js'])
 @endsection

@@ -73,5 +73,5 @@
 @endsection
 
 @section('scripts')
-    @vite(['resources/js/commons/modal-delete'])
+    @vite(['resources/js/commons/modal-delete.js'])
 @endsection

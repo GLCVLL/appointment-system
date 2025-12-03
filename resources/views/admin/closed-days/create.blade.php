@@ -33,5 +33,5 @@
 @endsection
 
 @section('scripts')
-    @vite(['resources/js/validations/closed-days-form'])
+    @vite(['resources/js/validations/closed-days-form.js'])
 @endsection
