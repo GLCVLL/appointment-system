@@ -43,7 +43,8 @@
 
         {{-- Calendar --}}
         <div id="calendar" data-events='@json($events)' data-opening-hours='@json($openingHours)'
-            data-holidays='@json($closedDays)' data-services='@json($services->map->only(["id", "duration" ])->values())'></div>
+            data-holidays='@json($closedDays)' data-services='@json($services->map->only(["id", "duration" ])->values())'
+            data-booking-interval='@json($bookingInterval)'></div>
 
     </div>
 </section>

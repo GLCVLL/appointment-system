@@ -193,7 +193,7 @@ const setBusinessHoursOptions = (currentAppointmentId = null) => {
     // Get data
     const currentDate = new Date();
     const selectedDate = new Date(dateInput.value);
-    const interval = 30;
+    const interval = bookingInterval;
 
 
     // Check holidays
@@ -477,6 +477,7 @@ const servicesCheckboxes = document.querySelectorAll('[id^="filter_service-"]');
 const baseFormAction = formElem.action;
 let resourceId = formElem.dataset.resourceId;
 let appointments, businessHours, holidays, servicesData;
+let bookingInterval = 30; // Default, will be set from data attribute
 
 
 /*** LOGIC ***/
@@ -487,6 +488,10 @@ if (calendarEl) {
     const businessHoursData = JSON.parse(calendarEl.dataset.openingHours);
     const holidaysData = JSON.parse(calendarEl.dataset.holidays);
 
+    // Get booking interval
+    if (calendarEl.dataset.bookingInterval) {
+        bookingInterval = parseInt(calendarEl.dataset.bookingInterval) || 30;
+    }
 
     // Format data
     businessHours = formatBusinessHours(businessHoursData);

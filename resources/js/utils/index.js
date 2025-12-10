@@ -38,7 +38,7 @@ const addMinutes = (date, interval) => new Date(date.getTime() + interval * 6000
  * 
  * @param {string} start - start time string
  * @param {string} end - end time string
- * @param {number | 30} interval - incremental interval in minutes
+ * @param {number} interval - incremental interval in minutes (default: 30, configurable via appointments.booking_interval_minutes)
  * @param {string | null} pauseStart - optional pause start
  * @param {string | null} pauseEnd - optional pause end
  * @returns {

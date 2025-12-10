@@ -74,7 +74,7 @@
             let closingTime = currentOpeningHours.closing_time;
             let breakStart = currentOpeningHours.break_start;
             let breakEnd = currentOpeningHours.break_end;
-            let interval = 30;
+            let interval = bookingInterval;
 
             /*** CHECK TODAY DATE AVAILABLE TIMES ***/
             // Correct opening time with today available time
@@ -277,9 +277,10 @@
     const closedDays = @json($closedDays);
     const openingHours = @json($openingHours);
     const servicesData = @json($services->map->only(['id', 'duration'])->values());
+    const bookingInterval = @json($bookingInterval);
 
     // Get Current Times
-    const currentStartTime = @json(old('start_time', $appointment->exists ? $appointment->getDate('start_time', 'H:i') : ''));
+    const currentStartTime = @json(old('start_time', $appointment-> exists ? $appointment->getDate('start_time', 'H:i') : ''));
 
     // LOGIC
     setWorkingHours();
