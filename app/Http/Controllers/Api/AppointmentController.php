@@ -187,7 +187,8 @@ class AppointmentController extends Controller
                 // Create a period for the working hours of the day
                 $start = Carbon::createFromTimeString($openingHours->opening_time);
                 $end = Carbon::createFromTimeString($openingHours->closing_time);
-                $interval = 'PT30M'; // 30 minutes interval
+                $intervalMinutes = config('appointments.booking_interval_minutes', 30);
+                $interval = "PT{$intervalMinutes}M";
                 $period = new CarbonPeriod($start, $interval, $end);
 
                 // Convert break start and end times to Carbon objects and adjust them

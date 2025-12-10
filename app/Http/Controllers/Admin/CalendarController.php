@@ -27,7 +27,8 @@ class CalendarController extends Controller
         // Create time array
         $start = Carbon::createFromTimeString('00:00');
         $end = Carbon::createFromTimeString('23:30');
-        $interval = 'PT30M'; // Period Time di 30 minuti
+        $intervalMinutes = config('appointments.booking_interval_minutes', 30);
+        $interval = "PT{$intervalMinutes}M";
         $period = new CarbonPeriod($start, $interval, $end);
         $time_array = [];
 
@@ -71,6 +72,9 @@ class CalendarController extends Controller
             ];
         }
 
-        return view('admin.calendar.index', compact('events', 'users', 'services', 'time_array', 'openingHours', 'closedDays'));
+        // Get booking interval for frontend
+        $bookingInterval = config('appointments.booking_interval_minutes', 30);
+
+        return view('admin.calendar.index', compact('events', 'users', 'services', 'time_array', 'openingHours', 'closedDays', 'bookingInterval'));
     }
 }
