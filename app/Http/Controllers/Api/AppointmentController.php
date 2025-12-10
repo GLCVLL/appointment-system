@@ -161,11 +161,11 @@ class AppointmentController extends Controller
         $date = [];
         $slotDays = [];
 
-        // Define the start and end of the period for generating slots (one year from now)
+        // Define the start and end of the period for generating slots (until last day of next month)
         $start = Carbon::now();
-        $end = Carbon::parse($start)->addYear();
+        $end = Carbon::now()->addMonth()->endOfMonth();
 
-        // Create a period to iterate over every day within a year
+        // Create a period to iterate over every day until the end of next month
         $period = CarbonPeriod::create($start, $end);
 
         // Loop through each day in the period and add it to the date array
@@ -228,25 +228,34 @@ class AppointmentController extends Controller
             }
         }
 
-        // Retrieve the list of closed days
-        $closedDays = ClosedDay::pluck('date')->toArray();
+        // Retrieve the list of closed days (stored with normalized year 2000, only month/day matter)
+        $closedDays = ClosedDay::all();
+        $closedDaysFiltered = [];
+        $startDate = Carbon::now()->startOfDay();
+        $endDate = Carbon::now()->addMonth()->endOfMonth();
 
         foreach ($closedDays as $closedDay) {
+            // Extract month and day from the stored date (year is normalized to 2000)
+            $month = Carbon::parse($closedDay->date)->month;
+            $day = Carbon::parse($closedDay->date)->day;
 
-            $currentYear = Carbon::now()->format('Y');
-            $nextYear = Carbon::parse($currentYear)->addYear()->format('Y');
+            // Generate the closed day for the current year if within range
+            $currentYearClosedDay = Carbon::create(Carbon::now()->year, $month, $day);
+            if ($currentYearClosedDay->gte($startDate) && $currentYearClosedDay->lte($endDate)) {
+                $closedDaysFiltered[] = $currentYearClosedDay->format('Y-m-d');
+            }
 
-            $formatClosedDay = Carbon::createFromFormat('Y-m-d', $closedDay)->format('-m-d');
-
-            $closedDaysTwoYears[] = $currentYear . $formatClosedDay;
-
-            $closedDaysTwoYears[] = $nextYear . $formatClosedDay;
+            // Generate the closed day for next year if within range (e.g., if we're in December and closed day is in January)
+            $nextYearClosedDay = Carbon::create(Carbon::now()->year + 1, $month, $day);
+            if ($nextYearClosedDay->gte($startDate) && $nextYearClosedDay->lte($endDate)) {
+                $closedDaysFiltered[] = $nextYearClosedDay->format('Y-m-d');
+            }
         }
 
         // Prepare the working hours data for the response
         $workingHours = [
             'slotDays' => $slotDays,
-            'closedDays' => $closedDaysTwoYears
+            'closedDays' => $closedDaysFiltered
         ];
 
         // Return the response with the working hours data
