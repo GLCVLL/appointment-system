@@ -49,15 +49,16 @@ return [
     // Validazione
     'validation' => [
         'client_required' => 'Il cliente è obbligatorio',
-        'client_exists' => 'Questo cliente esiste già',
+        'client_exists' => 'Questo cliente non esiste',
         'service_required' => 'Il servizio è obbligatorio',
-        'service_exists' => 'Questo servizio esiste già',
+        'service_exists' => 'Questo servizio non esiste',
         'start_time_required' => 'L\'ora di inizio è obbligatoria',
         'start_time_format' => 'Inserisci un orario valido',
         'start_time_after' => 'L\'ora di inizio deve essere successiva all\'ora attuale',
         'date_required' => 'La data è obbligatoria',
         'date_format' => 'Inserisci una data valida',
         'date_after' => 'La data deve essere uguale o successiva alla data odierna',
+        'date_beyond_next_month' => 'La data selezionata non può essere oltre l\'ultimo giorno del mese successivo',
         'notes_string' => 'Le note devono essere una stringa',
     ],
 

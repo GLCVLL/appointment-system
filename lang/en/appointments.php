@@ -49,15 +49,16 @@ return [
     // Validation
     'validation' => [
         'client_required' => 'The client is required',
-        'client_exists' => 'This client already exists',
+        'client_exists' => 'This client does not exists',
         'service_required' => 'The service is required',
-        'service_exists' => 'This service already exists',
+        'service_exists' => 'This service does not exists',
         'start_time_required' => 'The start Time is required',
         'start_time_format' => 'Insert a valid time',
-        'start_time_after' => 'Start time must be after current time',
+        'start_time_after' => 'The Start Time must be a time after the current time.',
         'date_required' => 'The date is required',
         'date_format' => 'Insert a valid date',
         'date_after' => 'Date must be after or equal current date',
+        'date_beyond_next_month' => 'The selected date cannot be beyond the last day of next month.',
         'notes_string' => 'The notes must be a string',
     ],
 

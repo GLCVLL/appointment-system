@@ -25,7 +25,19 @@ class AppointmentController extends Controller
             [
                 'user_id' => 'required|exists:users,id',
                 'services' => 'required|exists:services,id',
-                'date' => ['required', 'date', 'after_or_equal:' . date('Y-m-d')],
+                'date' => [
+                    'required',
+                    'date',
+                    'after_or_equal:' . date('Y-m-d'),
+                    function ($attribute, $value, $fail) {
+                        $lastDayOfNextMonth = Carbon::now()->addMonth()->endOfMonth();
+                        $selectedDate = Carbon::parse($value);
+
+                        if ($selectedDate->gt($lastDayOfNextMonth)) {
+                            $fail(__('appointments.validation.date_beyond_next_month'));
+                        }
+                    },
+                ],
                 'start_time' => [
                     'required',
                     'date_format:H:i',
@@ -33,26 +45,26 @@ class AppointmentController extends Controller
                         $selectedDate = request('date');
                         $currentTime = date('H:i');
                         if ($selectedDate == date('Y-m-d') && $value < $currentTime) {
-                            $fail('The Start Time must be a time after the current time.');
+                            $fail(__('appointments.validation.start_time_after'));
                         }
                     },
                 ],
                 'notes' => 'nullable|string',
             ],
             [
-                'user_id.required' => 'The client is required',
-                'user_id.exists' => 'This client does not exists',
+                'user_id.required' => __('appointments.validation.client_required'),
+                'user_id.exists' => __('appointments.validation.client_exists'),
 
-                'services.required' => 'The service is required',
-                'services.exists' => 'This service does not exists',
+                'services.required' => __('appointments.validation.service_required'),
+                'services.exists' => __('appointments.validation.service_exists'),
 
-                'start_time.required' => 'The start Time is required',
-                'start_time.date_format' => 'Insert a valide time',
+                'start_time.required' => __('appointments.validation.start_time_required'),
+                'start_time.date_format' => __('appointments.validation.start_time_format'),
 
-                'date.date' => 'Insert a valide date',
-                'date.required' => 'The date is required',
+                'date.date' => __('appointments.validation.date_format'),
+                'date.required' => __('appointments.validation.date_required'),
 
-                'notes.string' => 'The notes must be a string',
+                'notes.string' => __('appointments.validation.notes_string'),
             ]
         );
 
@@ -72,7 +84,7 @@ class AppointmentController extends Controller
 
         $isPublicHolidays = ClosedDay::whereMonth('date', $appointmentDate->month)->whereDay('date', $appointmentDate->day)->first();
 
-        if ($isPublicHolidays) $errorMessage = "Hi there, {$appointmentDate->format('d F')} is a public Holiday!";
+        if ($isPublicHolidays) $errorMessage = __('appointments.public_holiday', ['date' => $appointmentDate->format('d F')]);
 
 
         // Check opening hours
@@ -89,7 +101,7 @@ class AppointmentController extends Controller
 
             // if is a closing day or not
             if (!$openingHour) {
-                $errorMessage = "I'm sorry but $dayOfWeek is a closing day!";
+                $errorMessage = __('appointments.closing_day', ['day' => $dayOfWeek]);
             }
             // if we are in working hours
             elseif (
@@ -99,7 +111,7 @@ class AppointmentController extends Controller
             ) {
                 $work_start = date('H:i', strtotime($openingHour->opening_time));
                 $work_end = date('H:i', strtotime($openingHour->closing_time));
-                $errorMessage = "Hi there, this appointment is outside of our working hours from $work_start to $work_end!";
+                $errorMessage = __('appointments.outside_hours', ['start' => $work_start, 'end' => $work_end]);
             }
             // if we overllapping break time
             elseif (
@@ -108,7 +120,7 @@ class AppointmentController extends Controller
             ) {
                 $break_start = date('H:i', strtotime($openingHour->break_start));
                 $break_end = date('H:i', strtotime($openingHour->break_end));
-                $errorMessage = "Hi there, this appointment overlaps our breaking time from $break_start to $break_end!";
+                $errorMessage = __('appointments.break_time', ['start' => $break_start, 'end' => $break_end]);
             }
         }
 
@@ -123,7 +135,7 @@ class AppointmentController extends Controller
                 ->count();
 
             // Set Error Message   
-            if ($overlappingAppointments) $errorMessage = 'This appointment already exists';
+            if ($overlappingAppointments) $errorMessage = __('appointments.already_exists');
         }
 
 
