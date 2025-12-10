@@ -24,6 +24,7 @@ Route::delete('/logout', [AuthController::class, 'logout']);
 
 // protecting routes
 Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/appointments', [AppointmentController::class, 'index']);
     Route::post('/appointments', [AppointmentController::class, 'store']);
     Route::get('/booking-hours', [AppointmentController::class, 'getBookingHours']);
     Route::get('/services', [ServiceController::class, 'index']);

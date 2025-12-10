@@ -16,6 +16,31 @@ use Illuminate\Support\Facades\Validator;
 
 class AppointmentController extends Controller
 {
+    /**
+     * Get all appointments for the authenticated user
+     */
+    public function index(Request $request)
+    {
+        $user = $request->user();
+
+        $appointments = Appointment::where('user_id', $user->id)
+            ->with('services')
+            ->orderBy('date', 'desc')
+            ->orderBy('start_time', 'desc')
+            ->get();
+
+        $formattedAppointments = $appointments->map(function ($appointment) {
+            return [
+                'id' => $appointment->id,
+                'date' => $appointment->date,
+                'startTime' => Carbon::parse($appointment->start_time)->format('H:i'),
+                'services' => $appointment->services->pluck('name')->toArray(),
+            ];
+        });
+
+        return response($formattedAppointments, 200);
+    }
+
     public function store(Request $request): Response
     {
         // Validation
