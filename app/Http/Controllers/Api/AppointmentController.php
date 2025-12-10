@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Appointment;
 use App\Models\ClosedDay;
 use App\Models\OpeningHour;
+use App\Models\Service;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
@@ -36,7 +37,6 @@ class AppointmentController extends Controller
                         }
                     },
                 ],
-                'end_time' => 'required|date_format:H:i|after:start_time',
                 'notes' => 'nullable|string',
             ],
             [
@@ -49,9 +49,6 @@ class AppointmentController extends Controller
                 'start_time.required' => 'The start Time is required',
                 'start_time.date_format' => 'Insert a valide time',
 
-                'end_time.required' => 'The end Time is required',
-                'end_time.date_format' => 'Insert a valide time',
-
                 'date.date' => 'Insert a valide date',
                 'date.required' => 'The date is required',
 
@@ -62,6 +59,9 @@ class AppointmentController extends Controller
         if ($validator->fails()) {
             return response(['errors' => $validator->errors()], 400);
         }
+
+        // Calculate end time
+        $data['end_time'] = $this->calculateEndTime($data['start_time'], $data['services']);
 
 
         // Appointment Validation
@@ -238,5 +238,19 @@ class AppointmentController extends Controller
 
         // Return the response with the working hours data
         return response($workingHours, 200);
+    }
+
+    /**
+     * Calculate the end time based on start time and selected services
+     */
+    private function calculateEndTime(string $startTime, array $serviceIds): string
+    {
+        $serviceDurations = Service::whereIn('id', $serviceIds)->pluck('duration')->toArray();
+        $serviceDurations = array_map(function ($duration) {
+            return Carbon::createFromTimeString($duration)->secondsSinceMidnight() / 60;
+        }, $serviceDurations);
+        $endTime = Carbon::parse($startTime)->addMinutes(array_sum($serviceDurations));
+
+        return $endTime->format('H:i');
     }
 }
