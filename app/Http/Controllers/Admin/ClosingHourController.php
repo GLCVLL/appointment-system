@@ -307,19 +307,4 @@ class ClosingHourController extends Controller
 
         return $timeArray;
     }
-
-    /**
-     * API endpoint to get available times for a specific date
-     */
-    public function getTimesForDate(Request $request)
-    {
-        $request->validate([
-            'date' => 'required|date',
-        ]);
-
-        $dayOfWeek = Carbon::parse($request->date)->englishDayOfWeek;
-        $timeArray = $this->getAvailableTimes($dayOfWeek);
-
-        return response()->json($timeArray);
-    }
 }

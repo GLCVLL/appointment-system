@@ -68,7 +68,6 @@ Route::prefix('/admin')->name('admin')->middleware(['auth', 'verified', 'checkro
 
     // Closing Hours Routes
     Route::resource('closing-hours', ClosingHourController::class); // CRUD
-    Route::get('closing-hours/times/date', [ClosingHourController::class, 'getTimesForDate'])->name('closing-hours.times');
 
     // Users Routes
     Route::resource('users', UserController::class); // CRUD
