@@ -67,6 +67,7 @@ return [
     'closing_day' => 'Ci dispiace ma :day è un giorno di chiusura!',
     'outside_hours' => 'Ciao, questo appuntamento è fuori dal nostro orario di lavoro dalle :start alle :end!',
     'break_time' => 'Ciao, questo appuntamento si sovrappone alla nostra pausa dalle :start alle :end!',
+    'closing_hour' => 'Ci dispiace ma questo appuntamento si sovrappone con un orario di chiusura straordinaria in questa data!',
     'already_exists' => 'Questo appuntamento esiste già',
 
     // Conferme

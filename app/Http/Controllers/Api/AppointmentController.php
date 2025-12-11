@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
 use App\Models\ClosedDay;
+use App\Models\ClosingHour;
 use App\Models\OpeningHour;
 use App\Models\Service;
 use Carbon\Carbon;
@@ -149,6 +150,37 @@ class AppointmentController extends Controller
             }
         }
 
+        // Check closing hours
+        if (!$errorMessage) {
+            $startTime = Carbon::parse($data['start_time'])->format('H:i:s');
+            $endTime = Carbon::parse($data['end_time'])->format('H:i:s');
+
+            $overlappingClosingHour = ClosingHour::where('date', $data['date'])
+                ->where(function ($query) use ($startTime, $endTime) {
+                    $query->where(function ($q) use ($startTime, $endTime) {
+                        // Appointment starts during a closing hour
+                        $q->where('start_time', '<=', $startTime)
+                            ->where('end_time', '>', $startTime);
+                    })->orWhere(function ($q) use ($startTime, $endTime) {
+                        // Appointment ends during a closing hour
+                        $q->where('start_time', '<', $endTime)
+                            ->where('end_time', '>=', $endTime);
+                    })->orWhere(function ($q) use ($startTime, $endTime) {
+                        // Appointment completely contains a closing hour
+                        $q->where('start_time', '>=', $startTime)
+                            ->where('end_time', '<=', $endTime);
+                    })->orWhere(function ($q) use ($startTime, $endTime) {
+                        // A closing hour completely contains the appointment
+                        $q->where('start_time', '<=', $startTime)
+                            ->where('end_time', '>=', $endTime);
+                    });
+                })
+                ->first();
+
+            if ($overlappingClosingHour) {
+                $errorMessage = __('appointments.closing_hour');
+            }
+        }
 
         // Check appointments overlapping
         if (!$errorMessage) {
@@ -221,27 +253,47 @@ class AppointmentController extends Controller
                 $breakEndStr = $openingHours->break_end ? Carbon::createFromTimeString($openingHours->break_end)->format('H:i') : null;
                 $closingTimeStr = $end->subHour()->format('H:i');
 
+                // Get closing hours for this date
+                $closingHours = ClosingHour::where('date', $dayStr)->get();
+                $closingHoursRanges = $closingHours->map(function ($ch) {
+                    return [
+                        'start' => Carbon::parse($ch->start_time)->format('H:i'),
+                        'end' => Carbon::parse($ch->end_time)->format('H:i'),
+                    ];
+                })->toArray();
+
                 // Loop through each half-hour slot in the working hours
                 foreach ($period as $hour) {
                     $formatHour = $hour->format('H:i');
 
                     // Check if the slot is outside of the break time and within working hours
                     if ($formatHour <= $breakStartStr || ($formatHour >= $breakEndStr && $formatHour <= $closingTimeStr)) {
-                        // Count overlapping appointments for the slot
-                        $overlappingAppointmentsCount = Appointment::where('date', $dayStr)
-                            ->where('missed', false)
-                            ->where('start_time', '<=', $hour)
-                            ->where('end_time', '>', $hour)
-                            ->count();
+                        // Check if slot is in a closing hour
+                        $isInClosingHour = false;
+                        foreach ($closingHoursRanges as $chRange) {
+                            if ($formatHour >= $chRange['start'] && $formatHour < $chRange['end']) {
+                                $isInClosingHour = true;
+                                break;
+                            }
+                        }
 
-                        // Determine the status of the slot
-                        $status = $overlappingAppointmentsCount > 0 ? 'booked' : '';
+                        if (!$isInClosingHour) {
+                            // Count overlapping appointments for the slot
+                            $overlappingAppointmentsCount = Appointment::where('date', $dayStr)
+                                ->where('missed', false)
+                                ->where('start_time', '<=', $hour)
+                                ->where('end_time', '>', $hour)
+                                ->count();
 
-                        // Add the slot to the slots array
-                        $slots[] = [
-                            'hour' => $formatHour,
-                            'status' => $status
-                        ];
+                            // Determine the status of the slot
+                            $status = $overlappingAppointmentsCount > 0 ? 'booked' : '';
+
+                            // Add the slot to the slots array
+                            $slots[] = [
+                                'hour' => $formatHour,
+                                'status' => $status
+                            ];
+                        }
                     }
                 }
 

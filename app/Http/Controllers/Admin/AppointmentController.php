@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
 use App\Models\ClosedDay;
+use App\Models\ClosingHour;
 use App\Models\OpeningHour;
 use App\Models\Service;
 use App\Models\User;
@@ -180,6 +181,37 @@ class AppointmentController extends Controller
             }
         }
 
+        // Check closing hours
+        if (!$errorMessage) {
+            $startTime = Carbon::parse($data['start_time'])->format('H:i:s');
+            $endTime = Carbon::parse($data['end_time'])->format('H:i:s');
+
+            $overlappingClosingHour = ClosingHour::where('date', $data['date'])
+                ->where(function ($query) use ($startTime, $endTime) {
+                    $query->where(function ($q) use ($startTime, $endTime) {
+                        // Appointment starts during a closing hour
+                        $q->where('start_time', '<=', $startTime)
+                            ->where('end_time', '>', $startTime);
+                    })->orWhere(function ($q) use ($startTime, $endTime) {
+                        // Appointment ends during a closing hour
+                        $q->where('start_time', '<', $endTime)
+                            ->where('end_time', '>=', $endTime);
+                    })->orWhere(function ($q) use ($startTime, $endTime) {
+                        // Appointment completely contains a closing hour
+                        $q->where('start_time', '>=', $startTime)
+                            ->where('end_time', '<=', $endTime);
+                    })->orWhere(function ($q) use ($startTime, $endTime) {
+                        // A closing hour completely contains the appointment
+                        $q->where('start_time', '<=', $startTime)
+                            ->where('end_time', '>=', $endTime);
+                    });
+                })
+                ->first();
+
+            if ($overlappingClosingHour) {
+                $errorMessage = __('appointments.closing_hour');
+            }
+        }
 
         // Check appointments overlapping
         if (!$errorMessage) {
@@ -403,6 +435,38 @@ class AppointmentController extends Controller
                 $break_start = date('H:i', strtotime($openingHour->break_start));
                 $break_end = date('H:i', strtotime($openingHour->break_end));
                 $errorMessage = __('appointments.break_time', ['start' => $break_start, 'end' => $break_end]);
+            }
+        }
+
+        // Check closing hours
+        if (!$errorMessage) {
+            $startTime = Carbon::parse($data['start_time'])->format('H:i:s');
+            $endTime = Carbon::parse($data['end_time'])->format('H:i:s');
+
+            $overlappingClosingHour = ClosingHour::where('date', $data['date'])
+                ->where(function ($query) use ($startTime, $endTime) {
+                    $query->where(function ($q) use ($startTime, $endTime) {
+                        // Appointment starts during a closing hour
+                        $q->where('start_time', '<=', $startTime)
+                            ->where('end_time', '>', $startTime);
+                    })->orWhere(function ($q) use ($startTime, $endTime) {
+                        // Appointment ends during a closing hour
+                        $q->where('start_time', '<', $endTime)
+                            ->where('end_time', '>=', $endTime);
+                    })->orWhere(function ($q) use ($startTime, $endTime) {
+                        // Appointment completely contains a closing hour
+                        $q->where('start_time', '>=', $startTime)
+                            ->where('end_time', '<=', $endTime);
+                    })->orWhere(function ($q) use ($startTime, $endTime) {
+                        // A closing hour completely contains the appointment
+                        $q->where('start_time', '<=', $startTime)
+                            ->where('end_time', '>=', $endTime);
+                    });
+                })
+                ->first();
+
+            if ($overlappingClosingHour) {
+                $errorMessage = __('appointments.closing_hour');
             }
         }
 

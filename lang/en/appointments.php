@@ -67,6 +67,7 @@ return [
     'closing_day' => 'I\'m sorry but :day is a closing day!',
     'outside_hours' => 'Hi there, this appointment is outside of our working hours from :start to :end!',
     'break_time' => 'Hi there, this appointment overlaps our breaking time from :start to :end!',
+    'closing_hour' => 'I\'m sorry but this appointment overlaps with a closing hour on this date!',
     'already_exists' => 'This appointment already exists',
 
     // Confirmations
