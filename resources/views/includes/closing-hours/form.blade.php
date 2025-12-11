@@ -27,12 +27,12 @@ $endTimeFormatted = $closingHour->end_time ? Carbon::parse($closingHour->end_tim
 <form id="validation-form" class="card p-3" method="POST"
     action="{{ route('admin.closing-hours.update', $closingHour) }}" enctype="multipart/form-data" novalidate
     data-validation-messages='@json($validationMessages)'
-    data-times-url="{{ route('admin.closing-hours.times') }}">
+    data-opening-hours='@json($openingHours)'>
     @method('PUT')
     @else
     <form id="validation-form" class="card p-3" method="POST" action="{{ route('admin.closing-hours.store') }}"
         enctype="multipart/form-data" novalidate data-validation-messages='@json($validationMessages)'
-        data-times-url="{{ route('admin.closing-hours.times') }}">
+        data-opening-hours='@json($openingHours)'>
         @endif
         @csrf
 

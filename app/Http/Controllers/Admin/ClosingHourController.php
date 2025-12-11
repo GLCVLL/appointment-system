@@ -33,7 +33,10 @@ class ClosingHourController extends Controller
         // Get available times based on a default day (Monday)
         $timeArray = $this->getAvailableTimes('Monday');
 
-        return view('admin.closing-hours.create', compact('closingHour', 'timeArray'));
+        // Get all opening hours for JavaScript
+        $openingHours = OpeningHour::all();
+
+        return view('admin.closing-hours.create', compact('closingHour', 'timeArray', 'openingHours'));
     }
 
     /**
@@ -154,7 +157,10 @@ class ClosingHourController extends Controller
         $dayOfWeek = Carbon::parse($closingHour->date)->englishDayOfWeek;
         $timeArray = $this->getAvailableTimes($dayOfWeek);
 
-        return view('admin.closing-hours.edit', compact('closingHour', 'timeArray'));
+        // Get all opening hours for JavaScript
+        $openingHours = OpeningHour::all();
+
+        return view('admin.closing-hours.edit', compact('closingHour', 'timeArray', 'openingHours'));
     }
 
     /**
