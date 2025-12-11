@@ -22,6 +22,7 @@ export default defineConfig({
                 'resources/js/validations/closed-days-form.js',
                 'resources/js/validations/categories-form.js',
                 'resources/js/validations/appointment-form.js',
+                'resources/js/validations/closing-hours-form.js',
                 'resources/js/charts/chart.js',
             ],
             refresh: true,
