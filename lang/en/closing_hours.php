@@ -30,7 +30,6 @@ return [
         'date_required' => 'The date is required',
         'date_format' => 'Insert a valid date',
         'date_future' => 'The date must be today or in the future',
-        'date_unique' => 'A closing hour for this date already exists',
         'start_time_required' => 'The start time is required',
         'start_time_format' => 'Insert a valid time',
         'end_time_required' => 'The end time is required',
@@ -38,5 +37,6 @@ return [
         'end_time_after' => 'The end time must be after the start time',
         'no_opening_hours' => 'No opening hours found for this day',
         'outside_opening_hours' => 'The closing hours must be within the opening hours for this day',
+        'overlapping_hours' => 'This closing hour overlaps with another closing hour on the same date',
     ],
 ];

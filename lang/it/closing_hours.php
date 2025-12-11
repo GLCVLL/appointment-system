@@ -30,7 +30,6 @@ return [
         'date_required' => 'La data è obbligatoria',
         'date_format' => 'Inserisci una data valida',
         'date_future' => 'La data deve essere oggi o nel futuro',
-        'date_unique' => 'Esiste già un orario di chiusura per questa data',
         'start_time_required' => 'L\'ora di inizio è obbligatoria',
         'start_time_format' => 'Inserisci un orario valido',
         'end_time_required' => 'L\'ora di fine è obbligatoria',
@@ -38,5 +37,6 @@ return [
         'end_time_after' => 'L\'ora di fine deve essere dopo l\'ora di inizio',
         'no_opening_hours' => 'Nessun orario di apertura trovato per questo giorno',
         'outside_opening_hours' => 'Gli orari di chiusura devono essere compresi negli orari di apertura di questo giorno',
+        'overlapping_hours' => 'Questo orario di chiusura si sovrappone con un altro orario di chiusura nella stessa data',
     ],
 ];

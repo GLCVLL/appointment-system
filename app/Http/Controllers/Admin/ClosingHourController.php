@@ -82,12 +82,32 @@ class ClosingHourController extends Controller
                 ->withErrors(['start_time' => __('closing_hours.validation.outside_opening_hours')]);
         }
 
-        // Check if a closing hour for this date already exists
-        $existingClosingHour = ClosingHour::where('date', $data['date'])->first();
+        // Check for overlapping closing hours on the same date
+        $overlappingClosingHour = ClosingHour::where('date', $data['date'])
+            ->where(function ($query) use ($startTime, $endTime) {
+                $query->where(function ($q) use ($startTime, $endTime) {
+                    // New closing hour starts during an existing one
+                    $q->where('start_time', '<=', $startTime)
+                        ->where('end_time', '>', $startTime);
+                })->orWhere(function ($q) use ($startTime, $endTime) {
+                    // New closing hour ends during an existing one
+                    $q->where('start_time', '<', $endTime)
+                        ->where('end_time', '>=', $endTime);
+                })->orWhere(function ($q) use ($startTime, $endTime) {
+                    // New closing hour completely contains an existing one
+                    $q->where('start_time', '>=', $startTime)
+                        ->where('end_time', '<=', $endTime);
+                })->orWhere(function ($q) use ($startTime, $endTime) {
+                    // An existing closing hour completely contains the new one
+                    $q->where('start_time', '<=', $startTime)
+                        ->where('end_time', '>=', $endTime);
+                });
+            })
+            ->first();
 
-        if ($existingClosingHour) {
+        if ($overlappingClosingHour) {
             return back()->withInput($request->input())
-                ->withErrors(['date' => __('closing_hours.validation.date_unique')]);
+                ->withErrors(['start_time' => __('closing_hours.validation.overlapping_hours')]);
         }
 
         // Insert Closing Hour
@@ -172,14 +192,33 @@ class ClosingHourController extends Controller
                 ->withErrors(['start_time' => __('closing_hours.validation.outside_opening_hours')]);
         }
 
-        // Check if a closing hour for this date already exists (excluding current)
-        $existingClosingHour = ClosingHour::where('date', $data['date'])
+        // Check for overlapping closing hours on the same date (excluding current)
+        $overlappingClosingHour = ClosingHour::where('date', $data['date'])
             ->where('id', '!=', $closingHour->id)
+            ->where(function ($query) use ($startTime, $endTime) {
+                $query->where(function ($q) use ($startTime, $endTime) {
+                    // Updated closing hour starts during an existing one
+                    $q->where('start_time', '<=', $startTime)
+                        ->where('end_time', '>', $startTime);
+                })->orWhere(function ($q) use ($startTime, $endTime) {
+                    // Updated closing hour ends during an existing one
+                    $q->where('start_time', '<', $endTime)
+                        ->where('end_time', '>=', $endTime);
+                })->orWhere(function ($q) use ($startTime, $endTime) {
+                    // Updated closing hour completely contains an existing one
+                    $q->where('start_time', '>=', $startTime)
+                        ->where('end_time', '<=', $endTime);
+                })->orWhere(function ($q) use ($startTime, $endTime) {
+                    // An existing closing hour completely contains the updated one
+                    $q->where('start_time', '<=', $startTime)
+                        ->where('end_time', '>=', $endTime);
+                });
+            })
             ->first();
 
-        if ($existingClosingHour) {
+        if ($overlappingClosingHour) {
             return back()->withInput($request->input())
-                ->withErrors(['date' => __('closing_hours.validation.date_unique')]);
+                ->withErrors(['start_time' => __('closing_hours.validation.overlapping_hours')]);
         }
 
         // Update Closing Hour
