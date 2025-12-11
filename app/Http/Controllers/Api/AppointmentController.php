@@ -285,14 +285,12 @@ class AppointmentController extends Controller
                                 ->where('end_time', '>', $hour)
                                 ->count();
 
-                            // Determine the status of the slot
-                            $status = $overlappingAppointmentsCount > 0 ? 'booked' : '';
-
-                            // Add the slot to the slots array
-                            $slots[] = [
-                                'hour' => $formatHour,
-                                'status' => $status
-                            ];
+                            // Add only free slots (without status field)
+                            if ($overlappingAppointmentsCount === 0) {
+                                $slots[] = [
+                                    'hour' => $formatHour
+                                ];
+                            }
                         }
                     }
                 }
