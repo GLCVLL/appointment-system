@@ -30,6 +30,7 @@ return [
     'blacklist' => 'Lista Nera',
     'opening_hours' => 'Orari Apertura',
     'closed_days' => 'Giorni di Chiusura',
+    'closing_hours' => 'Orari di Chiusura Straordinaria',
     'settings' => 'Impostazioni',
     'profile' => 'Profilo',
     'logout' => 'Esci',

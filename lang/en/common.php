@@ -30,6 +30,7 @@ return [
     'blacklist' => 'Blacklist',
     'opening_hours' => 'Opening Hours',
     'closed_days' => 'Closed Days',
+    'closing_hours' => 'Closing Hours',
     'settings' => 'Settings',
     'profile' => 'Profile',
     'logout' => 'Logout',
