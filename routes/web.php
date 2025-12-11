@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\BlacklistController;
 use App\Http\Controllers\Admin\CalendarController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ClosedDayController;
+use App\Http\Controllers\Admin\ClosingHourController;
 use App\Http\Controllers\Guest\HomeController as GuestHomeController;
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Admin\OpeningHourController;
@@ -64,6 +65,10 @@ Route::prefix('/admin')->name('admin')->middleware(['auth', 'verified', 'checkro
 
     // Closed Days Routes
     Route::resource('closed-days', ClosedDayController::class); // CRUD
+
+    // Closing Hours Routes
+    Route::resource('closing-hours', ClosingHourController::class); // CRUD
+    Route::get('closing-hours/times/date', [ClosingHourController::class, 'getTimesForDate'])->name('closing-hours.times');
 
     // Users Routes
     Route::resource('users', UserController::class); // CRUD
