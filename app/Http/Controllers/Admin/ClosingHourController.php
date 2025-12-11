@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Appointment;
 use App\Models\ClosingHour;
 use App\Models\OpeningHour;
 use Carbon\Carbon;
@@ -108,6 +109,17 @@ class ClosingHourController extends Controller
         if ($overlappingClosingHour) {
             return back()->withInput($request->input())
                 ->withErrors(['start_time' => __('closing_hours.validation.overlapping_hours')]);
+        }
+
+        // Check for appointments in the closing hour period
+        $overlappingAppointments = Appointment::where('date', $data['date'])
+            ->where('start_time', '<', $endTime)
+            ->where('end_time', '>', $startTime)
+            ->count();
+
+        if ($overlappingAppointments > 0) {
+            return back()->withInput($request->input())
+                ->withErrors(['start_time' => __('closing_hours.validation.has_appointments')]);
         }
 
         // Insert Closing Hour
@@ -219,6 +231,17 @@ class ClosingHourController extends Controller
         if ($overlappingClosingHour) {
             return back()->withInput($request->input())
                 ->withErrors(['start_time' => __('closing_hours.validation.overlapping_hours')]);
+        }
+
+        // Check for appointments in the closing hour period
+        $overlappingAppointments = Appointment::where('date', $data['date'])
+            ->where('start_time', '<', $endTime)
+            ->where('end_time', '>', $startTime)
+            ->count();
+
+        if ($overlappingAppointments > 0) {
+            return back()->withInput($request->input())
+                ->withErrors(['start_time' => __('closing_hours.validation.has_appointments')]);
         }
 
         // Update Closing Hour

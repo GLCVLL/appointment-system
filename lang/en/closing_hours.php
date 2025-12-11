@@ -38,5 +38,6 @@ return [
         'no_opening_hours' => 'No opening hours found for this day',
         'outside_opening_hours' => 'The closing hours must be within the opening hours for this day',
         'overlapping_hours' => 'This closing hour overlaps with another closing hour on the same date',
+        'has_appointments' => 'Cannot create a closing hour that includes existing appointments',
     ],
 ];

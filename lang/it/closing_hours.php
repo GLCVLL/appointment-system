@@ -38,5 +38,6 @@ return [
         'no_opening_hours' => 'Nessun orario di apertura trovato per questo giorno',
         'outside_opening_hours' => 'Gli orari di chiusura devono essere compresi negli orari di apertura di questo giorno',
         'overlapping_hours' => 'Questo orario di chiusura si sovrappone con un altro orario di chiusura nella stessa data',
+        'has_appointments' => 'Non è possibile creare un orario di chiusura che includa appuntamenti esistenti',
     ],
 ];
