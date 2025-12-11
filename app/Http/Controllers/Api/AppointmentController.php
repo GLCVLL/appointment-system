@@ -177,7 +177,7 @@ class AppointmentController extends Controller
 
         if (Arr::exists($data, 'services')) $appointment->services()->attach($data['services']);
 
-        return response($appointment, 201);
+        return response($appointment->id, 201);
     }
 
     public function getBookingHours()
