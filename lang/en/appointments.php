@@ -60,6 +60,9 @@ return [
         'date_after' => 'Date must be after or equal current date',
         'date_beyond_next_month' => 'The selected date cannot be beyond the last day of next month.',
         'notes_string' => 'The notes must be a string',
+        'appointment_not_found' => 'Appointment not found or you do not have permission to delete it.',
+        'cannot_delete_past' => 'Cannot delete an appointment that has already passed.',
+        'cannot_delete_too_soon' => 'This appointment can only be cancelled at least :hours hours before the scheduled time.',
     ],
 
     // Business logic

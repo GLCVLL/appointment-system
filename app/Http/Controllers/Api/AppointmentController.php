@@ -39,7 +39,29 @@ class AppointmentController extends Controller
             ];
         });
 
-        return response($formattedAppointments, 200);
+        return response([
+            'appointments' => $formattedAppointments,
+            'config' => $this->getAppointmentConfig(),
+        ], 200);
+    }
+
+    /**
+     * Get appointment configuration
+     */
+    public function getConfig()
+    {
+        return response($this->getAppointmentConfig(), 200);
+    }
+
+    /**
+     * Get appointment configuration values
+     */
+    private function getAppointmentConfig(): array
+    {
+        return [
+            'cancellationHoursBefore' => config('appointments.cancellation_hours_before', 24),
+            'bookingIntervalMinutes' => config('appointments.booking_interval_minutes', 30),
+        ];
     }
 
     public function store(Request $request): Response
@@ -335,6 +357,47 @@ class AppointmentController extends Controller
 
         // Return the response with the working hours data
         return response($workingHours, 200);
+    }
+
+    /**
+     * Delete an appointment
+     */
+    public function destroy(Request $request, $id): Response
+    {
+        $user = $request->user();
+
+        // Find the appointment
+        $appointment = Appointment::where('id', $id)
+            ->where('user_id', $user->id)
+            ->first();
+
+        if (!$appointment) {
+            return response(['errors' => __('appointments.validation.appointment_not_found')], 404);
+        }
+
+        // Validation: Check if appointment is in the past
+        $appointmentDateTime = Carbon::parse($appointment->date . ' ' . $appointment->start_time);
+
+        if ($appointmentDateTime->isPast()) {
+            return response(['errors' => __('appointments.validation.cannot_delete_past')], 400);
+        }
+
+        // Validation: Check if cancellation is within allowed time limit
+        $cancellationHoursBefore = config('appointments.cancellation_hours_before', 24);
+        $minimumCancellationTime = Carbon::now()->addHours($cancellationHoursBefore);
+
+        if ($appointmentDateTime->lt($minimumCancellationTime)) {
+            return response([
+                'errors' => __('appointments.validation.cannot_delete_too_soon', [
+                    'hours' => $cancellationHoursBefore
+                ])
+            ], 400);
+        }
+
+        // Delete the appointment (soft delete)
+        $appointment->delete();
+
+        return response(['message' => __('appointments.deleted')], 200);
     }
 
     /**

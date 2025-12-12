@@ -60,6 +60,9 @@ return [
         'date_after' => 'La data deve essere uguale o successiva alla data odierna',
         'date_beyond_next_month' => 'La data selezionata non può essere oltre l\'ultimo giorno del mese successivo',
         'notes_string' => 'Le note devono essere una stringa',
+        'appointment_not_found' => 'Appuntamento non trovato o non hai il permesso di eliminarlo.',
+        'cannot_delete_past' => 'Impossibile eliminare un appuntamento già passato.',
+        'cannot_delete_too_soon' => 'Questo appuntamento può essere cancellato solo almeno :hours ore prima dell\'orario programmato.',
     ],
 
     // Business logic

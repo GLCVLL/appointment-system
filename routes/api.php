@@ -26,6 +26,8 @@ Route::delete('/logout', [AuthController::class, 'logout']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/appointments', [AppointmentController::class, 'index']);
     Route::post('/appointments', [AppointmentController::class, 'store']);
+    Route::delete('/appointments/{id}', [AppointmentController::class, 'destroy']);
+    Route::get('/appointments/config', [AppointmentController::class, 'getConfig']);
     Route::get('/booking-hours', [AppointmentController::class, 'getBookingHours']);
     Route::get('/services', [ServiceController::class, 'index']);
 });
